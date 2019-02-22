@@ -14,6 +14,7 @@ class ActivityLifecycle:Application.ActivityLifecycleCallbacks {
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
         if (activity is IActivity){
             val activityWrapper = ActivityWrapper(activity,activity)
+            activityWrapper.onCreate(savedInstanceState)
             mActivityWrapperMap[activity] = activityWrapper
         }
     }
