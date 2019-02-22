@@ -3,6 +3,7 @@ package com.anymore.kotlindaggertest
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import com.anymore.kotlindaggertest.di.AppModule
 import com.anymore.kotlindaggertest.di.DaggerAppComponent
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -17,7 +18,7 @@ class APP:Application(),HasActivityInjector {
     lateinit var mActivityInjector: DispatchingAndroidInjector<Activity>
 
     override fun attachBaseContext(base: Context?) {
-        DaggerAppComponent.create().inject(this)
+        DaggerAppComponent.builder().appModule(AppModule(this)).build().inject(this)
         super.attachBaseContext(base)
     }
 

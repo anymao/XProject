@@ -1,7 +1,6 @@
-package com.anymore.simple.di.component.subcomponent
+package com.anymore.simple.di
 
 import com.anymore.simple.mvvm.view.MainActivity
-import com.anymore.simple.di.module.MainViewModelModule
 import dagger.Subcomponent
 import dagger.android.AndroidInjector
 

@@ -2,8 +2,8 @@ package com.anymore.simple.mvvm
 
 import android.content.Context
 import com.anymore.mvvmkit.mvvm.lifecycle.BaseApplication
-import com.anymore.simple.di.component.DaggerAppComponent
-import com.anymore.simple.di.module.AppModule
+import com.anymore.simple.di.AppModule
+import com.anymore.simple.di.DaggerAppComponent
 
 /**
  * Created by liuyuanmao on 2019/2/21.

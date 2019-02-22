@@ -1,12 +1,14 @@
-package com.anymore.kotlindaggertest.di
+package com.anymore.simple.di
 
 import android.app.Activity
 import android.app.Application
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.anymore.kotlindaggertest.MainActivity
-import com.anymore.kotlindaggertest.MainActivityViewModel
-import com.anymore.kotlindaggertest.ViewModelFactory
+import com.anymore.mvvmkit.di.key.ViewModelKey
+import com.anymore.mvvmkit.di.module.ViewModelFactoryModule
+import com.anymore.mvvmkit.mvvm.ViewModelFactory
+import com.anymore.simple.mvvm.view.MainActivity
+import com.anymore.simple.mvvm.viewmodel.MainViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -36,8 +38,8 @@ abstract class MainActivityModule{
 abstract class MainViewModelModule {
     @Binds
     @IntoMap
-    @ViewModelKey(MainActivityViewModel::class)
-    abstract fun provideViewModel(mainViewModel: MainActivityViewModel): ViewModel
+    @ViewModelKey(MainViewModel::class)
+    abstract fun provideViewModel(mainViewModel: MainViewModel): ViewModel
 }
 
 @Module

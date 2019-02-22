@@ -6,7 +6,7 @@ import dagger.Component
 /**
  * Created by liuyuanmao on 2019/2/22.
  */
-@Component(modules = [AppModule::class,ViewModelFactoryModule::class,MainActivityModule::class])
+@Component(modules = [AppModule::class, MainActivityModule::class, ViewModelFactoryModule::class])
 interface AppComponent{
-    fun inject(app:APP)
+    fun inject(application:APP)
 }
