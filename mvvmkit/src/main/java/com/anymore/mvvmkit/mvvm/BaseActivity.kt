@@ -30,6 +30,7 @@ abstract class BaseActivity<B:ViewDataBinding,VM:BaseViewModel<*>>:BindingActivi
 
     @CallSuper
     override fun initData(savedInstanceState: Bundle?) {
+        //todo 这里或许可以采用kotlin内联函数更加优雅写出来
         mViewModel = ViewModelProviders.of(this,mViewModelFactory).get((javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<VM>)
         mViewModel.let { lifecycle.addObserver(it) }
     }
