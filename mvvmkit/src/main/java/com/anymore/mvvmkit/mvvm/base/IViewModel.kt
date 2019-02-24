@@ -1,4 +1,4 @@
-package com.anymore.mvvmkit.mvvm.lifecycle
+package com.anymore.mvvmkit.mvvm.base
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver

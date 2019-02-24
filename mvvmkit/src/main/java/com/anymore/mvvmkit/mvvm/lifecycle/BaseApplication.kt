@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import com.anymore.mvvmkit.di.component.DaggerAppComponent
+import com.anymore.mvvmkit.mvvm.lifecycle.activity.ActivityLifecycle
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject

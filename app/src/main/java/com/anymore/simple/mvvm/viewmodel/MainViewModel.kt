@@ -3,8 +3,8 @@ package com.anymore.simple.mvvm.viewmodel
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import com.anymore.mvvmkit.di.scope.ActivityScope
-import com.anymore.mvvmkit.mvvm.BaseModel
-import com.anymore.mvvmkit.mvvm.BaseViewModel
+import com.anymore.mvvmkit.mvvm.base.BaseModel
+import com.anymore.mvvmkit.mvvm.base.BaseViewModel
 import javax.inject.Inject
 
 /**
@@ -13,7 +13,7 @@ import javax.inject.Inject
 @ActivityScope
 class MainViewModel @Inject
 constructor(application: Application)
-    :BaseViewModel<BaseModel>(application){
+    : BaseViewModel<BaseModel>(application){
     private val mMessage = MutableLiveData<String>()
     override fun onStart() {
         super.onStart()

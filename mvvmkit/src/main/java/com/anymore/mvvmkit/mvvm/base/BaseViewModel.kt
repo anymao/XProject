@@ -1,13 +1,12 @@
-package com.anymore.mvvmkit.mvvm
+package com.anymore.mvvmkit.mvvm.base
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
-import com.anymore.mvvmkit.mvvm.lifecycle.IViewModel
 
 /**
  * Created by liuyuanmao on 2019/2/20.
  */
-open class BaseViewModel<M:BaseModel>:AndroidViewModel,IViewModel{
+open class BaseViewModel<M: BaseModel>:AndroidViewModel, IViewModel {
     protected lateinit var mModel:M
 
     constructor(application: Application):super(application)

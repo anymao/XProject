@@ -1,9 +1,10 @@
-package com.anymore.mvvmkit.mvvm
+package com.anymore.mvvmkit.mvvm.base
 
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.annotation.CallSuper
+import com.anymore.mvvmkit.mvvm.ViewModelFactory
 import timber.log.Timber
 import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
@@ -11,7 +12,8 @@ import javax.inject.Inject
 /**
  * Created by liuyuanmao on 2019/2/20.
  */
-abstract class BaseActivity<B:ViewDataBinding,VM:BaseViewModel<*>>:BindingActivity<B>(){
+abstract class BaseActivity<B:ViewDataBinding,VM: BaseViewModel<*>>:
+    BindingActivity<B>(){
     protected lateinit var mViewModel: VM
 
     @Inject

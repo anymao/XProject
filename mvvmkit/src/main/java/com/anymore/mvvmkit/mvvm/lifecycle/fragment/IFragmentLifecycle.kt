@@ -1,4 +1,4 @@
-package com.anymore.mvvmkit.mvvm.lifecycle
+package com.anymore.mvvmkit.mvvm.lifecycle.fragment
 
 import android.content.Context
 import android.os.Bundle

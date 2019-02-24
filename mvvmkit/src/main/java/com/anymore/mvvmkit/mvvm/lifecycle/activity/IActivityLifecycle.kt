@@ -1,4 +1,4 @@
-package com.anymore.mvvmkit.mvvm.lifecycle
+package com.anymore.mvvmkit.mvvm.lifecycle.activity
 
 import android.app.Activity
 import android.os.Bundle
