@@ -3,10 +3,8 @@ package com.anymore.simple.di
 import android.app.Activity
 import android.app.Application
 import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
 import com.anymore.mvvmkit.di.key.ViewModelKey
 import com.anymore.mvvmkit.di.module.ViewModelFactoryModule
-import com.anymore.mvvmkit.mvvm.ViewModelFactory
 import com.anymore.simple.mvvm.view.MainActivity
 import com.anymore.simple.mvvm.viewmodel.MainViewModel
 import dagger.Binds
@@ -40,10 +38,4 @@ abstract class MainViewModelModule {
     @IntoMap
     @ViewModelKey(MainViewModel::class)
     abstract fun provideViewModel(mainViewModel: MainViewModel): ViewModel
-}
-
-@Module
-abstract class ViewModelFactoryModule{
-    @Binds
-    abstract fun provideViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
 }

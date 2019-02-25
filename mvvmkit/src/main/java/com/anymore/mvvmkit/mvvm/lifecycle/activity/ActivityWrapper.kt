@@ -10,7 +10,7 @@ import timber.log.Timber
  * Created by liuyuanmao on 2019/2/20.
  */
 class ActivityWrapper(private var mActivity:Activity,private var iActivity: IActivity) :
-    IActivityLifecycle {
+    IActivityLifecycle{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("onCreate")

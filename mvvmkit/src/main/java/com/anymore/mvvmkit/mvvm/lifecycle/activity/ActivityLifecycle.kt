@@ -12,7 +12,7 @@ import com.anymore.mvvmkit.mvvm.lifecycle.fragment.FragmentLifecycle
 class ActivityLifecycle:Application.ActivityLifecycleCallbacks {
 
     private val mActivityWrapperMap:HashMap<Activity, ActivityWrapper> = HashMap()
-    private val mFragmentLifecycle=FragmentLifecycle()
+    private val mFragmentLifecycle by lazy { FragmentLifecycle()}
 
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
         if (activity is IActivity){
