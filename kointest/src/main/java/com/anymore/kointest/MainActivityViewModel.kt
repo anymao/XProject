@@ -1,6 +1,7 @@
 package com.anymore.kointest
 
 import android.arch.lifecycle.*
+import android.util.Log
 import com.anymore.kointest.di.HelloRepository
 
 /**
@@ -11,6 +12,7 @@ class MainActivityViewModel(private val repository: HelloRepository):ViewModel()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart(){
+        Log.d("MainActivityViewModel",repository?.toString())
         mHello.postValue(repository.sayHello())
     }
 }
