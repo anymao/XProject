@@ -7,8 +7,19 @@
             android:orientation="vertical"
             tools:context=".mvvm.view.MainActivity">
             <Button
+                android:text="测试Fragment生命周期"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/bt1"/>
+            <Button
+		            android:id="@+id/btn2"
+		            android:text="测试Fragment可见性"
+		            android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+				    <Button
+						    android:id="@+id/btn3"
+						    android:layout_width="wrap_content"
+						    android:layout_height="wrap_content"
+						    android:text="测试Viewpager"/>
     </LinearLayout>
 </layout>

@@ -45,7 +45,10 @@ class ActivityLifecycle:Application.ActivityLifecycleCallbacks {
             it.onDestroy()
        mActivityWrapperMap.remove(activity)
        }
-
+        val useFragment = activity !is IActivity || activity.useFragment()
+        if (activity is FragmentActivity && useFragment) {
+            activity.supportFragmentManager.unregisterFragmentLifecycleCallbacks(mFragmentLifecycle)
+        }
     }
 
     override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
@@ -54,7 +57,7 @@ class ActivityLifecycle:Application.ActivityLifecycleCallbacks {
 
     private fun registerFragmentLifecycle(activity: Activity) {
         // userFragment为true的情况有两种，一是activity没有继承IActivity接口，一是activity继承了IActivity接口并且useFragment()方法返回true.
-        val useFragment = activity !is IActivity || (activity as IActivity).useFragment()
+        val useFragment = activity !is IActivity || activity.useFragment()
         if (activity is FragmentActivity && useFragment) {
             activity.supportFragmentManager.registerFragmentLifecycleCallbacks(mFragmentLifecycle, true)
         }

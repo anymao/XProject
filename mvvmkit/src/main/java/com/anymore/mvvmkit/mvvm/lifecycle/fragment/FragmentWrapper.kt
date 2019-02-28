@@ -28,9 +28,17 @@ class FragmentWrapper(private val mFragment: Fragment,private val iFragment: IFr
         iFragment.initData(savedInstanceState)
     }
 
+    override fun onResume() {
+        super.onResume()
+        Timber.d("FragmentWrapper onResume")
+    }
+
+    override fun onPause() {
+        Timber.d("FragmentWrapper onPause")
+        super.onPause()
+    }
 
     override fun onDetach() {
-        Timber.d("onDetach")
         if (iFragment.useEventBus()){
             EventBus.getDefault().unregister(mFragment)
         }

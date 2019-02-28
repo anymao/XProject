@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.view.View
-import timber.log.Timber
 
 class FragmentLifecycle:FragmentManager.FragmentLifecycleCallbacks(){
     private val mFragmentWrapperMap = HashMap<Fragment,FragmentWrapper>()

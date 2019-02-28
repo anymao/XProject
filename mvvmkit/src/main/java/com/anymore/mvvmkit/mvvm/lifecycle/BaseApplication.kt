@@ -23,7 +23,7 @@ open class BaseApplication:Application(),HasActivityInjector,HasSupportFragmentI
     @Inject
     lateinit var mFragmentInjector: DispatchingAndroidInjector<Fragment>
 
-    private val mActivityLifecycleCallbacks by lazy { ActivityLifecycle() }
+    private val mActivityLifecycleCallbacks = ActivityLifecycle()
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)

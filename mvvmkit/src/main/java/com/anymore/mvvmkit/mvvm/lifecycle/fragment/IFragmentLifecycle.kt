@@ -3,6 +3,7 @@ package com.anymore.mvvmkit.mvvm.lifecycle.fragment
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import timber.log.Timber
 
 /**
  * Created by liuyuanmao on 2019/2/23.
@@ -45,12 +46,12 @@ interface IFragmentLifecycle {
     /**
      * 代理 [android.support.v4.app.Fragment.onResume]
      */
-    fun onResume(){}
+    fun onResume(){Timber.d("IFragmentLifecycle onResume")}
 
     /**
      * 代理 [android.support.v4.app.Fragment.onPause]
      */
-    fun onPause(){}
+    fun onPause(){Timber.d("IFragmentLifecycle onPause")}
 
     /**
      * 代理 [android.support.v4.app.Fragment.onStop]

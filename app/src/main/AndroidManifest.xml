@@ -18,6 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".mvvm.view.SecondActivity"/>
+	    <activity android:name=".mvvm.view.ContainerActivity"/>
+	    <activity android:name=".mvvm.view.TabActivity"/>
     </application>
 
 </manifest>
