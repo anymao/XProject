@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 abstract class BindingFragment<BD:ViewDataBinding>:Fragment(), IFragment {
 
     protected lateinit var mBinding: BD
-    private val TAG = "BindingFragment${hashCode()}"
+    private val TAG = "BindingFragment@${hashCode()}"
     //用于存储当前Fragment的前一个可见状态
     private var mPreviousVisibleState = AtomicBoolean(false)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
