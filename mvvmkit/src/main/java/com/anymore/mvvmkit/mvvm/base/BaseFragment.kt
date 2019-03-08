@@ -24,6 +24,7 @@ abstract class BaseFragment<BD:ViewDataBinding,VM: BaseViewModel<*>>:
     override fun initData(savedInstanceState: Bundle?) {
         Timber.d("initData")
         //todo 这里或许可以采用kotlin内联函数更加优雅写出来
+        @Suppress("UNCHECKED_CAST")
         mViewModel = ViewModelProviders.of(this,mViewModelFactory).get((javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<VM>)
         lifecycle.addObserver(mViewModel)
     }

@@ -1,16 +1,14 @@
 package com.anymore.mvvmkit.di.module
 
 import android.content.Context
-import com.anymore.mvvmkit.repository.remote.GsonConfig
-import com.anymore.mvvmkit.repository.remote.OkHttpConfig
-import com.anymore.mvvmkit.repository.remote.RetrofitConfig
+import android.util.SparseArray
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import javax.inject.Singleton
 
 /**
  * Created by liuyuanmao on 2019/3/7.
@@ -19,74 +17,47 @@ import javax.inject.Singleton
 //////////////////    Remote repository      ////////////////////
 //////////////////***************************////////////////////
 
-@Singleton
-@Module(includes = [RetrofitModule::class,OkHttpClientModule::class,GsonModule::class])
-class RemoteRepositoryModule private constructor(builder: Builder){
+@Module
+class HttpClientModule private constructor(builder: Builder){
 
-    private val mOkHttpConfig: OkHttpConfig?
-    private val mGsonConfig: GsonConfig?
-    private val mRetrofitConfig: RetrofitConfig?
+    private var mContext:Context?=null
+    private var mRetrofitConfig:RetrofitConfig?=null
+    private var mOkHttpConfig:OkHttpConfig?=null
+    private var mGsonConfig:GsonConfig?=null
 
     init {
-        mGsonConfig = builder.gsonConfig
-        mOkHttpConfig = builder.okHttpConfig
-        mRetrofitConfig = builder.retrofitConfig
+        this.mContext = builder.context
+        this.mRetrofitConfig = builder.retrofitConfig
+        this.mOkHttpConfig = builder.okHttpConfig
+        this.mGsonConfig = builder.gsonConfig
     }
 
-
-
-
-
-    private class Builder {
-        var okHttpConfig: OkHttpConfig? = null
-        var gsonConfig: GsonConfig? = null
-        var retrofitConfig: RetrofitConfig? = null
-
-        fun setOkHttpConfig(okHttpConfig: OkHttpConfig): Builder {
-            this.okHttpConfig = okHttpConfig
-            return this
-        }
-
-        fun setGsonConfig(gsonConfig: GsonConfig): Builder {
-            this.gsonConfig = gsonConfig
-            return this
-        }
-
-        fun setRetrofitConfig(retrofitConfig: RetrofitConfig): Builder {
-            this.retrofitConfig = retrofitConfig
-            return this
-        }
-
-        fun build(): RemoteRepositoryModule {
-            return RemoteRepositoryModule(this)
-        }
-    }
-
-}
-
-@Module(includes = [OkHttpClientModule::class,GsonModule::class])
-class RetrofitModule(private val config: RetrofitConfig?){
     @Provides
     fun provideRetrofitBuilder()= Retrofit.Builder()
 
     @Provides
-    fun provideConfig()=config
+    fun provideRetrofitConfig()=mRetrofitConfig?: RetrofitConfig.DEFAULT
 
     @Provides
-    fun provideRetrofit(context: Context, builder: Retrofit.Builder, config: RetrofitConfig?): Retrofit {
+    fun provideRetrofits(context: Context, builder: Retrofit.Builder,client: OkHttpClient, config: RetrofitConfig?,baseUrls:SparseArray<HttpUrl>): SparseArray<Retrofit> {
+        //builder....
+        builder.client(client)
         config?.applyConfig(context,builder)
-        return builder.build()
+        val retrofits = SparseArray<Retrofit>()
+        for (i in 0..baseUrls.size()){
+            val key = baseUrls.keyAt(i)
+            val url = baseUrls.get(key)
+            val retrofit = builder.baseUrl(url).build()
+            retrofits.put(key,retrofit)
+        }
+        return retrofits
     }
-}
-
-@Module
-class OkHttpClientModule(private val config: OkHttpConfig?){
 
     @Provides
     fun provideOkHttpClientBuilder()= OkHttpClient.Builder()
 
     @Provides
-    fun provideConfig()=config
+    fun provideOkHttpConfig()=mOkHttpConfig?: OkHttpConfig.DEFAULT
 
     @Provides
     fun provideOkHttpClient(context: Context, builder: OkHttpClient.Builder, config: OkHttpConfig?): OkHttpClient {
@@ -94,15 +65,11 @@ class OkHttpClientModule(private val config: OkHttpConfig?){
         return builder.build()
     }
 
-}
-
-@Module
-class GsonModule(private val config: GsonConfig?){
     @Provides
     fun provideGsonBuilder()= GsonBuilder()
 
     @Provides
-    fun provideConfig()=config
+    fun provideGsonConfig()=mGsonConfig?: GsonConfig.DEFAULT
 
     @Provides
     fun provideGson(context: Context, builder: GsonBuilder, config: GsonConfig?): Gson {
@@ -110,4 +77,73 @@ class GsonModule(private val config: GsonConfig?){
         return builder.create()
     }
 
+
+    interface OkHttpConfig{
+        fun applyConfig(context: Context,builder: OkHttpClient.Builder)
+
+        companion object {
+            /**
+             * default impl
+             */
+            val DEFAULT = object :OkHttpConfig{
+                override fun applyConfig(context: Context, builder: OkHttpClient.Builder) {
+                    //todo
+                }
+            }
+        }
+
+    }
+
+    interface GsonConfig{
+        fun applyConfig(context: Context,builder: GsonBuilder)
+        companion object {
+            /**
+             * default impl
+             */
+            val DEFAULT = object :GsonConfig{
+                override fun applyConfig(context: Context, builder: GsonBuilder) {
+                    //todo
+                }
+            }
+        }
+    }
+
+    interface RetrofitConfig{
+        fun applyConfig(context: Context,builder: Retrofit.Builder)
+        companion object {
+            /**
+             * default impl
+             */
+            val DEFAULT = object :RetrofitConfig{
+                override fun applyConfig(context: Context, builder: Retrofit.Builder) {
+                    //todo
+                }
+            }
+        }
+    }
+
+    class Builder(val context: Context){
+        internal var retrofitConfig:RetrofitConfig? = null
+        internal var okHttpConfig:OkHttpConfig? = null
+        internal var gsonConfig:GsonConfig? = null
+
+        fun setRetrofitConfig(config: RetrofitConfig?):Builder{
+            retrofitConfig = config
+            return this
+        }
+
+        fun setOkHttpConfig(config: OkHttpConfig?):Builder{
+            okHttpConfig = config
+            return this
+        }
+
+        fun setGsonConfig(config: GsonConfig?):Builder{
+            gsonConfig = config
+            return this
+        }
+
+        fun build():HttpClientModule{
+            return HttpClientModule(this)
+        }
+    }
 }
