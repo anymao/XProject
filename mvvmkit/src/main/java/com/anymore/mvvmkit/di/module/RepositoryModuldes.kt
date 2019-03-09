@@ -2,17 +2,36 @@ package com.anymore.mvvmkit.di.module
 
 import android.content.Context
 import android.util.SparseArray
+import com.anymore.mvvmkit.repository.IRepositoryManager
+import com.anymore.mvvmkit.repository.RepositoryManager
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 /**
  * Created by liuyuanmao on 2019/3/7.
  */
+@Module
+class RepositoryModule(private val context: Context){
+
+    @Singleton
+    @Provides
+    fun provideIRepositoryManager(retrofits:Lazy<SparseArray<Retrofit>>):IRepositoryManager{
+        return RepositoryManager(retrofits)
+    }
+}
+
+
+
+
 //////////////////***************************////////////////////
 //////////////////    Remote repository      ////////////////////
 //////////////////***************************////////////////////
@@ -116,7 +135,8 @@ class HttpClientModule private constructor(builder: Builder){
              */
             val DEFAULT = object :RetrofitConfig{
                 override fun applyConfig(context: Context, builder: Retrofit.Builder) {
-                    //todo
+                    builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create())
                 }
             }
         }

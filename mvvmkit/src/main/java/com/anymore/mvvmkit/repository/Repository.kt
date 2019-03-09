@@ -10,12 +10,12 @@ import javax.inject.Inject
  * Created by liuyuanmao on 2019/2/28.
  */
 
-interface IRepository{
+interface IRepositoryManager{
     fun<T> obtainRetrofitService(key:Int,retrofitClass:Class<T>):T
 }
 
 class RepositoryManager @Inject constructor(private val mRetrofits:Lazy<SparseArray<Retrofit>>)
-    :IRepository{
+    :IRepositoryManager{
 
     private val mRetrofitCache by lazy { LruCache<String,Any?>(500) }
 
