@@ -6,8 +6,6 @@ apply plugin: 'maven'
 android {
     compileSdkVersion 28
 
-
-
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
@@ -26,6 +24,10 @@ android {
     }
     dataBinding{
         enabled = true
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
 
 }
@@ -48,7 +50,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation 'com.google.dagger:dagger:2.19'
+    implementation 'com.google.dagger:dagger:2.16'
     kapt 'com.google.dagger:dagger-compiler:2.16'
     implementation 'com.google.dagger:dagger-android:2.16'
     implementation 'com.google.dagger:dagger-android-support:2.16' // if you use the support libraries
@@ -77,9 +79,7 @@ dependencies {
 
 
 }
-repositories {
-    mavenCentral()
-}
+
 uploadArchives{
     repositories{
         mavenDeployer{

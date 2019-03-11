@@ -1,4 +1,4 @@
-package com.anymore.simple.mvvm.viewmodel
+package com.anymore.simple.mvvm
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
@@ -8,17 +8,16 @@ import com.anymore.mvvmkit.mvvm.base.BaseViewModel
 import javax.inject.Inject
 
 /**
- * Created by liuyuanmao on 2019/2/21.
+ * Created by liuyuanmao on 2019/3/11.
  */
 @ActivityScope
-class MainViewModel @Inject
-constructor(application: Application)
-    : BaseViewModel<BaseModel>(application){
+class MainActivityViewModel @Inject constructor(application: Application) :BaseViewModel<BaseModel>(application) {
     private val mMessage = MutableLiveData<String>()
+
     override fun onStart() {
         super.onStart()
-        mMessage.value = "onStart"
+        mMessage.postValue("hello")
     }
 
-    fun getMessage() = mMessage
+    fun getMessage()=mMessage
 }

@@ -1,1 +1,2 @@
-include ':app', ':mvvmkit', ':javatest', ':kointest', ':kotlindaggertest', ':coroutinessimple'
+include ':app'
+include ':mvvmkit'//, ':javatest', ':kointest', ':kotlindaggertest', ':coroutinessimple'
