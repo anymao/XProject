@@ -14,7 +14,7 @@ import javax.inject.Inject
 /**
  * Created by liuyuanmao on 2019/2/20.
  */
-open class BaseApplication:Application(),HasActivityInjector,HasSupportFragmentInjector{
+open class KitApplication:Application(),HasActivityInjector,HasSupportFragmentInjector{
 
 
     @Inject
