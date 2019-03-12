@@ -9,7 +9,7 @@ import dagger.android.AndroidInjector
  * Created by liuyuanmao on 2019/3/11.
  */
 @ActivityScope
-@Subcomponent(modules = [MainActivityViewModelModule::class])
+@Subcomponent(modules = [MainActivityViewModelModule::class,MainModelModule::class])
 interface MainActivitySubComponent: AndroidInjector<MainActivity>{
 
     @Subcomponent.Builder

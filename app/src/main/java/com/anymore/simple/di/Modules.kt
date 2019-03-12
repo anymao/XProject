@@ -7,6 +7,7 @@ import com.anymore.mvvmkit.di.key.ViewModelKey
 import com.anymore.mvvmkit.di.module.ViewModelFactoryModule
 import com.anymore.simple.mvvm.MainActivity
 import com.anymore.simple.mvvm.MainActivityViewModel
+import com.anymore.simple.mvvm.MainModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -41,4 +42,11 @@ abstract class MainActivityModule{
     @ActivityKey(MainActivity::class)
     abstract fun bindActivityInjectorFactory(builder: MainActivitySubComponent.Builder): AndroidInjector.Factory<out Activity>
 
+}
+
+@Module
+class MainModelModule{
+
+    @Provides
+    fun provideMainModel(model:MainModel)= model
 }

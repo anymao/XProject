@@ -5,7 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.support.v4.app.Fragment
 import com.anymore.mvvmkit.di.component.DaggerAppComponent
-import com.anymore.mvvmkit.mvvm.lifecycle.activity.ActivityLifecycle
+import com.anymore.mvvmkit.mvvm.lifecycle.application.ApplicationWrapper
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -23,20 +23,21 @@ open class KitApplication:Application(),HasActivityInjector,HasSupportFragmentIn
     @Inject
     lateinit var mFragmentInjector: DispatchingAndroidInjector<Fragment>
 
-    private val mActivityLifecycleCallbacks = ActivityLifecycle()
+    private val mApplicationWrapper by lazy { ApplicationWrapper(this) }
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         DaggerAppComponent.create().inject(this)
+        mApplicationWrapper.attachBaseContext()
     }
 
     override fun onCreate() {
         super.onCreate()
-        registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks)
+        mApplicationWrapper.onCreate()
     }
 
     override fun onTerminate() {
-        unregisterActivityLifecycleCallbacks(mActivityLifecycleCallbacks)
+        mApplicationWrapper.onTerminate()
         super.onTerminate()
     }
 
@@ -44,4 +45,5 @@ open class KitApplication:Application(),HasActivityInjector,HasSupportFragmentIn
 
     override fun supportFragmentInjector()=mFragmentInjector
 
+    fun getRepositoryComponent()=mApplicationWrapper.getRepositoryComponent()
 }
