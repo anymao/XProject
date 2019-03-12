@@ -36,9 +36,8 @@ object Preconditions {
         val builder = StringBuilder(template.length + 16 * args.size)
         var templateStart = 0
 
-        var i: Int
+        var i = 0
         var placeholderStart: Int
-        i = 0
         while (i < args.size) {
             placeholderStart = template.indexOf("%s", templateStart)
             if (placeholderStart == -1) {

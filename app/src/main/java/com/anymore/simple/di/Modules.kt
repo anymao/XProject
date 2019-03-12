@@ -7,9 +7,9 @@ import com.anymore.mvvmkit.di.key.ViewModelKey
 import com.anymore.mvvmkit.di.module.ViewModelFactoryModule
 import com.anymore.mvvmkit.di.scope.ActivityScope
 import com.anymore.mvvmkit.mvvm.base.BaseModel
-import com.anymore.simple.mvvm.MainActivity
-import com.anymore.simple.mvvm.MainActivityViewModel
-import com.anymore.simple.mvvm.MainModel
+import com.anymore.simple.mvvm.view.MainActivity
+import com.anymore.simple.mvvm.viewmodel.MainActivityViewModel
+import com.anymore.simple.mvvm.model.MainModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -33,7 +33,7 @@ abstract class MainActivityViewModelModule{
     @Binds
     @IntoMap
     @ViewModelKey(MainActivityViewModel::class)
-    abstract fun provideMainActivityViewModel(viewModel:MainActivityViewModel):ViewModel
+    abstract fun provideMainActivityViewModel(viewModel: MainActivityViewModel):ViewModel
 }
 
 @Module(subcomponents = [MainActivitySubComponent::class])
@@ -51,5 +51,5 @@ class MainModelModule{
 
     @Provides
     @ActivityScope
-    fun provideMainModel(model:MainModel):BaseModel= model
+    fun provideMainModel(model: MainModel):BaseModel= model
 }

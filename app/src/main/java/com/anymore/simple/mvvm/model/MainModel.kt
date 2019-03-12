@@ -1,7 +1,10 @@
-package com.anymore.simple.mvvm
+package com.anymore.simple.mvvm.model
 
 import android.app.Application
 import com.anymore.mvvmkit.mvvm.base.BaseModel
+import com.anymore.simple.mvvm.model.entry.Article
+import com.anymore.simple.mvvm.model.api.KEY
+import com.anymore.simple.mvvm.model.api.WanAndroid
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -14,7 +17,7 @@ class MainModel @Inject constructor(application: Application):BaseModel(applicat
 
     fun doGet():Observable<List<Article>>{
         return mRepositoryComponent.getRepository()
-            .obtainRetrofitService(KEY,WanAndroid::class.java)
+            .obtainRetrofitService(KEY, WanAndroid::class.java)
             .getWeixinArticleList()
             .subscribeOn(Schedulers.newThread())
             .flatMap{

@@ -1,4 +1,4 @@
-package com.anymore.simple.mvvm
+package com.anymore.simple.mvvm.model.entry
 
 /**
  * Created by liuyuanmao on 2019/3/12.

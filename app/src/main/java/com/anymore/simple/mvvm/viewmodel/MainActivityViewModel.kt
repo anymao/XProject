@@ -1,10 +1,11 @@
-package com.anymore.simple.mvvm
+package com.anymore.simple.mvvm.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
-import android.widget.Toast
 import com.anymore.mvvmkit.di.scope.ActivityScope
 import com.anymore.mvvmkit.mvvm.base.BaseViewModel
+import com.anymore.simple.mvvm.model.entry.Article
+import com.anymore.simple.mvvm.model.MainModel
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 import javax.inject.Inject
