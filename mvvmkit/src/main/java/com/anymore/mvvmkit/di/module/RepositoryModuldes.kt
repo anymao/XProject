@@ -16,6 +16,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 
 /**
  * Created by liuyuanmao on 2019/3/7.
@@ -176,10 +177,11 @@ class HttpClientModule{
     @Provides
     fun provideRetrofits(context: Context, builder: Retrofit.Builder, client: OkHttpClient, config: RepositoryConfigsModule.RetrofitConfig?, baseUrls:SparseArray<HttpUrl>): SparseArray<Retrofit> {
         //builder....
+        Timber.d(baseUrls.toString())
         builder.client(client)
         config?.applyConfig(context,builder)
         val retrofits = SparseArray<Retrofit>()
-        for (i in 0..baseUrls.size()){
+        for (i in 0 until baseUrls.size()){
             val key = baseUrls.keyAt(i)
             val url = baseUrls.get(key)
             val retrofit = builder.baseUrl(url).build()

@@ -16,5 +16,6 @@ class MainActivity:BaseActivity<ActivityMainBinding,MainActivityViewModel>(){
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
         mViewModel.getMessage().observe(this, Observer { Toast.makeText(this,it,Toast.LENGTH_LONG).show() })
+        mViewModel.mData.observe(this, Observer { Toast.makeText(this,"请求成功!${it?.size ?: -1}",Toast.LENGTH_LONG).show() })
     }
 }

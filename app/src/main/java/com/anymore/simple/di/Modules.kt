@@ -5,6 +5,8 @@ import android.app.Application
 import android.arch.lifecycle.ViewModel
 import com.anymore.mvvmkit.di.key.ViewModelKey
 import com.anymore.mvvmkit.di.module.ViewModelFactoryModule
+import com.anymore.mvvmkit.di.scope.ActivityScope
+import com.anymore.mvvmkit.mvvm.base.BaseModel
 import com.anymore.simple.mvvm.MainActivity
 import com.anymore.simple.mvvm.MainActivityViewModel
 import com.anymore.simple.mvvm.MainModel
@@ -48,5 +50,6 @@ abstract class MainActivityModule{
 class MainModelModule{
 
     @Provides
-    fun provideMainModel(model:MainModel)= model
+    @ActivityScope
+    fun provideMainModel(model:MainModel):BaseModel= model
 }

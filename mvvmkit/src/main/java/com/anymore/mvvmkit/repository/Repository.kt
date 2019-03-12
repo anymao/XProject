@@ -22,7 +22,7 @@ class RepositoryManager @Inject constructor(private val mRetrofits:Lazy<SparseAr
     override fun <T> obtainRetrofitService(key: Int, retrofitClass: Class<T>): T {
         var result = mRetrofitCache.get(retrofitClass.name)
         if (result == null){
-            result = mRetrofits.get()[key].create(retrofitClass)
+            result = mRetrofits.get().get(key).create(retrofitClass)
             mRetrofitCache.put(retrofitClass.name,result!!)
         }
         @Suppress("UNCHECKED_CAST")

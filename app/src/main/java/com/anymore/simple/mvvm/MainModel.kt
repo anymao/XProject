@@ -1,7 +1,6 @@
 package com.anymore.simple.mvvm
 
 import android.app.Application
-import com.anymore.mvvmkit.di.scope.ActivityScope
 import com.anymore.mvvmkit.mvvm.base.BaseModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
