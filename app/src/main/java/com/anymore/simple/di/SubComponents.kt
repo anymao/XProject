@@ -1,7 +1,7 @@
 package com.anymore.simple.di
 
 import com.anymore.mvvmkit.di.scope.ActivityScope
-import com.anymore.simple.mvvm.view.MainActivity
+import com.anymore.simple.mvvm.view.main.MainActivity
 import dagger.Subcomponent
 import dagger.android.AndroidInjector
 

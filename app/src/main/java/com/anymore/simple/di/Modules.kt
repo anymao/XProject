@@ -7,7 +7,7 @@ import com.anymore.mvvmkit.di.key.ViewModelKey
 import com.anymore.mvvmkit.di.module.ViewModelFactoryModule
 import com.anymore.mvvmkit.di.scope.ActivityScope
 import com.anymore.mvvmkit.mvvm.base.BaseModel
-import com.anymore.simple.mvvm.view.MainActivity
+import com.anymore.simple.mvvm.view.main.MainActivity
 import com.anymore.simple.mvvm.viewmodel.MainActivityViewModel
 import com.anymore.simple.mvvm.model.MainModel
 import dagger.Binds

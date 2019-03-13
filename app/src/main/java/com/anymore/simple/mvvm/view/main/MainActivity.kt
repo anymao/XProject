@@ -1,4 +1,4 @@
-package com.anymore.simple.mvvm.view
+package com.anymore.simple.mvvm.view.main
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle

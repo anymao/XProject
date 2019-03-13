@@ -29,6 +29,6 @@ class Article {
     var parentChapterId: Int = 0
     var isUserControlSetTop: Boolean = false
     var visible: Int = 0
-    var children: List<Any>? = null
+    var children: List<String>? = null
 }
 
