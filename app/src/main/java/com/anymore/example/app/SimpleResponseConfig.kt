@@ -1,9 +1,9 @@
-package com.anymore.simple.app
+package com.anymore.example.app
 
 import android.content.Context
 import com.anymore.mvvmkit.di.module.RepositoryConfigsModule
-import com.anymore.simple.mvvm.model.api.BASE_URL
-import com.anymore.simple.mvvm.model.api.KEY
+import com.anymore.example.mvvm.model.api.BASE_URL
+import com.anymore.example.mvvm.model.api.KEY
 import timber.log.Timber
 
 /**

@@ -1,12 +1,12 @@
-package com.anymore.simple.mvvm.view.main
+package com.anymore.example.mvvm.view.main
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.widget.Toast
 import com.anymore.mvvmkit.mvvm.base.BaseActivity
-import com.anymore.simple.R
-import com.anymore.simple.databinding.ActivityMainBinding
-import com.anymore.simple.mvvm.viewmodel.MainActivityViewModel
+import com.anymore.example.R
+import com.anymore.example.databinding.ActivityMainBinding
+import com.anymore.example.mvvm.viewmodel.MainActivityViewModel
 
 /**
  * Created by liuyuanmao on 2019/3/11.

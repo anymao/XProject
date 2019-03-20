@@ -1,10 +1,10 @@
-package com.anymore.simple.mvvm.model
+package com.anymore.example.mvvm.model
 
 import android.app.Application
 import com.anymore.mvvmkit.mvvm.base.BaseModel
-import com.anymore.simple.mvvm.model.entry.Article
-import com.anymore.simple.mvvm.model.api.KEY
-import com.anymore.simple.mvvm.model.api.WanAndroid
+import com.anymore.example.mvvm.model.entry.Article
+import com.anymore.example.mvvm.model.api.KEY
+import com.anymore.example.mvvm.model.api.WanAndroid
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

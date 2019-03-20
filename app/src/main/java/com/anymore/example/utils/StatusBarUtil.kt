@@ -1,4 +1,4 @@
-package com.anymore.simple.utils
+package com.anymore.example.utils
 
 import android.annotation.SuppressLint
 import android.app.Activity

@@ -1,7 +1,7 @@
-package com.anymore.simple.mvvm.model.api
+package com.anymore.example.mvvm.model.api
 
-import com.anymore.simple.mvvm.model.entry.Article
-import com.anymore.simple.mvvm.model.entry.WanAndroidResponse
+import com.anymore.example.mvvm.model.entry.Article
+import com.anymore.example.mvvm.model.entry.WanAndroidResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
 

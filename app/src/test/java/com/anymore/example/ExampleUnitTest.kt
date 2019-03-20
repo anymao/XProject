@@ -1,4 +1,4 @@
-package com.anymore.simple
+package com.anymore.example
 
 import org.junit.Test
 

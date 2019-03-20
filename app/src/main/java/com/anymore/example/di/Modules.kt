@@ -1,4 +1,4 @@
-package com.anymore.simple.di
+package com.anymore.example.di
 
 import android.app.Activity
 import android.app.Application
@@ -7,9 +7,9 @@ import com.anymore.mvvmkit.di.key.ViewModelKey
 import com.anymore.mvvmkit.di.module.ViewModelFactoryModule
 import com.anymore.mvvmkit.di.scope.ActivityScope
 import com.anymore.mvvmkit.mvvm.base.BaseModel
-import com.anymore.simple.mvvm.view.main.MainActivity
-import com.anymore.simple.mvvm.viewmodel.MainActivityViewModel
-import com.anymore.simple.mvvm.model.MainModel
+import com.anymore.example.mvvm.view.main.MainActivity
+import com.anymore.example.mvvm.viewmodel.MainActivityViewModel
+import com.anymore.example.mvvm.model.MainModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -21,7 +21,7 @@ import dagger.multibindings.IntoMap
  * Created by liuyuanmao on 2019/3/11.
  */
 @Module(includes = [ViewModelFactoryModule::class,MainActivityModule::class])
-class SimpleAppModule(private val application: Application){
+class ExampleAppModule(private val application: Application){
 
     @Provides
     fun provideApplication()=application

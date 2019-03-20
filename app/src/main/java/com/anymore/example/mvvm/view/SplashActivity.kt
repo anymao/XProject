@@ -1,10 +1,10 @@
-package com.anymore.simple.mvvm.view
+package com.anymore.example.mvvm.view
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import com.anymore.mvvmkit.mvvm.base.BindingActivity
-import com.anymore.simple.R
-import com.anymore.simple.databinding.ActivitySplashBinding
+import com.anymore.example.R
+import com.anymore.example.databinding.ActivitySplashBinding
 
 /**
  * Created by liuyuanmao on 2019/3/12.

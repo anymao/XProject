@@ -1,19 +1,19 @@
-package com.anymore.simple.mvvm
+package com.anymore.example.mvvm
 
 import android.content.Context
+import com.anymore.example.di.DaggerExampleAppComponent
 import com.anymore.mvvmkit.mvvm.lifecycle.KitApplication
-import com.anymore.simple.di.DaggerSimpleAppComponent
-import com.anymore.simple.di.SimpleAppModule
+import com.anymore.example.di.ExampleAppModule
 
 /**
  * Created by liuyuanmao on 2019/3/11.
  */
-class SimpleApplication:KitApplication() {
+class ExampleApplication:KitApplication() {
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
-        DaggerSimpleAppComponent.builder()
-            .simpleAppModule(SimpleAppModule(this))
+        DaggerExampleAppComponent.builder()
+            .exampleAppModule(ExampleAppModule(this))
             .build()
             .inject(this)
     }
