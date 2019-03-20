@@ -11,6 +11,40 @@ class WanAndroidResponse<D> {
     var errorMsg: String? = null
     var data: D? = null
 }
+
+class UserInfo {
+
+    /**
+     * chapterTops : []
+     * collectIds : []
+     * email :
+     * icon :
+     * id : 20933
+     * password :
+     * token :
+     * type : 0
+     * username : anymore0503
+     */
+
+    var email: String? = null
+    var icon: String? = null
+    var id: Int = 0
+    var password: String? = null
+    var token: String? = null
+    var type: Int = 0
+    var username: String? = null
+    private var chapterTops: List<String>? = null
+    var collectIds: List<String>? = null
+
+    fun getChapterTops(): List<*>? {
+        return chapterTops
+    }
+
+    fun setChapterTops(chapterTops: List<String>) {
+        this.chapterTops = chapterTops
+    }
+}
+
 class Article {
     /**
      * children : []

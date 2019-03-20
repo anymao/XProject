@@ -5,7 +5,7 @@
 		<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
 		<application
-            android:name="com.anymore.example.mvvm.ExampleApplication"
+            android:name=".mvvm.ExampleApplication"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
@@ -13,7 +13,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-		    <activity android:name="com.anymore.example.mvvm.view.SplashActivity"
+		    <activity android:name=".mvvm.view.SplashActivity"
 				    android:screenOrientation="portrait"
 				    android:theme="@style/fullScreenStyle">
 				    <intent-filter>
@@ -21,11 +21,13 @@
 						    <category android:name="android.intent.category.LAUNCHER"/>
 				    </intent-filter>
 		    </activity>
-		    <activity android:name="com.anymore.example.mvvm.view.main.MainActivity"/>
+				<activity android:name=".mvvm.view.register.RegisterActivity"/>
+
+		    <activity android:name=".mvvm.view.main.MainActivity"/>
 
 
-	    <meta-data
-            android:name="com.anymore.example.app.SimpleResponseConfig"
+				<meta-data
+            android:name="com.anymore.example.app.ExampleResponseConfig"
             android:value="repositoryModuleConfig"/>
     </application>
 
