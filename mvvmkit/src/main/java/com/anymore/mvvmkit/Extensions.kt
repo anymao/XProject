@@ -12,7 +12,7 @@ fun Application.getRepositoryComponent():RepositoryComponent{
     if (this is KitApplication){
         return getRepositoryComponent()
     }
-    throw RuntimeException("your application does not ....")
+    throw RuntimeException("your application:<${this.javaClass.name}> should extends KitApplication")
 }
 
 fun Context.getRepositoryComponent():RepositoryComponent{

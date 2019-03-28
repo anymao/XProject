@@ -1,5 +1,7 @@
 package com.anymore.mvvmkit.di.module
 
+import android.app.Application
+import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import android.support.annotation.NonNull
 import android.support.annotation.Nullable
@@ -26,8 +28,10 @@ class RepositoryModule{
 
 //    @Singleton
     @Provides
-    fun provideIRepositoryManager(retrofits:Lazy<SparseArray<Retrofit>>):IRepositoryManager{
-        return RepositoryManager(retrofits)
+    fun provideIRepositoryManager(application: Application,
+                                  retrofits:Lazy<SparseArray<Retrofit>>,
+                                  roomDatabaseConfig: RepositoryConfigsModule.RoomDatabaseConfig):IRepositoryManager{
+        return RepositoryManager(application,retrofits,roomDatabaseConfig)
     }
 }
 
@@ -42,6 +46,8 @@ class RepositoryConfigsModule private constructor(builder: Builder) {
     private var mRetrofitConfig:RetrofitConfig? = null
     private var mOkHttpConfig:OkHttpConfig? = null
     private var mGsonConfig:GsonConfig? = null
+    //数据库配置
+    private var mRoomDatabaseConfig:RoomDatabaseConfig?=null
 
     init {
         mContext = builder.context
@@ -49,10 +55,14 @@ class RepositoryConfigsModule private constructor(builder: Builder) {
         mRetrofitConfig = builder.retrofitConfig
         mOkHttpConfig = builder.okHttpConfig
         mGsonConfig = builder.gsonConfig
+        mRoomDatabaseConfig = builder.roomDatabaseConfig
     }
 
     @Provides
     fun provideContext()=mContext
+
+    @Provides
+    fun provideApplication():Application=mContext.applicationContext as Application
 
     @Provides
     fun provideHttpUrls()=mUrls
@@ -66,6 +76,9 @@ class RepositoryConfigsModule private constructor(builder: Builder) {
     @Provides
     fun provideGsonConfig()=mGsonConfig?: GsonConfig.DEFAULT
 
+    @Provides
+    fun provideRoomDatabaseConfig()=mRoomDatabaseConfig?: RoomDatabaseConfig.DEFAULT
+
     companion object {
         fun builder(context: Context) = Builder(context)
     }
@@ -75,6 +88,7 @@ class RepositoryConfigsModule private constructor(builder: Builder) {
         var retrofitConfig: RetrofitConfig? = null
         var okHttpConfig: OkHttpConfig? = null
         var gsonConfig: GsonConfig? = null
+        var roomDatabaseConfig: RoomDatabaseConfig? = null
 
         fun getUrls()=_urls
 
@@ -93,6 +107,11 @@ class RepositoryConfigsModule private constructor(builder: Builder) {
 
         fun setGsonConfig(@Nullable config: GsonConfig?):Builder{
             gsonConfig = config
+            return this
+        }
+
+        fun setRoomDatabaseConfig(@Nullable config:RoomDatabaseConfig?):Builder{
+            roomDatabaseConfig = config
             return this
         }
 
@@ -152,6 +171,22 @@ class RepositoryConfigsModule private constructor(builder: Builder) {
             val DEFAULT = object :GsonConfig{
                 override fun applyConfig(context: Context, builder: GsonBuilder) {
                     //todo
+                }
+            }
+        }
+    }
+
+    interface RoomDatabaseConfig{
+
+        fun config(context: Context, builder: RoomDatabase.Builder<*>)
+
+        companion object {
+            /**
+             * default impl
+             */
+            val DEFAULT = object :RoomDatabaseConfig{
+                override fun config(context: Context, builder: RoomDatabase.Builder<*>) {
+
                 }
             }
         }

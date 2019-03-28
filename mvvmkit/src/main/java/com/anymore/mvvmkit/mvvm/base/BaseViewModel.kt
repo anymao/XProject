@@ -2,6 +2,8 @@ package com.anymore.mvvmkit.mvvm.base
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.OnLifecycleEvent
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -20,9 +22,9 @@ open class BaseViewModel<M: BaseModel>:AndroidViewModel, IViewModel {
         mModel = model
     }
 
-    override fun onDestroy() {
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy() {
         mCompositeDisposable.clear()
-        super.onDestroy()
     }
 
     protected fun addToCompositeDisposable(disposable: Disposable){

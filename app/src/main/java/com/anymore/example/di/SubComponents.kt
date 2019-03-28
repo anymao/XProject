@@ -2,6 +2,7 @@ package com.anymore.example.di
 
 import com.anymore.mvvmkit.di.scope.ActivityScope
 import com.anymore.example.mvvm.view.main.MainActivity
+import com.anymore.example.mvvm.view.register.RegisterActivity
 import dagger.Subcomponent
 import dagger.android.AndroidInjector
 
@@ -14,4 +15,12 @@ interface MainActivitySubComponent: AndroidInjector<MainActivity>{
 
     @Subcomponent.Builder
     abstract class Builder:AndroidInjector.Builder<MainActivity>()
+}
+
+@ActivityScope
+@Subcomponent(modules = [RegisterActivityViewModelModule::class])
+interface RegisterActivitySubComponent:AndroidInjector<RegisterActivity>{
+
+    @Subcomponent.Builder
+    abstract class Builder:AndroidInjector.Builder<RegisterActivity>()
 }

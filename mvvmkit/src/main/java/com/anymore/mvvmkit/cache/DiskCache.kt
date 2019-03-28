@@ -14,6 +14,14 @@ import java.lang.Exception
 /**
  * Created by liuyuanmao on 2019/3/12.
  */
+interface IDiskCache{
+    fun store(key: String,value: Serializable):Boolean
+    fun<T:Serializable> get(key: String):T?
+    fun remove(key: String):Boolean
+    fun clear()
+    fun isContain(key: String):Boolean
+}
+
 class DiskCache(private val cacheFile:File):ICache {
 
     private val mCache by lazy { DiskLruCache.open(cacheFile,1,1, Long.MAX_VALUE) }

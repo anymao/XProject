@@ -16,6 +16,7 @@ abstract class BindingActivity<B:ViewDataBinding> :AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this,initView(savedInstanceState))
+        mBinding.setLifecycleOwner(this)
         initData(savedInstanceState)
     }
 }

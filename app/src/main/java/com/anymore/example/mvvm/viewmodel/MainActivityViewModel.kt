@@ -18,8 +18,7 @@ class MainActivityViewModel @Inject constructor(application: Application,model: 
 
     private val mMessage = MutableLiveData<String>()
     val mData = MutableLiveData<List<Article>>()
-    override fun onStart() {
-        super.onStart()
+    fun onStart() {
         mMessage.postValue("hello")
         val disposable = mModel.doGet()
             .subscribeBy(onNext = {
