@@ -9,7 +9,7 @@ import timber.log.Timber
 /**
  * Created by liuyuanmao on 2019/3/12.
  */
-class ExampleResponseConfig:RepositoryConfigsModule.RepositoryConfig {
+class ExampleRepositoryConfigConfig:RepositoryConfigsModule.RepositoryConfig {
     override fun applyConfig(context: Context, builder: RepositoryConfigsModule.Builder) {
         Timber.d("applyConfig ....start")
         builder.apply {

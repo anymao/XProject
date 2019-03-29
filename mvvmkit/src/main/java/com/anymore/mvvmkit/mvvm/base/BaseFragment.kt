@@ -12,7 +12,7 @@ import javax.inject.Inject
 /**
  * Created by liuyuanmao on 2019/2/23.
  */
-abstract class BaseFragment<BD:ViewDataBinding,VM: BaseViewModel<*>>:
+abstract class BaseFragment<BD:ViewDataBinding,VM: BaseViewModel>:
     BindingFragment<BD>() {
 
     @Inject

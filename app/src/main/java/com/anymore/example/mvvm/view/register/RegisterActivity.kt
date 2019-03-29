@@ -20,7 +20,9 @@ class RegisterActivity:BaseActivity<ActivityRegisterBinding,RegisterActivityView
         setSupportActionBar(mBinding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+        mBinding.toolbar.setNavigationOnClickListener{finish()}
         mViewModel.mErrorMessage.observe(this, Observer { Toast.makeText(this@RegisterActivity,it,Toast.LENGTH_LONG).show() })
+        mViewModel.mMessage.observe(this, Observer { Toast.makeText(this@RegisterActivity,it,Toast.LENGTH_LONG).show() })
         mBinding.btnRegister.setOnClickListener {
             mViewModel.register(mBinding.etUserName.text.toString(),
                 mBinding.etPwd.text.toString(),

@@ -10,16 +10,18 @@ import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 /**
- * Created by liuyuanmao on 2019/3/28.
+ * Created by liuyuanmao on 2019/3/29.
  */
 @ActivityScope
-class RegisterActivityViewModel @Inject constructor(application: Application,userModel: UserModel):
-    BaseViewModel1<UserModel>(application,userModel) {
+class LoginViewModel @Inject constructor(application: Application,userModel: UserModel)
+    : BaseViewModel1<UserModel>(application,userModel) {
+
     val mErrorMessage = SingleLiveEvent<String>()
     val mMessage = SingleLiveEvent<String>()
-    fun register(username: String?, pwd: String?, rePwd: String?) {
-        if (checkUser(username, pwd, rePwd)) {
-            val disposable = mModel.register(username!!,pwd!!,rePwd!!)
+
+    fun login(username: String?, pwd: String?) {
+        if (checkUser(username, pwd)) {
+            val disposable = mModel.login(username!!,pwd!!)
                 .subscribeBy(onNext = {
                     if (it.errorCode == 0){
                         mMessage.value = "注册成功!"
@@ -33,7 +35,7 @@ class RegisterActivityViewModel @Inject constructor(application: Application,use
         }
     }
 
-    private fun checkUser(username: String?, pwd: String?, rePwd: String?): Boolean {
+    private fun checkUser(username: String?, pwd: String?): Boolean {
         if (TextUtils.isEmpty(username)){
             mErrorMessage.value = "用户名不能为空!"
             return false
@@ -42,16 +44,6 @@ class RegisterActivityViewModel @Inject constructor(application: Application,use
             mErrorMessage.value = "密码不能为空!"
             return false
         }
-        if (TextUtils.isEmpty(rePwd)){
-            mErrorMessage.value = "确认密码不能为空!"
-            return false
-        }
-        if (!TextUtils.equals(pwd,rePwd)){
-            mErrorMessage.value = "两次密码不一致!"
-            return false
-        }
         return true
     }
 }
-
-

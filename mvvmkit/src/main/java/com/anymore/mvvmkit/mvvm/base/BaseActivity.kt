@@ -12,7 +12,7 @@ import javax.inject.Inject
 /**
  * Created by liuyuanmao on 2019/2/20.
  */
-abstract class BaseActivity<B:ViewDataBinding,VM: BaseViewModel<*>>:
+abstract class BaseActivity<B:ViewDataBinding,VM: BaseViewModel>:
     BindingActivity<B>(){
     protected lateinit var mViewModel: VM
 

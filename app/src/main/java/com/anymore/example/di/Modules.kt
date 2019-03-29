@@ -3,16 +3,18 @@ package com.anymore.example.di
 import android.app.Activity
 import android.app.Application
 import android.arch.lifecycle.ViewModel
+import com.anymore.example.mvvm.model.MainModel
+import com.anymore.example.mvvm.model.UserModel
+import com.anymore.example.mvvm.view.login.LoginActivity
+import com.anymore.example.mvvm.view.main.MainActivity
+import com.anymore.example.mvvm.view.register.RegisterActivity
+import com.anymore.example.mvvm.viewmodel.LoginViewModel
+import com.anymore.example.mvvm.viewmodel.MainActivityViewModel
+import com.anymore.example.mvvm.viewmodel.RegisterActivityViewModel
 import com.anymore.mvvmkit.di.key.ViewModelKey
 import com.anymore.mvvmkit.di.module.ViewModelFactoryModule
 import com.anymore.mvvmkit.di.scope.ActivityScope
 import com.anymore.mvvmkit.mvvm.base.BaseModel
-import com.anymore.example.mvvm.view.main.MainActivity
-import com.anymore.example.mvvm.viewmodel.MainActivityViewModel
-import com.anymore.example.mvvm.model.MainModel
-import com.anymore.example.mvvm.model.RegisterModel
-import com.anymore.example.mvvm.view.register.RegisterActivity
-import com.anymore.example.mvvm.viewmodel.RegisterActivityViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -25,7 +27,8 @@ import dagger.multibindings.IntoMap
  */
 @Module(includes = [ViewModelFactoryModule::class,
     MainActivityModule::class,
-    RegisterActivityModule::class])
+    RegisterActivityModule::class,
+    LoginActivityModule::class])
 class ExampleAppModule(private val application: Application){
 
     @Provides
@@ -63,7 +66,7 @@ class MainModelModule{
 
 /////////////MainActivity  end/////////////////////
 
-/////////////RegisterActivity  end/////////////////////
+/////////////RegisterActivity  start///////////////
 @Module
 abstract class RegisterActivityViewModelModule{
     @Binds
@@ -82,9 +85,30 @@ abstract class RegisterActivityModule{
 }
 
 @Module
-class RegisterModelModule{
+class UserModelModule{
 
     @Provides
     @ActivityScope
-    fun provideRegisterModel(model: RegisterModel):BaseModel=model
+    fun provideRegisterUserModel(model: UserModel):BaseModel=model
 }
+/////////////RegisterActivity  end///////////////
+
+/////////////LoginActivity  start////////////////
+
+@Module
+abstract class LoginActivityViewModelModule{
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoginViewModel::class)
+    abstract fun provideLoginActivityViewModel(viewModel: LoginViewModel):ViewModel
+}
+
+@Module(subcomponents = [LoginActivitySubComponent::class])
+abstract class LoginActivityModule{
+    @Binds
+    @IntoMap
+    @ActivityKey(LoginActivity::class)
+    abstract fun bindActivityInjectorFactory(builder: LoginActivitySubComponent.Builder): AndroidInjector.Factory<out Activity>
+
+}
+/////////////LoginActivity  end////////////////

@@ -12,6 +12,7 @@ import com.anymore.example.mvvm.viewmodel.MainActivityViewModel
  * Created by liuyuanmao on 2019/3/11.
  */
 class MainActivity:BaseActivity<ActivityMainBinding, MainActivityViewModel>(){
+
     override fun initView(savedInstanceState: Bundle?)= R.layout.activity_main
 
     override fun initData(savedInstanceState: Bundle?) {

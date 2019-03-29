@@ -22,6 +22,7 @@ abstract class BindingFragment<BD:ViewDataBinding>:Fragment(), IFragment {
     private var mPreviousVisibleState = AtomicBoolean(false)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater,getLayoutRes(),container,false)
+        mBinding.setLifecycleOwner(this)
         initView(savedInstanceState)
         return mBinding.root
     }

@@ -1,5 +1,6 @@
 package com.anymore.example.di
 
+import com.anymore.example.mvvm.view.login.LoginActivity
 import com.anymore.mvvmkit.di.scope.ActivityScope
 import com.anymore.example.mvvm.view.main.MainActivity
 import com.anymore.example.mvvm.view.register.RegisterActivity
@@ -18,9 +19,17 @@ interface MainActivitySubComponent: AndroidInjector<MainActivity>{
 }
 
 @ActivityScope
-@Subcomponent(modules = [RegisterActivityViewModelModule::class])
+@Subcomponent(modules = [RegisterActivityViewModelModule::class,UserModelModule::class])
 interface RegisterActivitySubComponent:AndroidInjector<RegisterActivity>{
 
     @Subcomponent.Builder
     abstract class Builder:AndroidInjector.Builder<RegisterActivity>()
+}
+
+@ActivityScope
+@Subcomponent(modules = [LoginActivityViewModelModule::class,UserModelModule::class])
+interface LoginActivitySubComponent:AndroidInjector<LoginActivity>{
+
+    @Subcomponent.Builder
+    abstract class Builder:AndroidInjector.Builder<LoginActivity>()
 }

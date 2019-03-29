@@ -6,6 +6,7 @@ import android.content.Context
 import android.support.annotation.NonNull
 import android.support.annotation.Nullable
 import android.util.SparseArray
+import com.anymore.mvvmkit.BuildConfig
 import com.anymore.mvvmkit.repository.IRepositoryManager
 import com.anymore.mvvmkit.repository.RepositoryManager
 import com.google.gson.Gson
@@ -15,6 +16,7 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -154,7 +156,13 @@ class RepositoryConfigsModule private constructor(builder: Builder) {
              */
             val DEFAULT = object :OkHttpConfig{
                 override fun applyConfig(context: Context, builder: OkHttpClient.Builder) {
-                    //todo
+                    val okLogger = HttpLoggingInterceptor()
+                    if (BuildConfig.DEBUG){
+                        okLogger.level = HttpLoggingInterceptor.Level.BODY
+                    }else{
+                        okLogger.level = HttpLoggingInterceptor.Level.NONE
+                    }
+                    builder.addInterceptor(okLogger)
                 }
             }
         }

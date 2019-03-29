@@ -22,12 +22,12 @@
 				    </intent-filter>
 		    </activity>
 				<activity android:name=".mvvm.view.register.RegisterActivity"/>
-
+				<activity android:name=".mvvm.view.login.LoginActivity"/>
 		    <activity android:name=".mvvm.view.main.MainActivity"/>
 
 
 				<meta-data
-            android:name="com.anymore.example.app.ExampleResponseConfig"
+            android:name="com.anymore.example.app.ExampleRepositoryConfigConfig"
             android:value="repositoryModuleConfig"/>
     </application>
 
