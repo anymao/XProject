@@ -7,8 +7,10 @@ import android.arch.lifecycle.OnLifecycleEvent
 import android.support.annotation.StringRes
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import timber.log.Timber
 
 /**
+ * 没有关联Model层的简单ViewModel
  * Created by liuyuanmao on 2019/2/20.
  */
 open class BaseViewModel(application: Application):AndroidViewModel(application), IViewModel {
@@ -16,7 +18,8 @@ open class BaseViewModel(application: Application):AndroidViewModel(application)
     private val mCompositeDisposable:CompositeDisposable by lazy { CompositeDisposable() }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy() {
+    open fun onDestroy() {
+        Timber.d("onDestroy")
         mCompositeDisposable.clear()
     }
 
@@ -29,4 +32,13 @@ open class BaseViewModel(application: Application):AndroidViewModel(application)
     }
 }
 
-open class BaseViewModel1<M: BaseModel>(application: Application,protected val mModel: M) :BaseViewModel(application)
+/**
+ * 关联一个指定Model层的ViewModel
+ */
+open class BaseViewModel1<M: BaseModel>(application: Application,protected val mModel: M) :BaseViewModel(application){
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mModel.onClear()
+    }
+}

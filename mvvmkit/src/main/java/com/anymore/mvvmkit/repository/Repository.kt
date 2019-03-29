@@ -24,8 +24,8 @@ class RepositoryManager @Inject constructor(private val mApplication: Applicatio
                                             private val mRoomDatabaseConfig: RepositoryConfigsModule.RoomDatabaseConfig)
     :IRepositoryManager{
 
-    private val mRetrofitCache by lazy { LruCache<String,Any?>(500) }
-    private val mRoomDatabaseCache by lazy { LruCache<String,Any?>(500) }
+    private val mRetrofitCache by lazy { LruCache<String,Any>(500) }
+    private val mRoomDatabaseCache by lazy { LruCache<String,Any>(500) }
 
     override fun <T> obtainRetrofitService(key: Int, retrofitClass: Class<T>): T {
         var result = mRetrofitCache.get(retrofitClass.name)
