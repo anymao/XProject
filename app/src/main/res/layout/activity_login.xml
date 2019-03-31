@@ -13,7 +13,10 @@
 						android:layout_height="wrap_content"
 						android:background="?attr/colorPrimary"
 						android:theme="?attr/actionBarTheme"
-						android:minHeight="?attr/actionBarSize"/>
+						android:minHeight="?attr/actionBarSize"
+						app:layout_constraintTop_toTopOf="parent"
+						app:title="登录WanAndroid"
+						app:titleTextColor="@android:color/white"/>
 
 				<TextView
 						android:id="@+id/tv_username"

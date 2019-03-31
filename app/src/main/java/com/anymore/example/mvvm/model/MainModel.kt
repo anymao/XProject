@@ -2,8 +2,9 @@ package com.anymore.example.mvvm.model
 
 import android.app.Application
 import com.anymore.example.mvvm.model.api.KEY
-import com.anymore.example.mvvm.model.api.WanAndroid
-import com.anymore.example.mvvm.model.entry.Article
+import com.anymore.example.mvvm.model.api.WanAndroidHomePageApi
+import com.anymore.example.mvvm.model.entry.Banner
+import com.anymore.example.mvvm.model.exception.WanAndroidException
 import com.anymore.mvvmkit.mvvm.base.BaseModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -11,19 +12,28 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
+ * 主界面的业务model
  * Created by liuyuanmao on 2019/3/12.
  */
 class MainModel @Inject constructor(application: Application):BaseModel(application) {
 
-    fun doGet():Observable<List<Article>>{
+    /**
+     * 获取首页轮播图
+     */
+    fun getHomePageBanners():Observable<List<Banner>>{
         return mRepositoryComponent.getRepository()
-            .obtainRetrofitService(KEY, WanAndroid::class.java)
-            .getWeixinArticleList()
-            .subscribeOn(Schedulers.newThread())
-            .flatMap{
-                Observable.just(it.data!!)
-
+            .obtainRetrofitService(KEY,WanAndroidHomePageApi::class.java)
+            .getBanner()
+            .subscribeOn(Schedulers.io())
+            .flatMap {
+                if (it.errorCode == 0 && it.data != null){
+                    Observable.just(it.data!!)
+                }else{
+                    Observable.error(WanAndroidException(it.errorMsg?:"获取首页Banner失败!"))
+                }
             }
             .observeOn(AndroidSchedulers.mainThread())
+
     }
+
 }

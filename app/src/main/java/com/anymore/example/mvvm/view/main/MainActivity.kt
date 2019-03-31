@@ -1,23 +1,30 @@
 package com.anymore.example.mvvm.view.main
 
-import android.arch.lifecycle.Observer
 import android.os.Bundle
-import android.widget.Toast
-import com.anymore.mvvmkit.mvvm.base.BaseActivity
+import android.support.v4.app.Fragment
 import com.anymore.example.R
 import com.anymore.example.databinding.ActivityMainBinding
+import com.anymore.example.mvvm.view.adapter.FragmentsAdapter
 import com.anymore.example.mvvm.viewmodel.MainActivityViewModel
+import com.anymore.mvvmkit.mvvm.base.BaseActivity
 
 /**
  * Created by liuyuanmao on 2019/3/11.
  */
 class MainActivity:BaseActivity<ActivityMainBinding, MainActivityViewModel>(){
 
+    private lateinit var mFragments:List<Fragment>
+
     override fun initView(savedInstanceState: Bundle?)= R.layout.activity_main
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
-        mViewModel.getMessage().observe(this, Observer { Toast.makeText(this,it,Toast.LENGTH_LONG).show() })
-        mViewModel.mData.observe(this, Observer { Toast.makeText(this,"请求成功!${it?.size ?: -1}",Toast.LENGTH_LONG).show() })
+        initViewPager()
+    }
+
+    private fun initViewPager() {
+        mFragments = listOf(HomeFragment())
+        val fragmentAdapter = FragmentsAdapter(supportFragmentManager,mFragments)
+        mBinding.viewPager.adapter = fragmentAdapter
     }
 }

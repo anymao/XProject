@@ -45,6 +45,9 @@ class UserInfo {
     }
 }
 
+/**
+ * 微信公众号文章
+ */
 class Article {
     /**
      * children : []
@@ -65,4 +68,18 @@ class Article {
     var visible: Int = 0
     var children: List<String>? = null
 }
+
+/**
+ * banner轮播
+ */
+data class Banner(
+    val desc: String,
+    val id: Int,
+    val imagePath: String,
+    val isVisible: Int,
+    val order: Int,
+    val title: String,
+    val type: Int,
+    val url: String
+)
 

@@ -6,20 +6,24 @@ import android.arch.lifecycle.ViewModel
 import com.anymore.example.mvvm.model.MainModel
 import com.anymore.example.mvvm.model.UserModel
 import com.anymore.example.mvvm.view.login.LoginActivity
+import com.anymore.example.mvvm.view.main.HomeFragment
 import com.anymore.example.mvvm.view.main.MainActivity
 import com.anymore.example.mvvm.view.register.RegisterActivity
+import com.anymore.example.mvvm.viewmodel.HomeFragmentViewModel
 import com.anymore.example.mvvm.viewmodel.LoginViewModel
 import com.anymore.example.mvvm.viewmodel.MainActivityViewModel
 import com.anymore.example.mvvm.viewmodel.RegisterActivityViewModel
 import com.anymore.mvvmkit.di.key.ViewModelKey
 import com.anymore.mvvmkit.di.module.ViewModelFactoryModule
 import com.anymore.mvvmkit.di.scope.ActivityScope
+import com.anymore.mvvmkit.di.scope.FragmentScope
 import com.anymore.mvvmkit.mvvm.base.BaseModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.android.ActivityKey
 import dagger.android.AndroidInjector
+import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 /**
@@ -28,7 +32,8 @@ import dagger.multibindings.IntoMap
 @Module(includes = [ViewModelFactoryModule::class,
     MainActivityModule::class,
     RegisterActivityModule::class,
-    LoginActivityModule::class])
+    LoginActivityModule::class,
+    HomeFragmentModule::class])
 class ExampleAppModule(private val application: Application){
 
     @Provides
@@ -112,3 +117,24 @@ abstract class LoginActivityModule{
 
 }
 /////////////LoginActivity  end////////////////
+
+/////////////HomeFragment  start////////////////
+
+@Module
+abstract class HomeFragmentModule{
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [MainModelModule::class,HomeFragmentViewModelModule::class])
+    abstract fun contributeHomeFragment():HomeFragment
+}
+
+@Module
+abstract class HomeFragmentViewModelModule{
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(HomeFragmentViewModel::class)
+    abstract fun bindHomeFragmentViewModel(viewModel: HomeFragmentViewModel):ViewModel
+}
+
+/////////////HomeFragment  end////////////////

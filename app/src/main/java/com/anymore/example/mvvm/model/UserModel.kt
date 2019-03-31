@@ -12,6 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
+ * 用户管理model层，与用户信息有关的操作在这里
  * Created by liuyuanmao on 2019/3/28.
  */
 class UserModel @Inject constructor(application: Application):BaseModel(application){

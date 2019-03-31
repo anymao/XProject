@@ -1,6 +1,7 @@
 package com.anymore.example.mvvm.model.api
 
 import com.anymore.example.mvvm.model.entry.Article
+import com.anymore.example.mvvm.model.entry.Banner
 import com.anymore.example.mvvm.model.entry.UserInfo
 import com.anymore.example.mvvm.model.entry.WanAndroidResponse
 import io.reactivex.Observable
@@ -45,4 +46,13 @@ interface WanAndroidUserApi{
      */
     @GET("/logout/json")
     fun logout():Observable<WanAndroidResponse<String>>
+}
+
+/**
+ * 首页数据接口
+ */
+interface WanAndroidHomePageApi{
+
+    @GET("/banner/json")
+    fun getBanner():Observable<WanAndroidResponse<List<Banner>>>
 }

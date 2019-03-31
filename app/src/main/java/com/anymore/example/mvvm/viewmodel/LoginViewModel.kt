@@ -10,6 +10,9 @@ import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 /**
+ * a test account:
+ * username:anymao
+ * password：***********
  * Created by liuyuanmao on 2019/3/29.
  */
 @ActivityScope
@@ -18,13 +21,14 @@ class LoginViewModel @Inject constructor(application: Application,userModel: Use
 
     val mErrorMessage = SingleLiveEvent<String>()
     val mMessage = SingleLiveEvent<String>()
-
+    val mLoginEvent by lazy { SingleLiveEvent<Boolean>() }
     fun login(username: String?, pwd: String?) {
         if (checkUser(username, pwd)) {
             val disposable = mModel.login(username!!,pwd!!)
                 .subscribeBy(onNext = {
                     if (it.errorCode == 0){
-                        mMessage.value = "注册成功!"
+                        mMessage.value = "登录成功!"
+                        mLoginEvent.value = true
                     }else{
                         mErrorMessage.value = it.errorMsg
                     }

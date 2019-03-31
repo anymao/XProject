@@ -1,10 +1,12 @@
 package com.anymore.example.mvvm.view.login
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.anymore.example.R
 import com.anymore.example.databinding.ActivityLoginBinding
+import com.anymore.example.mvvm.view.main.MainActivity
 import com.anymore.example.mvvm.viewmodel.LoginViewModel
 import com.anymore.mvvmkit.mvvm.base.BaseActivity
 
@@ -22,6 +24,7 @@ class LoginActivity:BaseActivity<ActivityLoginBinding,LoginViewModel>(){
         mBinding.toolbar.setNavigationOnClickListener{finish()}
         mViewModel.mErrorMessage.observe(this, Observer { Toast.makeText(this@LoginActivity,it, Toast.LENGTH_LONG).show() })
         mViewModel.mMessage.observe(this, Observer { Toast.makeText(this@LoginActivity,it, Toast.LENGTH_LONG).show() })
+        mViewModel.mLoginEvent.observe(this, Observer { startActivity(Intent(this@LoginActivity,MainActivity::class.java)) })
         mBinding.btnLogin.setOnClickListener {
             mViewModel.login(mBinding.etUserName.text.toString(),
                 mBinding.etPwd.text.toString())
