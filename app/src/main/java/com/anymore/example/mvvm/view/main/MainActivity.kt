@@ -27,4 +27,6 @@ class MainActivity:BaseActivity<ActivityMainBinding, MainActivityViewModel>(){
         val fragmentAdapter = FragmentsAdapter(supportFragmentManager,mFragments)
         mBinding.viewPager.adapter = fragmentAdapter
     }
+
+    override fun useFragment() = true
 }
