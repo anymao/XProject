@@ -8,7 +8,9 @@ import com.anymore.example.R
 import com.anymore.example.databinding.ActivityLoginBinding
 import com.anymore.example.mvvm.view.main.MainActivity
 import com.anymore.example.mvvm.viewmodel.LoginViewModel
+import com.anymore.example.utils.UiUtils
 import com.anymore.mvvmkit.mvvm.base.BaseActivity
+import com.anymore.mvvmkit.mvvm.lifecycle.ActivityStackManager
 
 /**
  * Created by liuyuanmao on 2019/3/29.
@@ -19,12 +21,13 @@ class LoginActivity:BaseActivity<ActivityLoginBinding,LoginViewModel>(){
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        mBinding.toolbar.setNavigationOnClickListener{finish()}
+        UiUtils.setupToolbar(this,mBinding.toolbar)
         mViewModel.mErrorMessage.observe(this, Observer { Toast.makeText(this@LoginActivity,it, Toast.LENGTH_LONG).show() })
         mViewModel.mMessage.observe(this, Observer { Toast.makeText(this@LoginActivity,it, Toast.LENGTH_LONG).show() })
-        mViewModel.mLoginEvent.observe(this, Observer { startActivity(Intent(this@LoginActivity,MainActivity::class.java)) })
+        mViewModel.mLoginEvent.observe(this, Observer {
+            ActivityStackManager.instance.finishUntil(MainActivity::class.java.name)
+            startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+        })
         mBinding.btnLogin.setOnClickListener {
             mViewModel.login(mBinding.etUserName.text.toString(),
                 mBinding.etPwd.text.toString())

@@ -9,7 +9,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/coroutinessimple" />
             <option value="$PROJECT_DIR$/javatest" />
             <option value="$PROJECT_DIR$/kointest" />
             <option value="$PROJECT_DIR$/kotlindaggertest" />

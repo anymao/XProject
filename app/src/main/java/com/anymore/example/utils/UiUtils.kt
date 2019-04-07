@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.graphics.Color
 import android.os.Build
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -12,7 +14,7 @@ import org.jetbrains.anko.doFromSdk
 /**
  * Created by liuyuanmao on 2019/3/13.
  */
-object StatusBarUtil {
+object UiUtils {
     /**
      * 修改状态栏为全透明
      * @param activity
@@ -118,7 +120,7 @@ object StatusBarUtil {
         if (window != null) {
             val clazz = window.javaClass
             try {
-                var darkModeFlag = 0
+                var darkModeFlag: Int
                 val layoutParams = Class.forName("android.view.MiuiWindowManager\$LayoutParams")
                 val field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE")
                 darkModeFlag = field.getInt(layoutParams)
@@ -146,5 +148,24 @@ object StatusBarUtil {
 
         }
         return result
+    }
+
+    /**
+     * 仅app module可见
+     * 设置toolbar状态
+     */
+    fun setupToolbar(activity: Activity,toolbar: Toolbar,click:((view:View)->Unit)?= null){
+        if (activity is AppCompatActivity){
+            activity.setSupportActionBar(toolbar)
+            activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            activity.supportActionBar?.setDisplayShowHomeEnabled(true)
+            toolbar.setNavigationOnClickListener{
+                if (click != null){
+                    click.invoke(it)
+                }else{
+                    activity.finish()
+                }
+            }
+        }
     }
 }

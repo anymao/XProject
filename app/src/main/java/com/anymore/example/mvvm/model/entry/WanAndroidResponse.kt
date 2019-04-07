@@ -6,11 +6,10 @@ package com.anymore.example.mvvm.model.entry
 /**
  * base response
  */
-class WanAndroidResponse<D> {
-    var errorCode: Int = 0
-    var errorMsg: String? = null
-    var data: D? = null
-}
+data class WanAndroidResponse<D> (
+    val errorCode: Int,
+    val errorMsg: String?,
+    val data: D?)
 
 class UserInfo {
 
@@ -48,7 +47,7 @@ class UserInfo {
 /**
  * 微信公众号文章
  */
-class Article {
+class WxArticle {
     /**
      * children : []
      * courseId : 13
@@ -81,5 +80,46 @@ data class Banner(
     val title: String,
     val type: Int,
     val url: String
+)
+
+data class HomeArticle(
+    val apkLink: String,
+    val author: String,
+    val chapterId: Int,
+    val chapterName: String,
+    val collect: Boolean,
+    val courseId: Int,
+    val desc: String,
+    val envelopePic: String,
+    val fresh: Boolean,
+    val id: Int,
+    val link: String,
+    val niceDate: String,
+    val origin: String,
+    val projectLink: String,
+    val publishTime: Long,
+    val superChapterId: Int,
+    val superChapterName: String,
+    val tags: List<ArticleTag>,
+    val title: String,
+    val type: Int,
+    val userId: Int,
+    val visible: Int,
+    val zan: Int
+)
+
+data class ArticleTag(
+    val name: String,
+    val url: String
+)
+
+data class HomeArticles(
+    val curPage: Int,
+    val datas: List<HomeArticle>,
+    val offset: Int,
+    val over: Boolean,
+    val pageCount: Int,
+    val size: Int,
+    val total: Int
 )
 

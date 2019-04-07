@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
+import com.anymore.mvvmkit.mvvm.lifecycle.ActivityStackManager
 import com.anymore.mvvmkit.mvvm.lifecycle.fragment.FragmentLifecycle
 
 /**
@@ -14,13 +15,24 @@ class ActivityLifecycle:Application.ActivityLifecycleCallbacks {
     private val mActivityWrapperMap:HashMap<Activity, ActivityWrapper> = HashMap()
     private val mFragmentLifecycle by lazy { FragmentLifecycle()}
 
+    fun install(application: Application){
+        application.registerActivityLifecycleCallbacks(this)
+    }
+
+    fun uninstall(application: Application){
+        application.unregisterActivityLifecycleCallbacks(this)
+    }
+
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
         if (activity is IActivity){
             val activityWrapper = ActivityWrapper(activity, activity)
             activityWrapper.onCreate(savedInstanceState)
             mActivityWrapperMap[activity] = activityWrapper
         }
-        activity?.let { registerFragmentLifecycle(it) }
+        activity?.let {
+            ActivityStackManager.instance.add(it)
+            registerFragmentLifecycle(it)
+        }
 
     }
 
@@ -49,6 +61,7 @@ class ActivityLifecycle:Application.ActivityLifecycleCallbacks {
         if (activity is FragmentActivity && useFragment) {
             activity.supportFragmentManager.unregisterFragmentLifecycleCallbacks(mFragmentLifecycle)
         }
+        activity?.let { ActivityStackManager.instance.remove(it) }
     }
 
     override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {

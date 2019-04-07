@@ -6,13 +6,12 @@ import android.arch.lifecycle.ViewModel
 import com.anymore.example.mvvm.model.MainModel
 import com.anymore.example.mvvm.model.UserModel
 import com.anymore.example.mvvm.view.login.LoginActivity
+import com.anymore.example.mvvm.view.main.DiscoveryFragment
 import com.anymore.example.mvvm.view.main.HomeFragment
 import com.anymore.example.mvvm.view.main.MainActivity
+import com.anymore.example.mvvm.view.main.MyFragment
 import com.anymore.example.mvvm.view.register.RegisterActivity
-import com.anymore.example.mvvm.viewmodel.HomeFragmentViewModel
-import com.anymore.example.mvvm.viewmodel.LoginViewModel
-import com.anymore.example.mvvm.viewmodel.MainActivityViewModel
-import com.anymore.example.mvvm.viewmodel.RegisterActivityViewModel
+import com.anymore.example.mvvm.viewmodel.*
 import com.anymore.mvvmkit.di.key.ViewModelKey
 import com.anymore.mvvmkit.di.module.ViewModelFactoryModule
 import com.anymore.mvvmkit.di.scope.ActivityScope
@@ -33,7 +32,9 @@ import dagger.multibindings.IntoMap
     MainActivityModule::class,
     RegisterActivityModule::class,
     LoginActivityModule::class,
-    HomeFragmentModule::class])
+    HomeFragmentModule::class,
+    DiscoveryFragmentModule::class,
+    MyFragmentModule::class])
 class ExampleAppModule(private val application: Application){
 
     @Provides
@@ -138,3 +139,45 @@ abstract class HomeFragmentViewModelModule{
 }
 
 /////////////HomeFragment  end////////////////
+
+/////////////DiscoveryFragment  start////////////////
+
+@Module
+abstract class DiscoveryFragmentModule{
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [MainModelModule::class,DiscoveryFragmentViewModelModule::class])
+    abstract fun contributeDiscoveryFragment():DiscoveryFragment
+}
+
+@Module
+abstract class DiscoveryFragmentViewModelModule{
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DiscoveryFragmentViewModel::class)
+    abstract fun bindDiscoveryFragmentViewModel(viewModel: DiscoveryFragmentViewModel):ViewModel
+}
+
+/////////////DiscoveryFragment  end////////////////
+
+/////////////MyFragment  start////////////////
+
+@Module
+abstract class MyFragmentModule{
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [MainModelModule::class,MyFragmentViewModelModule::class])
+    abstract fun contributeMyFragment(): MyFragment
+}
+
+@Module
+abstract class MyFragmentViewModelModule{
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MyFragmentViewModel::class)
+    abstract fun bindMyFragmentViewModel(viewModel: MyFragmentViewModel):ViewModel
+}
+
+/////////////DiscoveryFragment  end////////////////

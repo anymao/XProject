@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto">
 		<android.support.v4.widget.NestedScrollView
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
@@ -14,8 +16,14 @@
 						<com.youth.banner.Banner
 								android:id="@+id/banner"
 								android:layout_width="match_parent"
-								android:layout_height="138dp"
-								android:padding="@dimen/activity_horizontal_padding"/>
+								android:layout_height="158dp"
+								app:indicator_width="10dp"
+								app:indicator_height="10dp"
+								app:indicator_margin="5dp"
+								app:is_auto_play="true"
+								app:indicator_drawable_selected="@drawable/dot_press"
+								app:indicator_drawable_unselected="@drawable/dot_normal"
+								android:layout_marginBottom="25dp"/>
 
 						<android.support.v7.widget.RecyclerView
 								android:id="@+id/rv_articles"

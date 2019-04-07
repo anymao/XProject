@@ -1,14 +1,8 @@
 package com.anymore.example.mvvm.model.api
 
-import com.anymore.example.mvvm.model.entry.Article
-import com.anymore.example.mvvm.model.entry.Banner
-import com.anymore.example.mvvm.model.entry.UserInfo
-import com.anymore.example.mvvm.model.entry.WanAndroidResponse
+import com.anymore.example.mvvm.model.entry.*
 import io.reactivex.Observable
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * Created by liuyuanmao on 2019/3/12.
@@ -19,7 +13,7 @@ interface WanAndroid{
      * @return
      */
     @GET("/wxarticle/chapters/json")
-    fun getWeixinArticleList():Observable<WanAndroidResponse<List<Article>>>
+    fun getWeixinArticleList():Observable<WanAndroidResponse<List<WxArticle>>>
 }
 
 /**
@@ -55,4 +49,7 @@ interface WanAndroidHomePageApi{
 
     @GET("/banner/json")
     fun getBanner():Observable<WanAndroidResponse<List<Banner>>>
+
+    @GET("/article/list/{page}/json")
+    fun getArticles(@Path("page") page:Int):Observable<WanAndroidResponse<HomeArticles>>
 }

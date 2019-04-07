@@ -4,6 +4,7 @@ import android.app.Application
 import com.anymore.example.mvvm.model.api.KEY
 import com.anymore.example.mvvm.model.api.WanAndroidHomePageApi
 import com.anymore.example.mvvm.model.entry.Banner
+import com.anymore.example.mvvm.model.entry.HomeArticle
 import com.anymore.example.mvvm.model.exception.WanAndroidException
 import com.anymore.mvvmkit.mvvm.base.BaseModel
 import io.reactivex.Observable
@@ -34,6 +35,24 @@ class MainModel @Inject constructor(application: Application):BaseModel(applicat
             }
             .observeOn(AndroidSchedulers.mainThread())
 
+    }
+
+    /**
+     * 获取首页文章列表
+     */
+    fun getHomeArticlesList(page:Int):Observable<Pair<Int,List<HomeArticle>>>{
+        return mRepositoryComponent.getRepository()
+            .obtainRetrofitService(KEY,WanAndroidHomePageApi::class.java)
+            .getArticles(page)
+            .subscribeOn(Schedulers.io())
+            .flatMap {
+                if (it.errorCode == 0 && it.data != null){
+                    Observable.just(Pair(it.data.curPage,it.data.datas))
+                }else{
+                    Observable.error(WanAndroidException(it.errorMsg?:"获取首页文章失败!"))
+                }
+            }
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
 }
