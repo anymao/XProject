@@ -8,7 +8,7 @@ import java.util.*
 /**
  * activity 管理栈
  */
-class ActivityStackManager{
+class ActivityStackManager private constructor(){
 
     private val mActivityStack by lazy { LinkedList<Activity>() }
 
