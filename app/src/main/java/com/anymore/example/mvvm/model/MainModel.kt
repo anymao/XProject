@@ -28,7 +28,7 @@ class MainModel @Inject constructor(application: Application):BaseModel(applicat
             .subscribeOn(Schedulers.io())
             .flatMap {
                 if (it.errorCode == 0 && it.data != null){
-                    Observable.just(it.data!!)
+                    Observable.just(it.data)
                 }else{
                     Observable.error(WanAndroidException(it.errorMsg?:"获取首页Banner失败!"))
                 }

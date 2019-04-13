@@ -31,8 +31,6 @@ object Preconditions {
     }
 
     private fun format(template: String, @Nullable vararg args: Any): String {
-        var template = template
-        template = template
         val builder = StringBuilder(template.length + 16 * args.size)
         var templateStart = 0
 

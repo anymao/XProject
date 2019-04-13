@@ -48,13 +48,10 @@ class FileLogTree(private val dir:String): Timber.Tree() {
         } catch (e: IOException) {
             e.printStackTrace()
         } finally {
-            if (bufferedWriter != null) {
-                try {
-                    bufferedWriter!!.close()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-
+            try {
+                bufferedWriter?.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
             }
         }
     }
