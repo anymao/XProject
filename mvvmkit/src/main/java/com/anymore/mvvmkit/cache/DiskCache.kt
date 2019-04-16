@@ -1,37 +1,31 @@
 package com.anymore.mvvmkit.cache
 
-import android.text.TextUtils
-import com.anymore.mvvmkit.utils.Preconditions
 import com.jakewharton.disklrucache.DiskLruCache
 import timber.log.Timber
-import java.io.File
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
-import java.io.Serializable
-import java.lang.Exception
-
+import java.io.*
 
 /**
- * Created by liuyuanmao on 2019/3/12.
+ * Created by liuyuanmao on 2019/4/16.
  */
-interface IDiskCache{
-    fun store(key: String,value: Serializable):Boolean
-    fun<T:Serializable> get(key: String):T?
-    fun remove(key: String):Boolean
+
+/**
+ * 磁盘缓存
+ */
+interface DiskCache{
+    fun store(key:String,value:Serializable):Boolean
+    fun<T> get(key: String):T?
+    fun<T> remove(key: String):T?
     fun clear()
-    fun isContain(key: String):Boolean
 }
 
-class DiskCache(private val cacheFile:File):ICache {
+class LruDiskCache private constructor(private val mCacheDir:File):DiskCache{
 
-    private val mCache by lazy { DiskLruCache.open(cacheFile,1,1, Long.MAX_VALUE) }
+    private val mDiskCache by lazy { DiskLruCache.open(mCacheDir,1,1,1) }
 
-    override fun store(key: String, value: Any): Boolean {
-        Preconditions.checkState(TextUtils.isEmpty(key),"key must not be null")
-        Preconditions.checkState(value !is  Serializable,"your value Class<${value.javaClass.name}> must implement Serializable")
+    override fun store(key: String, value: Serializable):Boolean {
         var result: Boolean
-        val editor = mCache.edit(key)
-        var oos:ObjectOutputStream? = null
+        val editor = mDiskCache.edit(key)
+        var oos: ObjectOutputStream? = null
         try {
             oos = ObjectOutputStream(editor.newOutputStream(0))
             oos.writeObject(value)
@@ -43,44 +37,48 @@ class DiskCache(private val cacheFile:File):ICache {
             Timber.e(e)
             result = false
         }finally {
-            oos?.close()
+            try {
+                oos?.close()
+            }catch (e:IOException){
+                Timber.e(e)
+            }
         }
         return result
     }
 
     override fun <T> get(key: String): T? {
         var result:T? = null
-        var ois:ObjectInputStream? = null
+        var ois: ObjectInputStream? = null
         try {
-            ois = ObjectInputStream(mCache[key].getInputStream(0))
+            ois = ObjectInputStream(mDiskCache[key].getInputStream(0))
             @Suppress("UNCHECKED_CAST")
             result = ois.readObject() as T
         }catch (e:Exception){
             Timber.e(e)
         }finally {
             ois?.close()
-            mCache[key].close()
+            mDiskCache[key].close()
         }
         return result
     }
 
-    override fun remove(key: String): Boolean {
-        return mCache.remove(key)
+    override fun <T> remove(key: String): T? {
+        val result:T?= get(key)
+        return if (result != null){
+            mDiskCache.remove(key)
+            result
+        }else{
+            null
+        }
     }
 
     override fun clear() {
-        mCache.delete()
+        mDiskCache.delete()
     }
 
-    override fun isContain(key: String): Boolean {
-        var result: Boolean
-        try {
-            result = mCache.get(key) != null
-        }catch (e:Exception){
-            result = false
-            Timber.e(e)
-        }
-        return result
-    }
+    class Builder(var cacheDir:String){
+        var version = 1
 
+        fun build():LruDiskCache = LruDiskCache(File(cacheDir))
+    }
 }
