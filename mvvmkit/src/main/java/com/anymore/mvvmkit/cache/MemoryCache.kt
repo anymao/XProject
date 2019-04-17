@@ -12,6 +12,9 @@ interface MemoryCache{
     fun clear()
 }
 
+/**
+ * LRU内存缓存实现
+ */
 class LruMemoryCache(private val maxSize: Int):MemoryCache{
 
     private val mCache by lazy { LruCache<String,Any>(maxSize) }

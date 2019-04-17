@@ -18,6 +18,9 @@ interface DiskCache{
     fun clear()
 }
 
+/**
+ * LRU磁盘缓存实现
+ */
 class LruDiskCache private constructor(private val mCacheDir:File):DiskCache{
 
     private val mDiskCache by lazy { DiskLruCache.open(mCacheDir,1,1,1) }
@@ -76,7 +79,7 @@ class LruDiskCache private constructor(private val mCacheDir:File):DiskCache{
         mDiskCache.delete()
     }
 
-    class Builder(var cacheDir:String){
+    class Builder(private var cacheDir:String){
         var version = 1
 
         fun build():LruDiskCache = LruDiskCache(File(cacheDir))
