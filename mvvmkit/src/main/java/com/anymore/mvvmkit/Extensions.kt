@@ -2,6 +2,7 @@ package com.anymore.mvvmkit
 
 import android.app.Application
 import android.content.Context
+import android.net.ConnectivityManager
 import com.anymore.mvvmkit.di.component.RepositoryComponent
 import com.anymore.mvvmkit.mvvm.lifecycle.KitApplication
 
@@ -17,4 +18,10 @@ fun Application.getRepositoryComponent():RepositoryComponent{
 
 fun Context.getRepositoryComponent():RepositoryComponent{
     return this.applicationContext.getRepositoryComponent()
+}
+
+fun Context.isNetworkConnected():Boolean{
+    val networkService: ConnectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val info = networkService.activeNetworkInfo
+    return info.isAvailable
 }

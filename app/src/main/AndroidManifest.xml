@@ -30,7 +30,7 @@
 
 
 				<meta-data
-            android:name="com.anymore.example.app.ExampleRepositoryConfigConfig"
+            android:name="com.anymore.example.app.ExampleRepositoryConfig"
             android:value="repositoryModuleConfig"/>
 				<meta-data
 						android:name="com.anymore.example.app.glide.GlideConfig"
