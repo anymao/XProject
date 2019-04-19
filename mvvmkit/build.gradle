@@ -96,7 +96,9 @@ uploadArchives{
     repositories{
         mavenDeployer{
             // 本地仓库路径
-            repository(url:mavenLocal().getUrl())
+//            def url = "file://D://MavenRepository"
+            repository(url:'file://D://MavenLocal')
+//            System.out.println("local：+++++"+mavenLocal().getUrl())
             // 唯一标识
             pom.groupId = "com.anymore"
             // 项目名称
