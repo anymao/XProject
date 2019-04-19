@@ -1,72 +1,87 @@
 package com.anymore.example.mvvm.model.paging
 
 import android.annotation.SuppressLint
-import android.app.Application
-import android.arch.paging.DataSource
-import android.arch.paging.PositionalDataSource
-import com.anymore.example.mvvm.model.api.KEY
+import android.arch.lifecycle.MutableLiveData
+import android.arch.paging.PageKeyedDataSource
+import com.anymore.example.mvvm.model.api.NetStatus
 import com.anymore.example.mvvm.model.api.WanAndroidHomePageApi
 import com.anymore.example.mvvm.model.entry.HomeArticle
 import com.anymore.example.mvvm.model.exception.WanAndroidException
-import com.anymore.mvvmkit.getRepositoryComponent
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 /**
  * Created by anymore on 2019/4/7.
  */
-class HomeArticlesSource(private val application: Application) :PositionalDataSource<HomeArticle>(){
+class HomeArticlesSource(private val mHomePageApi:WanAndroidHomePageApi) : PageKeyedDataSource<Int, HomeArticle>(){
 
-    private val mRepository by lazy { application.getRepositoryComponent().getRepository() }
-    private val mHomePageApi by lazy { mRepository.obtainRetrofitService(KEY,WanAndroidHomePageApi::class.java) }
+    private var mRetry :(()->Unit)?=null
 
-    @SuppressLint("CheckResult")
-    override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<HomeArticle>) {
-        mHomePageApi.getArticles(params.requestedStartPosition)
-            .subscribeOn(Schedulers.io())
-            .flatMap {
-                if (it.errorCode == 0 && it.data != null){
-                    Observable.just(Pair(it.data.curPage,it.data.datas))
-                }else{
-                    Observable.error(WanAndroidException(it.errorMsg?:"获取首页文章失败!"))
-                }
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(
-                onNext = {
-                    callback.onResult(it.second,params.requestedStartPosition)
-                },onError = {
-                    Timber.e(it)
-                }
-            )
-    }
+    val mStatus = MutableLiveData<NetStatus>()
 
     @SuppressLint("CheckResult")
-    override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<HomeArticle>) {
-        mHomePageApi.getArticles(params.startPosition)
-            .subscribeOn(Schedulers.io())
-            .flatMap {
-                if (it.errorCode == 0 && it.data != null){
-                    Observable.just(Pair(it.data.curPage,it.data.datas))
+    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, HomeArticle>) {
+        Timber.d("loadInitial $params")
+        mStatus.postValue(NetStatus.DOING)
+        mHomePageApi.getArticles(page = 0)
+            .subscribeBy(onNext = {
+                if (it.errorCode == 0){
+                    if (it.data?.datas != null && !it.data.datas.isEmpty()){
+                        val nextPage = if (it.data.curPage < it.data.pageCount){
+                            it.data.curPage+1
+                        }else{
+                            null
+                        }
+                        callback.onResult(it.data.datas,null,nextPage)
+                        mRetry = null
+                        mStatus.postValue(NetStatus.SUCCESS)
+                    }else{
+                        throw WanAndroidException("请求数据为空!")
+                    }
                 }else{
-                    Observable.error(WanAndroidException(it.errorMsg?:"获取首页文章失败!"))
+                    throw WanAndroidException(it.errorMsg ?: "请求数据为空!")
                 }
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(
-                onNext = {
-                    callback.onResult(it.second)
-                },onError = {
-                    Timber.e(it)
+            },onError = {
+                mRetry = {
+                    loadInitial(params,callback)
                 }
-            )
+                mStatus.postValue(NetStatus.failed(it.message?:"请求失败!"))
+            })
     }
 
-
-    class Factory(private val mApplication: Application):DataSource.Factory<Int,HomeArticle>(){
-        override fun create(): DataSource<Int, HomeArticle> = HomeArticlesSource(mApplication)
+    @SuppressLint("CheckResult")
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, HomeArticle>) {
+        Timber.d("loadAfter $params")
+        mStatus.postValue(NetStatus.DOING)
+        mHomePageApi.getArticles(page = params.key)
+            .subscribeBy(onNext = {
+                if (it.errorCode == 0){
+                    if (it.data?.datas != null && !it.data.datas.isEmpty()){
+                        val nextPage = if (it.data.curPage < it.data.pageCount){
+                            it.data.curPage+1
+                        }else{
+                            null
+                        }
+                        callback.onResult(it.data.datas,nextPage)
+                        mRetry = null
+                        mStatus.postValue(NetStatus.SUCCESS)
+                    }else{
+                        throw WanAndroidException("请求数据为空!")
+                    }
+                }else{
+                    throw WanAndroidException(it.errorMsg ?: "请求数据为空!")
+                }
+            },onError = {
+                mRetry = {
+                    loadAfter(params,callback)
+                }
+                mStatus.postValue(NetStatus.failed(it.message?:"请求失败!"))
+            })
     }
+
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, HomeArticle>) {
+
+    }
+
+    fun retry() = mRetry
 }

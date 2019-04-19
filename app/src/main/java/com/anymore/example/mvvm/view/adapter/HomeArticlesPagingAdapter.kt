@@ -14,15 +14,14 @@ import com.anymore.example.mvvm.view.adapter.viewholder.BindingViewHolder
 class HomeArticlesPagingAdapter(private val mContext:Context):PagedListAdapter<HomeArticle,BindingViewHolder>(diffCallback){
 
     private val mLayoutInflater by lazy { LayoutInflater.from(mContext) }
-    private var mItemEventHandler:Any? = null
-    private val mData by lazy { ArrayList<HomeArticle>() }
+    var mItemEventHandler:Any? = null
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): BindingViewHolder {
         return BindingViewHolder(DataBindingUtil.inflate(mLayoutInflater, R.layout.home_article_item,p0,false))
     }
 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
-        holder.mBinding.setVariable(BR.entry,mData[position])
+        holder.mBinding.setVariable(BR.entry,getItem(position))
         mItemEventHandler?.let {
             holder.mBinding.setVariable(BR.eventHandler,it)
         }

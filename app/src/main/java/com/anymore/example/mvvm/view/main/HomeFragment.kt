@@ -10,6 +10,7 @@ import com.anymore.example.mvvm.model.entry.Banner
 import com.anymore.example.mvvm.model.entry.HomeArticle
 import com.anymore.example.mvvm.view.adapter.BannerLoader
 import com.anymore.example.mvvm.view.adapter.HomeArticlesAdapter
+import com.anymore.example.mvvm.view.adapter.HomeArticlesPagingAdapter
 import com.anymore.example.mvvm.view.web.WebActivity
 import com.anymore.example.mvvm.viewmodel.HomeFragmentViewModel
 import com.anymore.mvvmkit.mvvm.base.BaseFragment
@@ -18,7 +19,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding,HomeFragmentViewModel>() {
 
 
     private lateinit var mBannerLoader:BannerLoader
-    private val mAdapter by lazy { HomeArticlesAdapter(context!!) }
+    private val mAdapter by lazy { HomeArticlesPagingAdapter(context!!) }
 
     override fun getLayoutRes()= R.layout.fragment_home
 
@@ -27,7 +28,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding,HomeFragmentViewModel>() {
         initBanner()
         initRecyclerView()
         mViewModel.mBanners.observe(this, Observer { it?.run {setBanners(this)} })
-        mViewModel.mArticles.observe(this, Observer { it?.run { mAdapter.setData(it) } })
+        mViewModel.mArticleListing.pagedList.observe(this, Observer { mAdapter.submitList(it) })
     }
 
     override fun onResume() {

@@ -5,6 +5,7 @@ import android.support.multidex.MultiDex
 import com.anymore.mvvmkit.di.component.RepositoryComponent
 import com.anymore.mvvmkit.mvvm.lifecycle.activity.ActivityLifecycle
 import com.anymore.mvvmkit.repository.RepositoryInjector
+import timber.log.Timber
 
 /**
  * Created by liuyuanmao on 2019/3/11.
@@ -27,6 +28,7 @@ class ApplicationWrapper(private val mApplication: Application):IApplicationLife
     }
 
     override fun onCreate() {
+        Timber.plant(Timber.DebugTree())
         mActivityLifecycle.install(mApplication)
     }
 
