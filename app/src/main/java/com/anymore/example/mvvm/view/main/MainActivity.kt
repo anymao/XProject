@@ -42,15 +42,12 @@ class MainActivity:BaseActivity<ActivityMainBinding, MainActivityViewModel>(){
                 when(position){
                     0->{
                         mBinding.bnv.selectedItemId = R.id.action_home
-                        mBinding.toolbar.title = getString(R.string.home)
                     }
                     1->{
                         mBinding.bnv.selectedItemId = R.id.action_discovery
-                        mBinding.toolbar.title = getString(R.string.discovery)
                     }
                     2->{
                         mBinding.bnv.selectedItemId = R.id.action_my
-                        mBinding.toolbar.title = getString(R.string.my)
                     }
                 }
             }

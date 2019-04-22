@@ -17,7 +17,7 @@ fun Application.getRepositoryComponent():RepositoryComponent{
 }
 
 fun Context.getRepositoryComponent():RepositoryComponent{
-    return this.applicationContext.getRepositoryComponent()
+    return (applicationContext as Application).getRepositoryComponent()
 }
 
 fun Context.isNetworkConnected():Boolean{

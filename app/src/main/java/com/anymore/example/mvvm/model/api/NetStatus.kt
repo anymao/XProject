@@ -1,6 +1,7 @@
 package com.anymore.example.mvvm.model.api
 
 /**
+ * 描述列表加载状态
  * Created by liuyuanmao on 2019/4/19.
  */
 
@@ -12,6 +13,7 @@ data class NetStatus private constructor(val status: Status,val message:String?=
         fun failed(message: String="请求失败!")=NetStatus(Status.FAILED,message)
     }
 }
+
 enum class Status{
     SUCCESS,
     FAILED,
