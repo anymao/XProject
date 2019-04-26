@@ -22,19 +22,19 @@
 						    <category android:name="android.intent.category.LAUNCHER"/>
 				    </intent-filter>
 		    </activity>
-				<activity android:name=".mvvm.view.register.RegisterActivity"/>
-				<activity android:name=".mvvm.view.login.LoginActivity"/>
+			<activity android:name=".mvvm.view.register.RegisterActivity"/>
+			<activity android:name=".mvvm.view.login.LoginActivity"/>
 		    <activity android:name=".mvvm.view.main.MainActivity"
 				    android:launchMode="singleTask"/>
-				<activity android:name=".mvvm.view.web.WebActivity"/>
+			<activity android:name=".mvvm.view.web.WebActivity"/>
 
 
-				<meta-data
-            android:name="com.anymore.example.app.ExampleRepositoryConfig"
-            android:value="repositoryModuleConfig"/>
-				<meta-data
-						android:name="com.anymore.example.app.glide.GlideConfig"
-						android:value="AppGlideModule" />
+			<meta-data
+					android:name="com.anymore.example.app.ExampleRepositoryConfig"
+                    android:value="repositoryModuleConfig"/>
+            <meta-data
+                    android:name="com.anymore.example.app.glide.GlideConfig"
+                    android:value="AppGlideModule" />
     </application>
 
 </manifest>

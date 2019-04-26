@@ -48,7 +48,7 @@ object ManifestParser {
         }
 
         if (config !is RepositoryConfigsModule.RepositoryConfig) {
-            throw RuntimeException("Expected instanceof ConfigRepository, but found: $config")
+            throw RuntimeException("Expected instance of ConfigRepository, but found: $config")
         }
         return config
     }
