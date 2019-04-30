@@ -51,5 +51,16 @@ interface WanAndroidHomePageApi{
     fun getBanner():Observable<WanAndroidResponse<List<Banner>>>
 
     @GET("/article/list/{page}/json")
-    fun getArticles(@Path("page") page:Int):Observable<WanAndroidResponse<HomeArticles>>
+    fun getArticles(@Path("page") page:Int):Observable<WanAndroidResponse<Articles>>
+}
+
+interface WanAndroidKnowledgeApi{
+
+    //获取所有知识体系
+    @GET("/tree/json")
+    fun getAllKnowledges():Observable<WanAndroidResponse<List<Knowledge>>>
+
+    //获取某个知识体系下的所有文章
+    @GET("/article/list/{page}/json")
+    fun getSubKnowledges(@Path("page") page:Int,@Query("cid") cid:Int):Observable<WanAndroidResponse<Articles>>
 }

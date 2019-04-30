@@ -5,6 +5,7 @@ import android.app.Application
 import android.arch.lifecycle.ViewModel
 import com.anymore.example.mvvm.model.MainModel
 import com.anymore.example.mvvm.model.UserModel
+import com.anymore.example.mvvm.view.knowledges.KnowledgesArticlesFragment
 import com.anymore.example.mvvm.view.login.LoginActivity
 import com.anymore.example.mvvm.view.main.DiscoveryFragment
 import com.anymore.example.mvvm.view.main.HomeFragment
@@ -34,7 +35,8 @@ import dagger.multibindings.IntoMap
     LoginActivityModule::class,
     HomeFragmentModule::class,
     DiscoveryFragmentModule::class,
-    MyFragmentModule::class])
+    MyFragmentModule::class,
+    KnowledgesArticlesFragmentModule::class])
 class ExampleAppModule(private val application: Application){
 
     @Provides
@@ -181,3 +183,24 @@ abstract class MyFragmentViewModelModule{
 }
 
 /////////////DiscoveryFragment  end////////////////
+
+/////////////KnowledgesArticlesFragment  start////////////////
+
+@Module
+abstract class KnowledgesArticlesFragmentModule{
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [MainModelModule::class,KnowledgesArticlesFragmentViewModelModule::class])
+    abstract fun contributeKnowledgesArticlesFragment(): KnowledgesArticlesFragment
+}
+
+@Module
+abstract class KnowledgesArticlesFragmentViewModelModule{
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(KnowledgesArticlesFragmentViewModel::class)
+    abstract fun bindMyFragmentViewModel(viewModel: KnowledgesArticlesFragmentViewModel):ViewModel
+}
+
+/////////////KnowledgesArticlesFragment  end////////////////

@@ -1,5 +1,7 @@
 package com.anymore.example.mvvm.model.entry
 
+import java.io.Serializable
+
 /**
  * Created by liuyuanmao on 2019/3/12.
  */
@@ -82,7 +84,10 @@ data class Banner(
     val url: String
 )
 
-data class HomeArticle(
+/**
+ * 每一条文章的信息
+ */
+data class Article(
     val apkLink: String,
     val author: String,
     val chapterId: Int,
@@ -108,14 +113,20 @@ data class HomeArticle(
     val zan: Int
 )
 
+/**
+ * 文章tag
+ */
 data class ArticleTag(
     val name: String,
     val url: String
 )
 
-data class HomeArticles(
+/**
+ * 对请求文章列表的封装
+ */
+data class Articles(
     val curPage: Int,
-    val datas: List<HomeArticle>,
+    val datas: List<Article>,
     val offset: Int,
     val over: Boolean,
     val pageCount: Int,
@@ -123,3 +134,16 @@ data class HomeArticles(
     val total: Int
 )
 
+/**
+ * 请求到的所有知识体系的tag封装
+ */
+data class Knowledge(
+    val children: List<Knowledge>,
+    val courseId: Int,
+    val id: Int,
+    val name: String,
+    val order: Int,
+    val parentChapterId: Int,
+    val userControlSetTop: Boolean,
+    val visible: Int
+):Serializable

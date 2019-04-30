@@ -3,8 +3,10 @@ package com.anymore.example.mvvm.model
 import android.app.Application
 import com.anymore.example.mvvm.model.api.KEY
 import com.anymore.example.mvvm.model.api.WanAndroidHomePageApi
+import com.anymore.example.mvvm.model.api.WanAndroidKnowledgeApi
 import com.anymore.example.mvvm.model.entry.Banner
-import com.anymore.example.mvvm.model.entry.HomeArticle
+import com.anymore.example.mvvm.model.entry.Article
+import com.anymore.example.mvvm.model.entry.Knowledge
 import com.anymore.example.mvvm.model.exception.WanAndroidException
 import com.anymore.mvvmkit.mvvm.base.BaseModel
 import io.reactivex.Observable
@@ -40,7 +42,7 @@ class MainModel @Inject constructor(application: Application):BaseModel(applicat
     /**
      * 获取首页文章列表
      */
-    fun getHomeArticlesList(page:Int):Observable<Pair<Int,List<HomeArticle>>>{
+    fun getHomeArticlesList(page:Int):Observable<Pair<Int,List<Article>>>{
         return mRepositoryComponent.getRepository()
             .obtainRetrofitService(KEY,WanAndroidHomePageApi::class.java)
             .getArticles(page)
@@ -53,6 +55,23 @@ class MainModel @Inject constructor(application: Application):BaseModel(applicat
                 }
             }
             .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    /**
+     * 获取导航页面所有知识体系列表
+     */
+    fun getAllKnowledges():Observable<List<Knowledge>>{
+        return mRepositoryComponent.getRepository()
+            .obtainRetrofitService(KEY,WanAndroidKnowledgeApi::class.java)
+            .getAllKnowledges()
+            .subscribeOn(Schedulers.io())
+            .map {
+                if (it.errorCode == 0 && it.data != null){
+                    return@map it.data!!
+                }else{
+                    throw WanAndroidException("获取知识体系时出错!")
+                }
+            }.observeOn(AndroidSchedulers.mainThread())
     }
 
 }

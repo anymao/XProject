@@ -8,10 +8,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.anymore.example.BR
 import com.anymore.example.R
-import com.anymore.example.mvvm.model.entry.HomeArticle
+import com.anymore.example.mvvm.model.entry.Article
 import com.anymore.example.mvvm.view.adapter.viewholder.BindingViewHolder
 
-class HomeArticlesPagingAdapter(private val mContext:Context):PagedListAdapter<HomeArticle,BindingViewHolder>(diffCallback){
+class ArticlesPagingAdapter(private val mContext:Context):PagedListAdapter<Article,BindingViewHolder>(diffCallback){
 
     private val mLayoutInflater by lazy { LayoutInflater.from(mContext) }
     var mItemEventHandler:Any? = null
@@ -28,12 +28,16 @@ class HomeArticlesPagingAdapter(private val mContext:Context):PagedListAdapter<H
     }
 
     companion object {
-        private val diffCallback = object : DiffUtil.ItemCallback<HomeArticle>() {
+        private val diffCallback = object : DiffUtil.ItemCallback<Article>() {
 
-            override fun areItemsTheSame(p0: HomeArticle, p1: HomeArticle)=(p0.id == p1.id)
+            override fun areItemsTheSame(p0: Article, p1: Article)=(p0.id == p1.id)
 
-            override fun areContentsTheSame(p0: HomeArticle, p1: HomeArticle)=(p0.id == p1.id)
+            override fun areContentsTheSame(p0: Article, p1: Article)=(p0.id == p1.id)
         }
+    }
+
+    interface OnItemEventHandler{
+        fun onClick(item:Article)
     }
 }
 

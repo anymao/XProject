@@ -3,7 +3,7 @@
         <data>
             <variable
                 name="entry"
-                type="com.anymore.example.mvvm.model.entry.HomeArticle"/>
+                type="com.anymore.example.mvvm.model.entry.Article"/>
         </data>
         <TextView
                 android:id="@+id/tv_text"

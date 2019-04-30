@@ -7,10 +7,9 @@ import android.support.v7.widget.LinearLayoutManager
 import com.anymore.example.R
 import com.anymore.example.databinding.FragmentHomeBinding
 import com.anymore.example.mvvm.model.entry.Banner
-import com.anymore.example.mvvm.model.entry.HomeArticle
+import com.anymore.example.mvvm.model.entry.Article
 import com.anymore.example.mvvm.view.adapter.BannerLoader
-import com.anymore.example.mvvm.view.adapter.HomeArticlesAdapter
-import com.anymore.example.mvvm.view.adapter.HomeArticlesPagingAdapter
+import com.anymore.example.mvvm.view.adapter.ArticlesPagingAdapter
 import com.anymore.example.mvvm.view.web.WebActivity
 import com.anymore.example.mvvm.viewmodel.HomeFragmentViewModel
 import com.anymore.mvvmkit.mvvm.base.BaseFragment
@@ -19,7 +18,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding,HomeFragmentViewModel>() {
 
 
     private lateinit var mBannerLoader:BannerLoader
-    private val mAdapter by lazy { HomeArticlesPagingAdapter(context!!) }
+    private val mAdapter by lazy { ArticlesPagingAdapter(context!!) }
 
     override fun getLayoutRes()= R.layout.fragment_home
 
@@ -56,8 +55,8 @@ class HomeFragment:BaseFragment<FragmentHomeBinding,HomeFragmentViewModel>() {
     private fun initRecyclerView() {
         mBinding.rvArticles.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
         mBinding.rvArticles.layoutManager = LinearLayoutManager(context)
-        mAdapter.mItemEventHandler = object :HomeArticlesAdapter.OnItemEventHandler{
-            override fun onClick(item: HomeArticle) {
+        mAdapter.mItemEventHandler = object :ArticlesPagingAdapter.OnItemEventHandler{
+            override fun onClick(item: Article) {
                 WebActivity.start(context!!,item.link)
             }
         }

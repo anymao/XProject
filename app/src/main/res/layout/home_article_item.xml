@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
                 name="entry"
-                type="com.anymore.example.mvvm.model.entry.HomeArticle"/>
+                type="com.anymore.example.mvvm.model.entry.Article"/>
         <variable
                 name="eventHandler"
-                type="com.anymore.example.mvvm.view.adapter.HomeArticlesAdapter.OnItemEventHandler"/>
+                type="com.anymore.example.mvvm.view.adapter.ArticlesPagingAdapter.OnItemEventHandler"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

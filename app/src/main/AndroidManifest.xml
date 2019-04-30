@@ -27,6 +27,7 @@
 		    <activity android:name=".mvvm.view.main.MainActivity"
 				    android:launchMode="singleTask"/>
 			<activity android:name=".mvvm.view.web.WebActivity"/>
+			<activity android:name=".mvvm.view.knowledges.KnowledgesTabActivity"/>
 
 
 			<meta-data

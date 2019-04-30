@@ -1,0 +1,56 @@
+package com.anymore.example.mvvm.view.knowledges
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.widget.Toast
+import com.anymore.example.R
+import com.anymore.example.databinding.ActivityKnowledgesTabBinding
+import com.anymore.example.mvvm.model.entry.Knowledge
+import com.anymore.example.mvvm.view.adapter.FragmentsAdapter
+import com.anymore.example.utils.UiUtils
+import com.anymore.mvvmkit.mvvm.base.BindingActivity
+
+/**
+ * Created by liuyuanmao on 2019/4/30.
+ */
+class KnowledgesTabActivity:BindingActivity<ActivityKnowledgesTabBinding>(){
+
+    companion object {
+        const val EXTRA_DATA = "extra_data"
+        fun start(context: Context, knowledge: Knowledge){
+            val intent = Intent(context,KnowledgesTabActivity::class.java)
+            intent.putExtra(EXTRA_DATA,knowledge)
+            context.startActivity(intent)
+        }
+    }
+
+    override fun initView(savedInstanceState: Bundle?)= R.layout.activity_knowledges_tab
+
+    override fun initData(savedInstanceState: Bundle?) {
+        UiUtils.setupToolbar(this,mBinding.toolbar)
+        val knowledge = intent.getSerializableExtra(EXTRA_DATA) as Knowledge?
+        if (knowledge != null){
+            setUpViewPagers(knowledge)
+        }else{
+            Toast.makeText(this,"传递参数时候出错!",Toast.LENGTH_LONG).show()
+            finish()
+        }
+
+    }
+
+    private fun setUpViewPagers(knowledge: Knowledge) {
+        mBinding.toolbar.title = knowledge.name
+        val fragments = ArrayList<Fragment>()
+        for (i in knowledge.children){
+            if (i.visible == 1){
+                fragments.add(KnowledgesArticlesFragment.newInstance(i.id))
+            }
+        }
+        mBinding.viewPager.adapter = FragmentsAdapter(supportFragmentManager,fragments)
+    }
+
+    override fun useFragment() = true
+
+}

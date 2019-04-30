@@ -6,7 +6,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.OnLifecycleEvent
 import com.anymore.example.mvvm.model.MainModel
 import com.anymore.example.mvvm.model.entry.Banner
-import com.anymore.example.mvvm.model.paging.HomeArticlesRepository
+import com.anymore.example.mvvm.model.paging.ArticlesRepository
 import com.anymore.mvvmkit.di.scope.FragmentScope
 import com.anymore.mvvmkit.mvvm.SingleLiveEvent
 import com.anymore.mvvmkit.mvvm.base.BaseViewModel
@@ -21,7 +21,7 @@ class HomeFragmentViewModel @Inject constructor(application: Application,private
     val mBanners by  lazy { MutableLiveData<List<Banner>>() }
     val mErrorMessage by lazy { SingleLiveEvent<CharSequence>() }
 
-    val mArticleListing = HomeArticlesRepository(application).getListing()
+    val mArticleListing by lazy { ArticlesRepository(application).getHomeArticlesListing()}
 
 
 
