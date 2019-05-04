@@ -1,10 +1,10 @@
 package com.anymore.example.mvvm.view.main
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import com.anymore.example.R
 import com.anymore.example.databinding.ActivityMainBinding
+import com.anymore.example.mvvm.view.adapter.FragmentItem
 import com.anymore.example.mvvm.view.adapter.FragmentsAdapter
 import com.anymore.example.mvvm.viewmodel.MainActivityViewModel
 import com.anymore.mvvmkit.mvvm.base.BaseActivity
@@ -14,7 +14,7 @@ import com.anymore.mvvmkit.mvvm.base.BaseActivity
  */
 class MainActivity:BaseActivity<ActivityMainBinding, MainActivityViewModel>(){
 
-    private lateinit var mFragments:List<Fragment>
+    private lateinit var mFragments:List<FragmentItem>
 
     override fun initView(savedInstanceState: Bundle?)= R.layout.activity_main
 
@@ -24,9 +24,9 @@ class MainActivity:BaseActivity<ActivityMainBinding, MainActivityViewModel>(){
     }
 
     private fun initViewPager() {
-        mFragments = listOf(HomeFragment(),
-                            DiscoveryFragment(),
-                            MyFragment())
+        mFragments = listOf(FragmentItem(HomeFragment(),getString(R.string.home)),
+                            FragmentItem(DiscoveryFragment(),getString(R.string.discovery)),
+                            FragmentItem(MyFragment(),getString(R.string.my)))
         val fragmentAdapter = FragmentsAdapter(supportFragmentManager,mFragments)
         mBinding.viewPager.adapter = fragmentAdapter
         mBinding.viewPager.addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
