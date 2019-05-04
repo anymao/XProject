@@ -3,7 +3,8 @@ package com.anymore.example.mvvm.model
 import android.app.Application
 import com.anymore.example.mvvm.model.api.KEY
 import com.anymore.example.mvvm.model.api.WanAndroidUserApi
-import com.anymore.example.mvvm.model.entry.UserInfo
+import com.anymore.example.mvvm.model.db.AppDatabase
+import com.anymore.example.mvvm.model.db.entry.UserInfo
 import com.anymore.example.mvvm.model.entry.WanAndroidResponse
 import com.anymore.mvvmkit.mvvm.base.BaseModel
 import io.reactivex.Observable
@@ -17,18 +18,41 @@ import javax.inject.Inject
  */
 class UserModel @Inject constructor(application: Application):BaseModel(application){
 
-    fun register(username:String,pwd:String,rePwd:String):Observable<WanAndroidResponse<UserInfo>> = mRepositoryComponent
-        .getRepository()
-        .obtainRetrofitService(KEY,WanAndroidUserApi::class.java)
+    private val mUserApi by lazy { mRepositoryComponent.getRepository().obtainRetrofitService(KEY,WanAndroidUserApi::class.java) }
+    private val mAppDao by lazy { mRepositoryComponent.getRepository().obtainRoomDatabase(AppDatabase::class.java,AppDatabase.DB_NAME) }
+    private val mUserDao by lazy { mAppDao.userInfoDao() }
+
+    fun register(username:String,pwd:String,rePwd:String):Observable<WanAndroidResponse<UserInfo>> = mUserApi
         .register(username,pwd,rePwd)
         .subscribeOn(Schedulers.io())
+        .doOnNext{
+            if (it.errorCode == 0 && it.data!=null){
+                mUserDao.insert(it.data)
+            }
+        }
         .observeOn(AndroidSchedulers.mainThread())
 
-    fun login(username: String,pwd: String):Observable<WanAndroidResponse<UserInfo>> = mRepositoryComponent
-        .getRepository()
-        .obtainRetrofitService(KEY,WanAndroidUserApi::class.java)
+    fun login(username: String,pwd: String):Observable<WanAndroidResponse<UserInfo>> = mUserApi
         .login(username,pwd)
         .subscribeOn(Schedulers.io())
+        .doOnNext{
+            if (it.errorCode == 0 && it.data!=null){
+                it.data.online = true
+                mUserDao.insert(it.data)
+            }
+        }
         .observeOn(AndroidSchedulers.mainThread())
+
+    fun logout():Observable<WanAndroidResponse<String>> = mUserApi
+        .logout()
+        .subscribeOn(Schedulers.io())
+        .doOnNext{
+            if (it.errorCode == 0 && it.data!=null){
+                mUserDao.updateOnlineStatus(false)
+            }
+        }
+        .observeOn(AndroidSchedulers.mainThread())
+
+    fun getCurrentUser()=mUserDao.getCurrentUser().subscribeOn(Schedulers.io())
 
 }

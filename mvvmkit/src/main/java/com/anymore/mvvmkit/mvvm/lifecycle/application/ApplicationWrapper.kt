@@ -2,9 +2,11 @@ package com.anymore.mvvmkit.mvvm.lifecycle.application
 
 import android.app.Application
 import android.support.multidex.MultiDex
+import com.anymore.mvvmkit.BuildConfig
 import com.anymore.mvvmkit.di.component.RepositoryComponent
 import com.anymore.mvvmkit.mvvm.lifecycle.activity.ActivityLifecycle
 import com.anymore.mvvmkit.repository.RepositoryInjector
+import com.facebook.stetho.Stetho
 import timber.log.Timber
 
 /**
@@ -28,7 +30,10 @@ class ApplicationWrapper(private val mApplication: Application):IApplicationLife
     }
 
     override fun onCreate() {
-        Timber.plant(Timber.DebugTree())
+        if (BuildConfig.DEBUG){
+            Timber.plant(Timber.DebugTree())
+            Stetho.initializeWithDefaults(mApplication)
+        }
         mActivityLifecycle.install(mApplication)
     }
 

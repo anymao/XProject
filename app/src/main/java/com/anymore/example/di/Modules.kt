@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModel
 import com.anymore.example.mvvm.model.MainModel
 import com.anymore.example.mvvm.model.UserModel
 import com.anymore.example.mvvm.view.knowledges.KnowledgesArticlesFragment
+import com.anymore.example.mvvm.view.SplashActivity
 import com.anymore.example.mvvm.view.login.LoginActivity
 import com.anymore.example.mvvm.view.main.DiscoveryFragment
 import com.anymore.example.mvvm.view.main.HomeFragment
@@ -30,6 +31,7 @@ import dagger.multibindings.IntoMap
  * Created by liuyuanmao on 2019/3/11.
  */
 @Module(includes = [ViewModelFactoryModule::class,
+    SplashActivityModule::class,
     MainActivityModule::class,
     RegisterActivityModule::class,
     LoginActivityModule::class,
@@ -42,6 +44,26 @@ class ExampleAppModule(private val application: Application){
     @Provides
     fun provideApplication()=application
 }
+///////////SplashActivity  begin/////////////////////
+@Module
+abstract class SplashActivityViewModelModule{
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SplashActivityViewModel::class)
+    abstract fun provideSplashActivityViewModel(viewModel: SplashActivityViewModel):ViewModel
+}
+
+@Module
+abstract class SplashActivityModule{
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [UserModelModule::class,SplashActivityViewModelModule::class])
+    abstract fun contributeSplashActivity(): SplashActivity
+}
+
+/////////////SplashActivity  end/////////////////////
+
 
 
 /////////////MainActivity  begin/////////////////////

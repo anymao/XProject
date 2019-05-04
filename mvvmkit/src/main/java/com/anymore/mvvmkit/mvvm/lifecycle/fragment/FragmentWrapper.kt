@@ -10,7 +10,7 @@ import timber.log.Timber
 /**
  * Created by liuyuanmao on 2019/2/23.
  */
-class FragmentWrapper(private val mFragment: Fragment,private val iFragment: IFragment):
+class FragmentWrapper(private val mFragment: Fragment, private val iFragment: IFragment):
     IFragmentLifecycle {
     override fun onAttach(context: Context) {
         Timber.d("onAttach")

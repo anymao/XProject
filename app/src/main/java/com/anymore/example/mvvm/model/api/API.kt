@@ -1,5 +1,6 @@
 package com.anymore.example.mvvm.model.api
 
+import com.anymore.example.mvvm.model.db.entry.UserInfo
 import com.anymore.example.mvvm.model.entry.*
 import io.reactivex.Observable
 import retrofit2.http.*
