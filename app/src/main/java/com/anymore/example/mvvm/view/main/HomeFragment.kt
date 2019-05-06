@@ -10,6 +10,7 @@ import com.anymore.example.mvvm.model.entry.Banner
 import com.anymore.example.mvvm.model.entry.Article
 import com.anymore.example.mvvm.view.adapter.BannerLoader
 import com.anymore.example.mvvm.view.adapter.ArticlesPagingAdapter
+import com.anymore.example.mvvm.view.web.ExtendedWebActivity
 import com.anymore.example.mvvm.view.web.WebActivity
 import com.anymore.example.mvvm.viewmodel.HomeFragmentViewModel
 import com.anymore.mvvmkit.mvvm.base.BaseFragment
@@ -43,7 +44,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding,HomeFragmentViewModel>() {
     private fun initBanner() {
         mBannerLoader = BannerLoader(mBinding.banner)
         mBannerLoader.initBanner {
-            WebActivity.start(context!!,it.url)
+            ExtendedWebActivity.start(context!!,it.url)
         }
     }
 
@@ -57,7 +58,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding,HomeFragmentViewModel>() {
         mBinding.rvArticles.layoutManager = LinearLayoutManager(context)
         mAdapter.mItemEventHandler = object :ArticlesPagingAdapter.OnItemEventHandler{
             override fun onClick(item: Article) {
-                WebActivity.start(context!!,item.link)
+                ExtendedWebActivity.start(context!!,item.link)
             }
         }
         mBinding.rvArticles.adapter = mAdapter

@@ -13,8 +13,10 @@ import com.anymore.example.utils.UiUtils
 import com.anymore.mvvmkit.mvvm.base.BindingActivity
 import com.just.agentweb.AgentWeb
 
-
-class WebActivity:BindingActivity<ActivityWebBinding>(){
+/**
+ * 单纯的web页面
+ */
+open class WebActivity:BindingActivity<ActivityWebBinding>(){
     companion object {
         const val EXTRA_URL = "extra_url"
 
@@ -24,7 +26,7 @@ class WebActivity:BindingActivity<ActivityWebBinding>(){
             context.startActivity(intent)
         }
     }
-    private lateinit var mAgentWeb:AgentWeb
+    protected lateinit var mAgentWeb:AgentWeb
 
     override fun initView(savedInstanceState: Bundle?)= R.layout.activity_web
 
@@ -70,7 +72,7 @@ class WebActivity:BindingActivity<ActivityWebBinding>(){
         return super.onKeyDown(keyCode, event)
     }
 
-    private fun getUrl():String{
+    protected fun getUrl():String{
         return intent.getStringExtra(EXTRA_URL)
     }
 

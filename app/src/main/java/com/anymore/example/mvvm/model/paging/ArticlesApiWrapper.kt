@@ -1,5 +1,6 @@
 package com.anymore.example.mvvm.model.paging
 
+import com.anymore.example.mvvm.model.api.WanAndroidCollectApi
 import com.anymore.example.mvvm.model.api.WanAndroidHomePageApi
 import com.anymore.example.mvvm.model.api.WanAndroidKnowledgeApi
 import com.anymore.example.mvvm.model.entry.Articles
@@ -84,6 +85,42 @@ class KnowledgesArtclesApiWrapper(private val api: WanAndroidKnowledgeApi,privat
                     return@map it.data
                 }else{
                     throw WanAndroidException(it.errorMsg?:"获取${cid}下知识体系文章列表失败!")
+                }
+            }
+    }
+}
+
+class CollectedArticlesApiWrapper(private val api:WanAndroidCollectApi):ArticlesApiWrapper{
+
+    override fun loadInitial(page: Int): Observable<Articles> {
+        return api.getAllCollectedArticles(page)
+            .map {
+                if (it.errorCode == 0){
+                    return@map it.data
+                }else{
+                    throw WanAndroidException(it.errorMsg?:"获取收藏列表失败!")
+                }
+            }
+    }
+
+    override fun loadAfter(page: Int): Observable<Articles> {
+        return api.getAllCollectedArticles(page)
+            .map {
+                if (it.errorCode == 0){
+                    return@map it.data
+                }else{
+                    throw WanAndroidException(it.errorMsg?:"获取收藏列表失败!")
+                }
+            }
+    }
+
+    override fun loadBefore(page: Int): Observable<Articles> {
+        return api.getAllCollectedArticles(page)
+            .map {
+                if (it.errorCode == 0){
+                    return@map it.data
+                }else{
+                    throw WanAndroidException(it.errorMsg?:"获取收藏列表失败!")
                 }
             }
     }

@@ -78,7 +78,7 @@ data class Article(
     val userId: Int,
     val visible: Int,
     val zan: Int
-)
+):Serializable
 
 /**
  * 文章tag
@@ -86,7 +86,7 @@ data class Article(
 data class ArticleTag(
     val name: String,
     val url: String
-)
+):Serializable
 
 /**
  * 对请求文章列表的封装

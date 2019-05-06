@@ -5,8 +5,8 @@ import android.content.SharedPreferences
 import android.text.TextUtils
 import okhttp3.Cookie
 import okhttp3.HttpUrl
-import java.util.ArrayList
-import java.util.HashMap
+import timber.log.Timber
+import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -69,7 +69,10 @@ class SharedPreferencesCookieStore : CookieStore {
             for (name in cookieNameArr) {
                 val encodedCookie = mSharedPreferences.getString(COOKIE_NAME_PREFIX+name, null) ?: continue
                 val decodedCookie = SerializableCookie().decode(encodedCookie)
-                decodedCookie?.let { mCookies[key]!![name] = it }
+                decodedCookie?.let {
+                    Timber.d("decodedCookie is :$it")
+                    mCookies[key]!![name] = it
+                }
             }
         }
         cookiesMap.clear()

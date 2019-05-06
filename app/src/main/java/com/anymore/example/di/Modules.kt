@@ -7,12 +7,14 @@ import com.anymore.example.mvvm.model.MainModel
 import com.anymore.example.mvvm.model.UserModel
 import com.anymore.example.mvvm.view.knowledges.KnowledgesArticlesFragment
 import com.anymore.example.mvvm.view.SplashActivity
+import com.anymore.example.mvvm.view.collect.CollectedArticlesActivity
 import com.anymore.example.mvvm.view.login.LoginActivity
 import com.anymore.example.mvvm.view.main.DiscoveryFragment
 import com.anymore.example.mvvm.view.main.HomeFragment
 import com.anymore.example.mvvm.view.main.MainActivity
 import com.anymore.example.mvvm.view.main.MyFragment
 import com.anymore.example.mvvm.view.register.RegisterActivity
+import com.anymore.example.mvvm.view.web.ExtendedWebActivity
 import com.anymore.example.mvvm.viewmodel.*
 import com.anymore.mvvmkit.di.key.ViewModelKey
 import com.anymore.mvvmkit.di.module.ViewModelFactoryModule
@@ -38,7 +40,9 @@ import dagger.multibindings.IntoMap
     HomeFragmentModule::class,
     DiscoveryFragmentModule::class,
     MyFragmentModule::class,
-    KnowledgesArticlesFragmentModule::class])
+    KnowledgesArticlesFragmentModule::class,
+    CollectedArticlesActivityModule::class,
+    ExtendedWebActivityModule::class])
 class ExampleAppModule(private val application: Application){
 
     @Provides
@@ -226,3 +230,43 @@ abstract class KnowledgesArticlesFragmentViewModelModule{
 }
 
 /////////////KnowledgesArticlesFragment  end////////////////
+
+///////////CollectedArticlesActivity  begin/////////////////////
+@Module
+abstract class CollectedArticlesActivityViewModelModule{
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CollectedArticlesActivityViewModel::class)
+    abstract fun provideCollectedArticlesActivityViewModel(viewModel: CollectedArticlesActivityViewModel):ViewModel
+}
+
+@Module
+abstract class CollectedArticlesActivityModule{
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [MainModelModule::class,CollectedArticlesActivityViewModelModule::class])
+    abstract fun contributeCollectedArticlesActivity(): CollectedArticlesActivity
+}
+
+/////////////CollectedArticlesActivity  end/////////////////////
+
+///////////ExtendedWebActivity  begin/////////////////////
+@Module
+abstract class ExtendedWebActivityViewModelModule{
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ExtendedWebActivityViewModel::class)
+    abstract fun provideExtendedWebActivityViewModel(viewModel: ExtendedWebActivityViewModel):ViewModel
+}
+
+@Module
+abstract class ExtendedWebActivityModule{
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [MainModelModule::class,ExtendedWebActivityViewModelModule::class])
+    abstract fun contributeExtendedWebActivity(): ExtendedWebActivity
+}
+
+/////////////ExtendedWebActivity  end/////////////////////

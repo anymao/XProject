@@ -31,15 +31,13 @@ class ExampleRepositoryConfig:RepositoryConfigsModule.RepositoryConfig {
                     builder.cache(provideOkCache(context, MAX_CACHE_SIZE))
                     val cookieStore = SharedPreferencesCookieStore(context)
                     builder.cookieJar(PersistentCookieJar(cookieStore))
-//                    val cookieJar:CookieJar = PersistentCookieJar(SetCookieCache(),SharedPrefsCookiePersistor(context))
-//                    builder.cookieJar(cookieJar)
                     val okLogger = HttpLoggingInterceptor()
                     if (BuildConfig.DEBUG){
                         okLogger.level = HttpLoggingInterceptor.Level.HEADERS
                     }else{
                         okLogger.level = HttpLoggingInterceptor.Level.NONE
                     }
-                    builder.addInterceptor(okLogger)
+                    builder.addNetworkInterceptor(okLogger)
                 }
 
             }

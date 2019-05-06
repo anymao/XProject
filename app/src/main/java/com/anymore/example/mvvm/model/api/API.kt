@@ -65,3 +65,30 @@ interface WanAndroidKnowledgeApi{
     @GET("/article/list/{page}/json")
     fun getSubKnowledges(@Path("page") page:Int,@Query("cid") cid:Int):Observable<WanAndroidResponse<Articles>>
 }
+
+/**
+ * 收藏相关接口
+ */
+interface WanAndroidCollectApi{
+
+    //获取所有收藏的文章
+    @GET("/lg/collect/list/{page}/json")
+    fun getAllCollectedArticles(@Path("page") page: Int):Observable<WanAndroidResponse<Articles>>
+
+    //收藏站内指定id文章
+    @POST("/lg/collect/{id}/json")
+    fun collectWanAndroidArticle(@Path("id") id:Int):Observable<WanAndroidResponse<*>>
+
+    //收藏站外文章
+    @POST("/lg/collect/add/json")
+    fun collectOtherArticle(@Field("title") title:String, @Field("author") author:String, @Field("link") link:String):Observable<WanAndroidResponse<*>>
+
+    //取消收藏方式1
+    @POST("/lg/uncollect_originId/{id}/json")
+    fun uncollectWanAndroidArticle(@Path("id") id: Int):Observable<WanAndroidResponse<*>>
+
+    //取消收藏方式2
+    @POST("/lg/uncollect/{id}/json")
+    fun uncollectArticle(@Path("id") id: Int,@Field("originId") originId:Int=-1):Observable<WanAndroidResponse<*>>
+
+}

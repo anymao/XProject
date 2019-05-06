@@ -7,4 +7,5 @@
     <string name="my">我的</string>
     <string name="todo">待办</string>
     <string name="collect">收藏</string>
+    <string name="collected">收藏</string>
 </resources>

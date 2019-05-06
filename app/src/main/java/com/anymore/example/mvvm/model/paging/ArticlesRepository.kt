@@ -5,6 +5,7 @@ import android.arch.lifecycle.Transformations
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import com.anymore.example.mvvm.model.api.KEY
+import com.anymore.example.mvvm.model.api.WanAndroidCollectApi
 import com.anymore.example.mvvm.model.api.WanAndroidHomePageApi
 import com.anymore.example.mvvm.model.api.WanAndroidKnowledgeApi
 import com.anymore.example.mvvm.model.entry.Article
@@ -48,6 +49,32 @@ class ArticlesRepository(private val application: Application){
     fun getKnowledgesArticlesListing(cid: Int):Listing<Article>{
         val api = application.getRepositoryComponent().getRepository().obtainRetrofitService(KEY,WanAndroidKnowledgeApi::class.java)
         val apiWrapper = KnowledgesArtclesApiWrapper(api,cid)
+        val factory = ArticlesSourceFactory(apiWrapper)
+        val data = LivePagedListBuilder<Int,Article>(factory,
+            PagedList.Config
+                .Builder()
+                .setPageSize(20)
+                .setPrefetchDistance(20)
+                .build())
+            .build()
+
+        return Listing<Article>(
+            pagedList = data,
+            status = Transformations.switchMap(factory.source) {
+                it.mStatus
+            },
+            retry = {
+                factory.source.value?.retry()
+            }
+        )
+    }
+
+    /**
+     * 获取已收藏文章列表
+     */
+    fun getCollectedArticlesListing():Listing<Article>{
+        val api = application.getRepositoryComponent().getRepository().obtainRetrofitService(KEY,WanAndroidCollectApi::class.java)
+        val apiWrapper = CollectedArticlesApiWrapper(api)
         val factory = ArticlesSourceFactory(apiWrapper)
         val data = LivePagedListBuilder<Int,Article>(factory,
             PagedList.Config
