@@ -103,41 +103,41 @@ public class SerializableCookie implements Serializable {
 
     private static long NON_VALID_EXPIRES_AT = -1L;
 
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.writeObject(cookie.name());
-        out.writeObject(cookie.value());
-        out.writeLong(cookie.persistent() ? cookie.expiresAt() : NON_VALID_EXPIRES_AT);
-        out.writeObject(cookie.domain());
-        out.writeObject(cookie.path());
-        out.writeBoolean(cookie.secure());
-        out.writeBoolean(cookie.httpOnly());
-        out.writeBoolean(cookie.hostOnly());
+    private void writeObject(ObjectOutputStream oos) throws IOException {
+        oos.writeObject(cookie.name());
+        oos.writeObject(cookie.value());
+        oos.writeLong(cookie.persistent() ? cookie.expiresAt() : NON_VALID_EXPIRES_AT);
+        oos.writeObject(cookie.domain());
+        oos.writeObject(cookie.path());
+        oos.writeBoolean(cookie.secure());
+        oos.writeBoolean(cookie.httpOnly());
+        oos.writeBoolean(cookie.hostOnly());
     }
 
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         Cookie.Builder builder = new Cookie.Builder();
 
-        builder.name((String) in.readObject());
+        builder.name((String) ois.readObject());
 
-        builder.value((String) in.readObject());
+        builder.value((String) ois.readObject());
 
-        long expiresAt = in.readLong();
+        long expiresAt = ois.readLong();
         if (expiresAt != NON_VALID_EXPIRES_AT) {
             builder.expiresAt(expiresAt);
         }
 
-        final String domain = (String) in.readObject();
+        final String domain = (String) ois.readObject();
         builder.domain(domain);
 
-        builder.path((String) in.readObject());
+        builder.path((String) ois.readObject());
 
-        if (in.readBoolean())
+        if (ois.readBoolean())
             builder.secure();
 
-        if (in.readBoolean())
+        if (ois.readBoolean())
             builder.httpOnly();
 
-        if (in.readBoolean())
+        if (ois.readBoolean())
             builder.hostOnlyDomain(domain);
 
         cookie = builder.build();

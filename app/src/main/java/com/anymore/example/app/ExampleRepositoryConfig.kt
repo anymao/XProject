@@ -7,11 +7,7 @@ import com.anymore.example.mvvm.model.api.BASE_URL
 import com.anymore.example.mvvm.model.api.KEY
 import com.anymore.mvvmkit.BuildConfig
 import com.anymore.mvvmkit.di.module.RepositoryConfigsModule
-//import com.franmontiel.persistentcookiejar.PersistentCookieJar
-//import com.franmontiel.persistentcookiejar.cache.SetCookieCache
-//import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import okhttp3.Cache
-import okhttp3.CookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import timber.log.Timber
@@ -39,7 +35,7 @@ class ExampleRepositoryConfig:RepositoryConfigsModule.RepositoryConfig {
 //                    builder.cookieJar(cookieJar)
                     val okLogger = HttpLoggingInterceptor()
                     if (BuildConfig.DEBUG){
-                        okLogger.level = HttpLoggingInterceptor.Level.BODY
+                        okLogger.level = HttpLoggingInterceptor.Level.HEADERS
                     }else{
                         okLogger.level = HttpLoggingInterceptor.Level.NONE
                     }

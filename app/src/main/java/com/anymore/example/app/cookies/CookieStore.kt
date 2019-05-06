@@ -114,7 +114,7 @@ class SharedPreferencesCookieStore : CookieStore {
         if (!mCookies.containsKey(hostKey)) {
             mCookies[hostKey] = ConcurrentHashMap()
         }
-        mCookies[hostKey]!![name!!] = cookie
+        mCookies[hostKey]!![name] = cookie
 
         // Save cookie into persistent store
         val editor = mSharedPreferences.edit()
@@ -171,7 +171,7 @@ class SharedPreferencesCookieStore : CookieStore {
         val name = cookieName(cookie)
         if (mCookies.containsKey(hostKey) && mCookies[hostKey]!!.containsKey(name)) {
             // 从内存中移除httpUrl对应的cookie
-            mCookies[hostKey]?.remove(name!!)
+            mCookies[hostKey]?.remove(name)
 
             val editor = mSharedPreferences.edit()
 
@@ -205,8 +205,8 @@ class SharedPreferencesCookieStore : CookieStore {
         return if (httpUrl.host().startsWith(HOST_NAME_PREFIX)) httpUrl.host() else HOST_NAME_PREFIX + httpUrl.host()
     }
 
-    private fun cookieName(cookie: Cookie?): String? {
-        return if (cookie == null) null else cookie.name() + cookie.domain()
+    private fun cookieName(cookie: Cookie): String {
+        return cookie.name()+"@"+cookie.domain()
     }
 
 }
