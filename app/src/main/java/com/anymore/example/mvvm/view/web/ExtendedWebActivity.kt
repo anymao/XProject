@@ -5,7 +5,13 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.IntRange
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import com.anymore.example.R
+import com.anymore.example.mvvm.view.adapter.OptionsAdapter
+import com.anymore.example.mvvm.view.widget.OptionsDialog
 import com.anymore.example.mvvm.viewmodel.ExtendedWebActivityViewModel
 import com.anymore.mvvmkit.mvvm.ViewModelFactory
 import javax.inject.Inject
@@ -25,9 +31,33 @@ class ExtendedWebActivity:WebActivity(){
     }
 
     private lateinit var mViewModel: ExtendedWebActivityViewModel
+    private val mMoreDialog by lazy { OptionsDialog(this).apply {
+        setOnItemClickListener(object : OptionsAdapter.OnItemEventHandler {
+            override fun onClick(item: OptionsDialog.OptionItem) {
+                Toast.makeText(this@ExtendedWebActivity,item.title,Toast.LENGTH_SHORT).show()
+            }
+        })
+    } }
 
     @Inject
     lateinit var mViewModelFactory: ViewModelFactory
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_extended_web_activity,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.action_more->{
+                mMoreDialog.show()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
 
     override fun initData(savedInstanceState: Bundle?) {
         mViewModel = ViewModelProviders.of(this,mViewModelFactory).get(ExtendedWebActivityViewModel::class.java)
@@ -43,5 +73,14 @@ class ExtendedWebActivity:WebActivity(){
     }
 
     override fun injectable()=true
+
+    override fun getUrl(): String {
+        return super.getUrl()
+    }
+
+    private fun adjustFont(){
+
+        mAgentWeb.webCreator.webView.settings.textZoom
+    }
 
 }

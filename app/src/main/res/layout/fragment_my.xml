@@ -49,7 +49,7 @@
                         android:id="@+id/tv_collected"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:text="@string/collect"
+						android:text="@string/collected"
 						android:drawableStart="@drawable/ic_collected"
 						android:drawablePadding="15dp"
 						android:paddingLeft="@dimen/activity_horizontal_padding"

@@ -72,7 +72,7 @@ open class WebActivity:BindingActivity<ActivityWebBinding>(){
         return super.onKeyDown(keyCode, event)
     }
 
-    protected fun getUrl():String{
+    protected open fun getUrl():String{
         return intent.getStringExtra(EXTRA_URL)
     }
 

@@ -1,12 +1,14 @@
 package com.anymore.example.mvvm.view.knowledges
 
 import android.arch.lifecycle.Observer
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import com.anymore.example.R
 import com.anymore.example.databinding.FragmentKnowledgesArticlesBinding
 import com.anymore.example.mvvm.model.entry.Article
+import com.anymore.example.mvvm.view.FragmentActivity
 import com.anymore.example.mvvm.view.adapter.ArticlesPagingAdapter
 import com.anymore.example.mvvm.view.web.WebActivity
 import com.anymore.example.mvvm.viewmodel.KnowledgesArticlesFragmentViewModel
@@ -25,6 +27,12 @@ class KnowledgesArticlesFragment:BaseFragment<FragmentKnowledgesArticlesBinding,
             val fragment = KnowledgesArticlesFragment()
             fragment.arguments = bundle
             return fragment
+        }
+
+        fun start(context: Context, cid: Int,title:String=""){
+            val bundle = Bundle()
+            bundle.putInt(EXTRA_CID,cid)
+            FragmentActivity.start(context,KnowledgesArticlesFragment::class.java.name,title,bundle)
         }
     }
 

@@ -14,7 +14,13 @@ import com.anymore.mvvmkit.mvvm.base.BaseFragment
 
 class DiscoveryFragment:BaseFragment<FragmentDiscoveryBinding,DiscoveryFragmentViewModel>() {
 
-    private val mAdapter by lazy { KnowledgesAdapter(context!!) }
+    private val mAdapter by lazy { KnowledgesAdapter(context!!).apply {
+        mItemEventHandler = object :KnowledgesAdapter.OnItemEventHandler{
+            override fun onClick(item: Knowledge) {
+                KnowledgesTabActivity.start(context!!,item)
+            }
+        }
+    } }
 
     override fun getLayoutRes()= R.layout.fragment_discovery
 
@@ -28,11 +34,6 @@ class DiscoveryFragment:BaseFragment<FragmentDiscoveryBinding,DiscoveryFragmentV
 
     private fun initRecycleView() {
         mBinding.rvKnowledges.layoutManager = GridLayoutManager(context,3)
-        mAdapter.mItemEventHandler = object :KnowledgesAdapter.OnItemEventHandler{
-            override fun onClick(item: Knowledge) {
-                KnowledgesTabActivity.start(context!!,item)
-            }
-        }
         mBinding.rvKnowledges.adapter = mAdapter
     }
 

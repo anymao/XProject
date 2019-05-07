@@ -25,3 +25,13 @@ fun Context.isNetworkConnected():Boolean{
     val info = networkService.activeNetworkInfo
     return info.isAvailable
 }
+
+fun Context.sp2px(spValue: Int): Int {
+    val fontScale = resources.displayMetrics.scaledDensity
+    return (spValue * fontScale + 0.5f).toInt()
+}
+
+fun Context.dp2px(dpValue: Int):Int{
+    val scale = resources.displayMetrics.density
+    return (dpValue * scale + 0.5f).toInt()
+}

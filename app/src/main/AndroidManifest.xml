@@ -37,6 +37,8 @@
 					  android:screenOrientation="portrait"/>
             <activity android:name=".mvvm.view.web.ExtendedWebActivity"
 					  android:screenOrientation="portrait"/>
+            <activity android:name=".mvvm.view.FragmentActivity"
+					  android:screenOrientation="portrait"/>
 
 
             <provider android:name="android.support.v4.content.FileProvider"

@@ -2,6 +2,7 @@ package com.anymore.example.mvvm.model
 
 import android.app.Application
 import com.anymore.example.mvvm.model.api.KEY
+import com.anymore.example.mvvm.model.api.WanAndroidCollectApi
 import com.anymore.example.mvvm.model.api.WanAndroidHomePageApi
 import com.anymore.example.mvvm.model.api.WanAndroidKnowledgeApi
 import com.anymore.example.mvvm.model.entry.Banner
@@ -73,6 +74,20 @@ class MainModel @Inject constructor(application: Application):BaseModel(applicat
                     throw WanAndroidException("获取知识体系时出错!")
                 }
             }.observeOn(AndroidSchedulers.mainThread())
+    }
+
+    /**
+     * 收藏id文章
+     */
+    fun collectArticle(id:Int):Observable<Boolean>{
+        return mRepositoryComponent.getRepository()
+            .obtainRetrofitService(KEY,WanAndroidCollectApi::class.java)
+            .collectWanAndroidArticle(id)
+            .subscribeOn(Schedulers.io())
+            .map {
+                return@map it.errorCode == 0
+            }
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
 }

@@ -6,12 +6,11 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import com.anymore.example.R
 import com.anymore.example.databinding.FragmentHomeBinding
-import com.anymore.example.mvvm.model.entry.Banner
 import com.anymore.example.mvvm.model.entry.Article
-import com.anymore.example.mvvm.view.adapter.BannerLoader
+import com.anymore.example.mvvm.model.entry.Banner
 import com.anymore.example.mvvm.view.adapter.ArticlesPagingAdapter
+import com.anymore.example.mvvm.view.adapter.BannerLoader
 import com.anymore.example.mvvm.view.web.ExtendedWebActivity
-import com.anymore.example.mvvm.view.web.WebActivity
 import com.anymore.example.mvvm.viewmodel.HomeFragmentViewModel
 import com.anymore.mvvmkit.mvvm.base.BaseFragment
 
@@ -19,7 +18,13 @@ class HomeFragment:BaseFragment<FragmentHomeBinding,HomeFragmentViewModel>() {
 
 
     private lateinit var mBannerLoader:BannerLoader
-    private val mAdapter by lazy { ArticlesPagingAdapter(context!!) }
+    private val mAdapter by lazy { ArticlesPagingAdapter(context!!).apply {
+        mItemEventHandler = object :ArticlesPagingAdapter.OnItemEventHandler{
+            override fun onClick(item: Article) {
+                ExtendedWebActivity.start(context!!,item.link)
+            }
+        }
+    } }
 
     override fun getLayoutRes()= R.layout.fragment_home
 
@@ -56,11 +61,6 @@ class HomeFragment:BaseFragment<FragmentHomeBinding,HomeFragmentViewModel>() {
     private fun initRecyclerView() {
         mBinding.rvArticles.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
         mBinding.rvArticles.layoutManager = LinearLayoutManager(context)
-        mAdapter.mItemEventHandler = object :ArticlesPagingAdapter.OnItemEventHandler{
-            override fun onClick(item: Article) {
-                ExtendedWebActivity.start(context!!,item.link)
-            }
-        }
         mBinding.rvArticles.adapter = mAdapter
     }
 }
