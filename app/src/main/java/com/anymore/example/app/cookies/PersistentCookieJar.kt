@@ -1,5 +1,6 @@
 package com.anymore.example.app.cookies
 
+import android.content.Context
 import com.anymore.example.mvvm.model.api.BASE_URL
 import okhttp3.Cookie
 import okhttp3.CookieJar
@@ -35,6 +36,15 @@ class PersistentCookieJar(private val cookieStore: CookieStore,private val saveU
             "$BASE_URL/user/register",
             "$BASE_URL/logout/json"
         )
+
+        private var instance:PersistentCookieJar? = null
+
+        fun getInstance(context: Context):PersistentCookieJar{
+            if (instance == null){
+                instance = PersistentCookieJar(SharedPreferencesCookieStore(context))
+            }
+            return instance!!
+        }
     }
 
 }

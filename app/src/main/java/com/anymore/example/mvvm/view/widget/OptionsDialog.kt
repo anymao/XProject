@@ -26,11 +26,10 @@ class OptionsDialog(context: Context, @StyleRes themeResId:Int = R.style.downInD
     private val mOptionItems = ArrayList<OptionItem>()
     private val mAutoCloseItemClickListener by lazy { AutoCloseItemClickListener() }
     init {
-        mOptionItems.add(OptionItem(0,getString(R.string.refresh),R.drawable.ic_refresh,0))
-        mOptionItems.add(OptionItem(1,getString(R.string.collected),R.drawable.ic_collect_0,0))
-        mOptionItems.add(OptionItem(2,getString(R.string.refresh),R.drawable.ic_refresh,0))
-        mOptionItems.add(OptionItem(3,getString(R.string.refresh),R.drawable.ic_refresh,0))
-        mOptionItems.add(OptionItem(4,getString(R.string.refresh),R.drawable.ic_refresh,0))
+        mOptionItems.add(OptionItem(0,getString(R.string.collected),R.drawable.ic_collect_0,0))
+        mOptionItems.add(OptionItem(1,getString(R.string.refresh),R.drawable.ic_refresh,0))
+        mOptionItems.add(OptionItem(2,getString(R.string.copy_link),R.drawable.ic_link,0))
+        mOptionItems.add(OptionItem(3,getString(R.string.adjust_font),R.drawable.ic_font,0))
         mAdapter.setData(mOptionItems)
         mAdapter.mItemEventHandler = mAutoCloseItemClickListener
     }
@@ -52,7 +51,7 @@ class OptionsDialog(context: Context, @StyleRes themeResId:Int = R.style.downInD
     }
 
     fun setOnItemClickListener(listener:OptionsAdapter.OnItemEventHandler){
-        mAutoCloseItemClickListener.mRealOnClickListener = listener
+        mAutoCloseItemClickListener.realOnClickListener = listener
     }
 
     private fun initRecyclerView() {
@@ -71,10 +70,10 @@ class OptionsDialog(context: Context, @StyleRes themeResId:Int = R.style.downInD
 
     private inner class AutoCloseItemClickListener:OptionsAdapter.OnItemEventHandler{
 
-        internal var mRealOnClickListener:OptionsAdapter.OnItemEventHandler?=null
+        internal var realOnClickListener:OptionsAdapter.OnItemEventHandler?=null
 
         override fun onClick(item: OptionItem) {
-            mRealOnClickListener?.onClick(item)
+            realOnClickListener?.onClick(item)
             dismiss()
         }
 

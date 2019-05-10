@@ -17,7 +17,7 @@ class ArticlesPagingAdapter(private val mContext:Context):PagedListAdapter<Artic
     var mItemEventHandler:Any? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
-        return BindingViewHolder(DataBindingUtil.inflate(mLayoutInflater, R.layout.home_article_item,parent,false))
+        return BindingViewHolder(DataBindingUtil.inflate(mLayoutInflater, R.layout.article_item,parent,false))
     }
 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {

@@ -1,4 +1,4 @@
-package com.anymore.example.app.cache
+package com.anymore.example.app.interceptor
 
 import android.content.Context
 import com.anymore.mvvmkit.isNetworkConnected

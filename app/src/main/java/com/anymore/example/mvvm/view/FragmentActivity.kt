@@ -65,6 +65,4 @@ class FragmentActivity: BindingActivity<ActivityFragmentBinding>() {
 
     private fun getFragmentTitle()=intent.getStringExtra(EXTRA_TITLE)
 
-
-
 }

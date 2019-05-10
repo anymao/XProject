@@ -21,7 +21,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding,HomeFragmentViewModel>() {
     private val mAdapter by lazy { ArticlesPagingAdapter(context!!).apply {
         mItemEventHandler = object :ArticlesPagingAdapter.OnItemEventHandler{
             override fun onClick(item: Article) {
-                ExtendedWebActivity.start(context!!,item.link)
+                ExtendedWebActivity.start(context!!,item)
             }
         }
     } }

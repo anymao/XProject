@@ -5,6 +5,12 @@ import java.io.Serializable
 /**
  * Created by liuyuanmao on 2019/3/12.
  */
+
+object ResponseCode{
+    const val OK = 0
+
+}
+
 /**
  * base response
  */
@@ -114,3 +120,27 @@ data class Knowledge(
     val userControlSetTop: Boolean,
     val visible: Int
 ):Serializable
+
+data class Todo(
+    val completeDate: Long,
+    val completeDateStr: String,
+    val content: String,
+    val date: Long,
+    val dateStr: String,
+    val id: Int,
+    val priority: Int,
+    val status: Int,
+    val title: String,
+    val type: Int,
+    val userId: Int
+):Serializable
+
+data class Todos(
+    val curPage: Int,
+    val datas: List<Todo>,
+    val offset: Int,
+    val over: Boolean,
+    val pageCount: Int,
+    val size: Int,
+    val total: Int
+)

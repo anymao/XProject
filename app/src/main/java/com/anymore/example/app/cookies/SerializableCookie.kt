@@ -24,15 +24,13 @@ class SerializableCookie : Serializable {
             Timber.e(e, "IOException in encodeCookie")
             return null
         } finally {
-            if (objectOutputStream != null) {
-                try {
-                    // Closing a ByteArrayOutputStream has no effect, it can be used later (and is used in the return statement)
-                    objectOutputStream.close()
-                } catch (e: IOException) {
-                    Timber.e(e, "Stream not closed in encodeCookie")
-                }
-
+            try {
+                // Closing a ByteArrayOutputStream has no effect, it can be used later (and is used in the return statement)
+                objectOutputStream?.close()
+            } catch (e: IOException) {
+                Timber.e(e, "Stream not closed in encodeCookie")
             }
+
         }
 
         return byteArrayToHexString(byteArrayOutputStream.toByteArray())
@@ -55,14 +53,12 @@ class SerializableCookie : Serializable {
         } catch (e: ClassNotFoundException) {
             Timber.e(e, "ClassNotFoundException in decodeCookie")
         } finally {
-            if (objectInputStream != null) {
-                try {
-                    objectInputStream.close()
-                } catch (e: IOException) {
-                    Timber.e(e, "Stream not closed in decodeCookie")
-                }
-
+            try {
+                objectInputStream?.close()
+            } catch (e: IOException) {
+                Timber.e(e, "Stream not closed in decodeCookie")
             }
+
         }
         return cookie
     }

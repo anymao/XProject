@@ -5,6 +5,7 @@ import com.anymore.example.mvvm.model.api.KEY
 import com.anymore.example.mvvm.model.api.WanAndroidUserApi
 import com.anymore.example.mvvm.model.db.AppDatabase
 import com.anymore.example.mvvm.model.db.entry.UserInfo
+import com.anymore.example.mvvm.model.entry.ResponseCode
 import com.anymore.example.mvvm.model.entry.WanAndroidResponse
 import com.anymore.mvvmkit.mvvm.base.BaseModel
 import io.reactivex.Observable
@@ -26,7 +27,7 @@ class UserModel @Inject constructor(application: Application):BaseModel(applicat
         .register(username,pwd,rePwd)
         .subscribeOn(Schedulers.io())
         .doOnNext{
-            if (it.errorCode == 0 && it.data!=null){
+            if (it.errorCode == ResponseCode.OK && it.data!=null){
                 mUserDao.insert(it.data)
             }
         }
@@ -36,7 +37,7 @@ class UserModel @Inject constructor(application: Application):BaseModel(applicat
         .login(username,pwd)
         .subscribeOn(Schedulers.io())
         .doOnNext{
-            if (it.errorCode == 0 && it.data!=null){
+            if (it.errorCode == ResponseCode.OK && it.data!=null){
                 it.data.online = true
                 mUserDao.insert(it.data)
             }
@@ -47,7 +48,7 @@ class UserModel @Inject constructor(application: Application):BaseModel(applicat
         .logout()
         .subscribeOn(Schedulers.io())
         .doOnNext{
-            if (it.errorCode == 0 && it.data!=null){
+            if (it.errorCode == ResponseCode.OK && it.data!=null){
                 mUserDao.updateOnlineStatus(false)
             }
         }

@@ -8,6 +8,7 @@ import com.anymore.example.mvvm.model.api.WanAndroidKnowledgeApi
 import com.anymore.example.mvvm.model.entry.Banner
 import com.anymore.example.mvvm.model.entry.Article
 import com.anymore.example.mvvm.model.entry.Knowledge
+import com.anymore.example.mvvm.model.entry.ResponseCode
 import com.anymore.example.mvvm.model.exception.WanAndroidException
 import com.anymore.mvvmkit.mvvm.base.BaseModel
 import io.reactivex.Observable
@@ -30,7 +31,7 @@ class MainModel @Inject constructor(application: Application):BaseModel(applicat
             .getBanner()
             .subscribeOn(Schedulers.io())
             .flatMap {
-                if (it.errorCode == 0 && it.data != null){
+                if (it.errorCode == ResponseCode.OK && it.data != null){
                     Observable.just(it.data)
                 }else{
                     Observable.error(WanAndroidException(it.errorMsg?:"获取首页Banner失败!"))
@@ -50,7 +51,7 @@ class MainModel @Inject constructor(application: Application):BaseModel(applicat
             .getArticles(page)
             .subscribeOn(Schedulers.io())
             .flatMap {
-                if (it.errorCode == 0 && it.data != null){
+                if (it.errorCode == ResponseCode.OK && it.data != null){
                     Observable.just(Pair(it.data.curPage,it.data.datas))
                 }else{
                     Observable.error(WanAndroidException(it.errorMsg?:"获取首页文章失败!"))
@@ -68,7 +69,7 @@ class MainModel @Inject constructor(application: Application):BaseModel(applicat
             .getAllKnowledges()
             .subscribeOn(Schedulers.io())
             .map {
-                if (it.errorCode == 0 && it.data != null){
+                if (it.errorCode == ResponseCode.OK && it.data != null){
                     return@map it.data!!
                 }else{
                     throw WanAndroidException("获取知识体系时出错!")
@@ -85,7 +86,7 @@ class MainModel @Inject constructor(application: Application):BaseModel(applicat
             .collectWanAndroidArticle(id)
             .subscribeOn(Schedulers.io())
             .map {
-                return@map it.errorCode == 0
+                return@map it.errorCode == ResponseCode.OK
             }
             .observeOn(AndroidSchedulers.mainThread())
     }

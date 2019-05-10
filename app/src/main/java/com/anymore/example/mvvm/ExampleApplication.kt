@@ -17,4 +17,13 @@ class ExampleApplication:KitApplication() {
             .build()
             .inject(this)
     }
+
+    override fun onCreate() {
+        super.onCreate()
+        INSTANCE = this
+    }
+
+    companion object {
+        lateinit var INSTANCE:ExampleApplication
+    }
 }
