@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+        <data>
+            <variable
+                name="entry"
+                type="com.anymore.example.mvvm.view.widget.OptionsDialog.OptionItem"/>
+            <variable
+                    name="eventHandler"
+                    type="com.anymore.example.mvvm.view.adapter.OptionsAdapter.OnItemEventHandler"/>
+        </data>
+        <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:onClick="@{()->eventHandler.onClick(entry)}">
+            <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    imageRes="@{entry.icon}"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="@{entry.title}"/>
+        </LinearLayout>
+</layout>

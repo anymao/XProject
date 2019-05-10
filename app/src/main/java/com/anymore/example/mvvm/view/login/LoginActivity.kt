@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.anymore.example.R
 import com.anymore.example.databinding.ActivityLoginBinding
+import com.anymore.example.ext.toast
 import com.anymore.example.mvvm.view.main.MainActivity
 import com.anymore.example.mvvm.viewmodel.LoginViewModel
 import com.anymore.example.utils.UiUtils
@@ -22,8 +23,8 @@ class LoginActivity:BaseActivity<ActivityLoginBinding,LoginViewModel>(){
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
         UiUtils.setupToolbar(this,mBinding.toolbar)
-        mViewModel.mErrorMessage.observe(this, Observer { Toast.makeText(this@LoginActivity,it, Toast.LENGTH_LONG).show() })
-        mViewModel.mMessage.observe(this, Observer { Toast.makeText(this@LoginActivity,it, Toast.LENGTH_LONG).show() })
+        mViewModel.mErrorMessage.observe(this, Observer { toast(it,Toast.LENGTH_LONG) })
+        mViewModel.mMessage.observe(this, Observer { toast(it,Toast.LENGTH_LONG) })
         mViewModel.mLoginEvent.observe(this, Observer {
             ActivityStackManager.instance.finishUntil(MainActivity::class.java.name)
             startActivity(Intent(this@LoginActivity,MainActivity::class.java))

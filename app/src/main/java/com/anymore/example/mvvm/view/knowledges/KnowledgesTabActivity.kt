@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.anymore.example.R
 import com.anymore.example.databinding.ActivityKnowledgesTabBinding
+import com.anymore.example.ext.toast
 import com.anymore.example.mvvm.model.entry.Knowledge
 import com.anymore.example.mvvm.view.adapter.FragmentItem
 import com.anymore.example.mvvm.view.adapter.FragmentsAdapter
@@ -34,7 +35,7 @@ class KnowledgesTabActivity:BindingActivity<ActivityKnowledgesTabBinding>(){
         if (knowledge != null){
             setUpViewPagers(knowledge)
         }else{
-            Toast.makeText(this,"传递参数时候出错!",Toast.LENGTH_LONG).show()
+            toast("传递参数时候出错!",Toast.LENGTH_LONG)
             finish()
         }
 

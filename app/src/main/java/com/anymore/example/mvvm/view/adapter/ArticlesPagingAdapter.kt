@@ -16,8 +16,8 @@ class ArticlesPagingAdapter(private val mContext:Context):PagedListAdapter<Artic
     private val mLayoutInflater by lazy { LayoutInflater.from(mContext) }
     var mItemEventHandler:Any? = null
 
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): BindingViewHolder {
-        return BindingViewHolder(DataBindingUtil.inflate(mLayoutInflater, R.layout.home_article_item,p0,false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
+        return BindingViewHolder(DataBindingUtil.inflate(mLayoutInflater, R.layout.article_item,parent,false))
     }
 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
@@ -30,9 +30,9 @@ class ArticlesPagingAdapter(private val mContext:Context):PagedListAdapter<Artic
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<Article>() {
 
-            override fun areItemsTheSame(p0: Article, p1: Article)=(p0.id == p1.id)
+            override fun areItemsTheSame(oldItem: Article, newItem: Article)=(oldItem.id == newItem.id)
 
-            override fun areContentsTheSame(p0: Article, p1: Article)=(p0.id == p1.id)
+            override fun areContentsTheSame(oldItem: Article, newItem: Article)=(oldItem.id == newItem.id)
         }
     }
 

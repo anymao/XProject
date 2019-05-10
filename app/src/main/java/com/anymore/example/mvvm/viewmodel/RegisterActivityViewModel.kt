@@ -3,6 +3,7 @@ package com.anymore.example.mvvm.viewmodel
 import android.app.Application
 import android.text.TextUtils
 import com.anymore.example.mvvm.model.UserModel
+import com.anymore.example.mvvm.model.entry.ResponseCode
 import com.anymore.mvvmkit.di.scope.ActivityScope
 import com.anymore.mvvmkit.mvvm.SingleLiveEvent
 import com.anymore.mvvmkit.mvvm.base.BaseViewModel1
@@ -21,7 +22,7 @@ class RegisterActivityViewModel @Inject constructor(application: Application,use
         if (checkUser(username, pwd, rePwd)) {
             val disposable = mModel.register(username!!,pwd!!,rePwd!!)
                 .subscribeBy(onNext = {
-                    if (it.errorCode == 0){
+                    if (it.errorCode == ResponseCode.OK){
                         mMessage.value = "注册成功!"
                     }else{
                         mErrorMessage.value = it.errorMsg

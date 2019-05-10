@@ -6,5 +6,12 @@
     <string name="discovery">发现</string>
     <string name="my">我的</string>
     <string name="todo">待办</string>
-    <string name="collect">收藏</string>
+    <string name="collected">收藏</string>
+    <string name="more">更多</string>
+    <string name="adjust_font">调整字体</string>
+    <string name="refresh">刷新</string>
+    <string name="uncollect">取消收藏</string>
+    <string name="copy_link">复制链接</string>
+    <string name="unfinished">未完成</string>
+    <string name="done">已完成</string>
 </resources>

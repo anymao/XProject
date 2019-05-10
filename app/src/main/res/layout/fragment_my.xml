@@ -34,24 +34,46 @@
 					</FrameLayout>
 
 					<TextView
-							android:layout_width="match_parent"
-							android:layout_height="wrap_content"
-							android:text="@string/todo"/>
+						android:id="@+id/tv_todo"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="@string/todo"
+						android:drawableStart="@drawable/ic_todo"
+						android:drawablePadding="15dp"
+						android:paddingLeft="@dimen/activity_horizontal_padding"
+						android:paddingRight="@dimen/activity_horizontal_padding"
+						android:paddingTop="@dimen/item_vertical_padding"
+						android:paddingBottom="@dimen/item_vertical_padding"/>
 
 					<TextView
-							android:layout_width="match_parent"
-							android:layout_height="wrap_content"
-							android:text="@string/collect"/>
+                        android:id="@+id/tv_collected"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="@string/collected"
+						android:drawableStart="@drawable/ic_collected"
+						android:drawablePadding="15dp"
+						android:paddingLeft="@dimen/activity_horizontal_padding"
+						android:paddingRight="@dimen/activity_horizontal_padding"
+						android:paddingTop="@dimen/item_vertical_padding"
+						android:paddingBottom="@dimen/item_vertical_padding"/>
 
 					<TextView
-							android:layout_width="match_parent"
-							android:layout_height="wrap_content"
-							android:text="@string/todo"/>
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="@string/todo"
+						android:paddingLeft="@dimen/activity_horizontal_padding"
+						android:paddingRight="@dimen/activity_horizontal_padding"
+						android:paddingTop="@dimen/item_vertical_padding"
+						android:paddingBottom="@dimen/item_vertical_padding"/>
 
 					<TextView
-							android:layout_width="match_parent"
-							android:layout_height="wrap_content"
-							android:text="@string/todo"/>
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="@string/todo"
+						android:paddingLeft="@dimen/activity_horizontal_padding"
+						android:paddingRight="@dimen/activity_horizontal_padding"
+						android:paddingTop="@dimen/item_vertical_padding"
+						android:paddingBottom="@dimen/item_vertical_padding"/>
 
 				</LinearLayout>
                 

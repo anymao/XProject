@@ -1,5 +1,7 @@
 package com.anymore.example.mvvm.model.api
 
+import android.support.annotation.IntRange
+import android.support.annotation.NonNull
 import com.anymore.example.mvvm.model.db.entry.UserInfo
 import com.anymore.example.mvvm.model.entry.*
 import io.reactivex.Observable
@@ -64,4 +66,65 @@ interface WanAndroidKnowledgeApi{
     //获取某个知识体系下的所有文章
     @GET("/article/list/{page}/json")
     fun getSubKnowledges(@Path("page") page:Int,@Query("cid") cid:Int):Observable<WanAndroidResponse<Articles>>
+}
+
+/**
+ * 收藏相关接口
+ */
+interface WanAndroidCollectApi{
+
+    //获取所有收藏的文章
+    @GET("/lg/collect/list/{page}/json")
+    fun getAllCollectedArticles(@Path("page") page: Int):Observable<WanAndroidResponse<Articles>>
+
+    //收藏站内指定id文章
+    @POST("/lg/collect/{id}/json")
+    fun collectWanAndroidArticle(@Path("id") id:Int):Observable<WanAndroidResponse<Any>>
+
+    //收藏站外文章
+    @POST("/lg/collect/add/json")
+    fun collectOtherArticle(@Field("title") title:String, @Field("author") author:String, @Field("link") link:String):Observable<WanAndroidResponse<Any>>
+
+    //取消收藏方式1
+    @POST("/lg/uncollect_originId/{id}/json")
+    fun uncollectWanAndroidArticle(@Path("id") id: Int):Observable<WanAndroidResponse<Any>>
+
+    //取消收藏方式2
+    @POST("/lg/uncollect/{id}/json")
+    fun uncollectArticle(@Path("id") id: Int,@Field("originId") originId:Int=-1):Observable<WanAndroidResponse<Any>>
+
+}
+
+interface WanAndroidTodoApi{
+    //新建一条todo
+    @FormUrlEncoded
+    @POST("/lg/todo/add/json")
+    fun createTodo(@NonNull @Field("title") title:String,
+                   @NonNull @Field("content") content:String,
+                   @Field("date") date:String,
+                   @IntRange(from = 1) @Field("type") type:Int,
+                   @IntRange(from = 1) @Field("priority") priority:Int):Observable<WanAndroidResponse<Any>>
+    //更新一条todo
+    @FormUrlEncoded
+    @POST("/lg/todo/update/{id}/json")
+    fun updateTodo(@Path("id") id: Int,
+                   @NonNull @Field("title") title:String,
+                   @NonNull @Field("content") content:String,
+                   @Field("date") date:String,
+                   @IntRange(from = 1) @Field("type") type:Int,
+                   @IntRange(from = 1) @Field("priority") priority:Int):Observable<WanAndroidResponse<Any>>
+    //删除todo
+    @POST("/lg/todo/delete/{id}/json")
+    fun deleteTodo(@Path("id") id: Int):Observable<WanAndroidResponse<Any>>
+
+    @FormUrlEncoded
+    @POST("/lg/todo/done/{id}/json")
+    fun updateTodoStatus(@Path("id") id: Int,@Field("status") status:Int):Observable<WanAndroidResponse<Any>>
+
+    @POST("/lg/todo/v2/list/{page}/json")
+    fun getTodoList(@Path("page") page :Int,
+                    @Field("status") status :Int,
+                    @Field("type") type :Int,
+                    @Field("priority") priority:Int,
+                    @Field("orderby") orderby:Int):Observable<WanAndroidResponse<Todos>>
 }

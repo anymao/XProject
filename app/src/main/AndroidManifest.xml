@@ -22,15 +22,26 @@
 						    <category android:name="android.intent.category.LAUNCHER"/>
 				    </intent-filter>
 		    </activity>
-			<activity android:name=".mvvm.view.register.RegisterActivity"/>
-			<activity android:name=".mvvm.view.login.LoginActivity"/>
+			<activity android:name=".mvvm.view.register.RegisterActivity"
+					  android:screenOrientation="portrait"/>
+			<activity android:name=".mvvm.view.login.LoginActivity"
+					  android:screenOrientation="portrait"/>
 		    <activity android:name=".mvvm.view.main.MainActivity"
-				    android:launchMode="singleTask"/>
-			<activity android:name=".mvvm.view.web.WebActivity"/>
-			<activity android:name=".mvvm.view.knowledges.KnowledgesTabActivity"/>
+					  android:screenOrientation="portrait"
+					  android:launchMode="singleTask"/>
+			<activity android:name=".mvvm.view.web.WebActivity"
+					  android:screenOrientation="portrait"/>
+			<activity android:name=".mvvm.view.knowledges.KnowledgesTabActivity"
+					  android:screenOrientation="portrait"/>
+            <activity android:name=".mvvm.view.collect.CollectedArticlesActivity"
+					  android:screenOrientation="portrait"/>
+            <activity android:name=".mvvm.view.web.ExtendedWebActivity"
+					  android:screenOrientation="portrait"/>
+            <activity android:name=".mvvm.view.FragmentActivity"
+					  android:screenOrientation="portrait"/>
 
 
-			<provider android:name="android.support.v4.content.FileProvider"
+            <provider android:name="android.support.v4.content.FileProvider"
 					android:authorities="${applicationId}.FileProvider"
 					android:exported="false"
 					android:grantUriPermissions="true">
