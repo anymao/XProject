@@ -6,7 +6,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.OnLifecycleEvent
 import com.anymore.example.mvvm.model.MainModel
 import com.anymore.example.mvvm.model.entry.Banner
-import com.anymore.example.mvvm.model.paging.ArticlesRepository
+import com.anymore.example.mvvm.model.paging.article.ArticlesRepository
 import com.anymore.mvvmkit.di.scope.FragmentScope
 import com.anymore.mvvmkit.mvvm.SingleLiveEvent
 import com.anymore.mvvmkit.mvvm.base.BaseViewModel

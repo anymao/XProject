@@ -1,4 +1,4 @@
-package com.anymore.example.mvvm.model.paging
+package com.anymore.example.mvvm.model.paging.article
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import timber.log.Timber
 /**
  * Created by anymore on 2019/4/7.
  */
-class ArticlesSource(private val mApi:ArticlesApiWrapper) : PageKeyedDataSource<Int, Article>(){
+class ArticlesSource(private val mApi: ArticlesApiWrapper) : PageKeyedDataSource<Int, Article>(){
 
     private var mRetry:(()->Unit)?=null
     val mStatus = MutableLiveData<NetStatus>()

@@ -1,4 +1,4 @@
-package com.anymore.example.mvvm.model.paging
+package com.anymore.example.mvvm.model.paging.article
 
 import com.anymore.example.mvvm.model.api.WanAndroidCollectApi
 import com.anymore.example.mvvm.model.api.WanAndroidHomePageApi
@@ -18,7 +18,8 @@ interface ArticlesApiWrapper{
     fun loadBefore(page: Int):Observable<Articles>
 }
 
-class HomeArticlesApiWrapper(private val api:WanAndroidHomePageApi) :ArticlesApiWrapper{
+class HomeArticlesApiWrapper(private val api:WanAndroidHomePageApi) :
+    ArticlesApiWrapper {
 
     override fun loadInitial(page: Int): Observable<Articles> {
         return api.getArticles(page)
@@ -55,7 +56,8 @@ class HomeArticlesApiWrapper(private val api:WanAndroidHomePageApi) :ArticlesApi
 
 }
 
-class KnowledgesArtclesApiWrapper(private val api: WanAndroidKnowledgeApi,private val cid:Int):ArticlesApiWrapper{
+class KnowledgesArtclesApiWrapper(private val api: WanAndroidKnowledgeApi,private val cid:Int):
+    ArticlesApiWrapper {
 
     override fun loadInitial(page: Int): Observable<Articles> {
         return api.getSubKnowledges(page,cid)
@@ -91,7 +93,8 @@ class KnowledgesArtclesApiWrapper(private val api: WanAndroidKnowledgeApi,privat
     }
 }
 
-class CollectedArticlesApiWrapper(private val api:WanAndroidCollectApi):ArticlesApiWrapper{
+class CollectedArticlesApiWrapper(private val api:WanAndroidCollectApi):
+    ArticlesApiWrapper {
 
     override fun loadInitial(page: Int): Observable<Articles> {
         return api.getAllCollectedArticles(page)

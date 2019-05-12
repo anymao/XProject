@@ -3,7 +3,7 @@ package com.anymore.example.mvvm.viewmodel
 import android.app.Application
 import com.anymore.example.mvvm.model.MainModel
 import com.anymore.example.mvvm.model.entry.Article
-import com.anymore.example.mvvm.model.paging.ArticlesRepository
+import com.anymore.example.mvvm.model.paging.article.ArticlesRepository
 import com.anymore.example.mvvm.model.paging.Listing
 import com.anymore.mvvmkit.di.scope.FragmentScope
 import com.anymore.mvvmkit.mvvm.base.BaseViewModel
