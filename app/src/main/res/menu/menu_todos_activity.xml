@@ -4,13 +4,13 @@
     <item
             android:id="@+id/type_unfinished"
             android:enabled="true"
-            android:icon="@drawable/menu_item_home_selector"
-            android:title="@string/home"
+            android:icon="@drawable/menu_item_unfinished_selector"
+            android:title="@string/unfinished"
             app:showAsAction="always" />
     <item
-            android:id="@+id/action_discovery"
+            android:id="@+id/type_done"
             android:enabled="true"
-            android:icon="@drawable/menu_item_discovery_selector"
-            android:title="@string/discovery"
+            android:icon="@drawable/menu_item_done_selector"
+            android:title="@string/done"
             app:showAsAction="always" />
 </menu>

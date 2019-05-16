@@ -44,7 +44,7 @@ class MainModel @Inject constructor(application: Application):BaseModel(applicat
     /**
      * 获取首页文章列表
      */
-    @Deprecated(message = "使用paging加载列表",replaceWith = ReplaceWith("getHomeArticlesListing()","com.anymore.example.mvvm.model.paging.ArticlesRepository"))
+    @Deprecated(message = "使用paging加载列表",replaceWith = ReplaceWith("getHomeArticlesListing()","com.anymore.example.mvvm.model.paging.article.ArticlesRepository"))
     fun getHomeArticlesList(page:Int):Observable<Pair<Int,List<Article>>>{
         return mRepositoryComponent.getRepository()
             .obtainRetrofitService(KEY,WanAndroidHomePageApi::class.java)

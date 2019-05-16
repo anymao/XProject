@@ -1,4 +1,4 @@
-package com.anymore.example.mvvm.model.paging
+package com.anymore.example.mvvm.model.paging.article
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.DataSource

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.arch.lifecycle.ViewModel
 import com.anymore.example.mvvm.model.MainModel
+import com.anymore.example.mvvm.model.TodoModel
 import com.anymore.example.mvvm.model.UserModel
 import com.anymore.example.mvvm.view.knowledges.KnowledgesArticlesFragment
 import com.anymore.example.mvvm.view.SplashActivity
@@ -14,6 +15,7 @@ import com.anymore.example.mvvm.view.main.HomeFragment
 import com.anymore.example.mvvm.view.main.MainActivity
 import com.anymore.example.mvvm.view.main.MyFragment
 import com.anymore.example.mvvm.view.register.RegisterActivity
+import com.anymore.example.mvvm.view.todo.TodoFragment
 import com.anymore.example.mvvm.view.web.ExtendedWebActivity
 import com.anymore.example.mvvm.viewmodel.*
 import com.anymore.mvvmkit.di.key.ViewModelKey
@@ -42,7 +44,8 @@ import dagger.multibindings.IntoMap
     MyFragmentModule::class,
     KnowledgesArticlesFragmentModule::class,
     CollectedArticlesActivityModule::class,
-    ExtendedWebActivityModule::class])
+    ExtendedWebActivityModule::class,
+    TodoFragmentModule::class])
 class ExampleAppModule(private val application: Application){
 
     @Provides
@@ -226,7 +229,7 @@ abstract class KnowledgesArticlesFragmentViewModelModule{
     @Binds
     @IntoMap
     @ViewModelKey(KnowledgesArticlesFragmentViewModel::class)
-    abstract fun bindMyFragmentViewModel(viewModel: KnowledgesArticlesFragmentViewModel):ViewModel
+    abstract fun bindKnowledgesArticlesFragmentViewModel(viewModel: KnowledgesArticlesFragmentViewModel):ViewModel
 }
 
 /////////////KnowledgesArticlesFragment  end////////////////
@@ -270,3 +273,32 @@ abstract class ExtendedWebActivityModule{
 }
 
 /////////////ExtendedWebActivity  end/////////////////////
+
+/////////////TodoFragment  start////////////////
+
+@Module
+abstract class TodoFragmentModule{
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [TodoModelModule::class,TodoFragmentViewModelModule::class])
+    abstract fun contributeTodoFragment(): TodoFragment
+}
+
+@Module
+abstract class TodoFragmentViewModelModule{
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TodoFragmentViewModel::class)
+    abstract fun bindTodoFragmentViewModel(viewModel: TodoFragmentViewModel):ViewModel
+}
+
+@Module
+class TodoModelModule{
+
+    @FragmentScope
+    @Provides
+    fun provideTodoModel(model:TodoModel):BaseModel=model
+}
+
+/////////////TodoFragment  end////////////////
