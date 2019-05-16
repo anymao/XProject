@@ -1,6 +1,5 @@
 package com.anymore.example.mvvm.model.paging.todo
 
-import android.support.annotation.IntRange
 import com.anymore.example.mvvm.model.api.WanAndroidTodoApi
 import com.anymore.example.mvvm.model.entry.ResponseCode
 import com.anymore.example.mvvm.model.entry.Todos
@@ -16,14 +15,11 @@ interface TodoApiWrapper {
     fun loadBefore(page: Int): Observable<Todos>
 }
 
-class TodoWrappedApi(private val mAPi:WanAndroidTodoApi,
-                     @IntRange(from = 0,to = 1) private val status:Int = 0,
-                     private val type:Int,
-                     private val priority:Int,
-                     private val orderby:Int):TodoApiWrapper{
+class TodoListApiWrapper(private val mAPi:WanAndroidTodoApi,
+                         private val map:MutableMap<String,Any>):TodoApiWrapper{
 
     override fun loadInitial(page: Int): Observable<Todos> {
-        return mAPi.getTodoList(page,status,type,priority,orderby)
+        return mAPi.getTodoList(page,map)
             .map {
                 if (it.errorCode == ResponseCode.OK){
                     return@map it.data
@@ -34,22 +30,24 @@ class TodoWrappedApi(private val mAPi:WanAndroidTodoApi,
     }
 
     override fun loadAfter(page: Int): Observable<Todos> {
-        return mAPi.getTodoList(page,status,type,priority,orderby)
+        return mAPi.getTodoList(page,map)
             .map {
                 if (it.errorCode == ResponseCode.OK){
                     return@map it.data
                 }else{
                     throw WanAndroidException(it.errorMsg?:"获取待办信息出错!")
                 }
-            }    }
+            }
+    }
 
     override fun loadBefore(page: Int): Observable<Todos> {
-        return mAPi.getTodoList(page,status,type,priority,orderby)
+        return mAPi.getTodoList(page,map)
             .map {
                 if (it.errorCode == ResponseCode.OK){
                     return@map it.data
                 }else{
                     throw WanAndroidException(it.errorMsg?:"获取待办信息出错!")
                 }
-            }    }
+            }
+    }
 }

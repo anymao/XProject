@@ -49,7 +49,7 @@ class ArticlesRepository(private val application: Application){
      */
     fun getKnowledgesArticlesListing(cid: Int): Listing<Article> {
         val api = application.getRepositoryComponent().getRepository().obtainRetrofitService(KEY,WanAndroidKnowledgeApi::class.java)
-        val apiWrapper = KnowledgesArtclesApiWrapper(api, cid)
+        val apiWrapper = KnowledgesArticlesApiWrapper(api, cid)
         val factory = ArticlesSourceFactory(apiWrapper)
         val data = LivePagedListBuilder<Int,Article>(factory,
             PagedList.Config

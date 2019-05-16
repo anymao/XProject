@@ -7,10 +7,13 @@ import com.anymore.mvvmkit.repository.IRepositoryManager
 import com.anymore.mvvmkit.repository.RepositoryInjector
 import dagger.Component
 import okhttp3.OkHttpClient
+import javax.inject.Singleton
 
 /**
  * Created by liuyuanmao on 2019/3/9.
  */
+
+@Singleton
 @Component(modules = [RepositoryModule::class, RepositoryConfigsModule::class,HttpClientModule::class])
 interface RepositoryComponent{
     fun getRepository():IRepositoryManager

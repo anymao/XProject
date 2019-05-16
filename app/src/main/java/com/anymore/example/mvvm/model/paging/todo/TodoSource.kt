@@ -1,26 +1,26 @@
-package com.anymore.example.mvvm.model.paging.article
+package com.anymore.example.mvvm.model.paging.todo
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PageKeyedDataSource
 import com.anymore.example.mvvm.model.api.NetStatus
-import com.anymore.example.mvvm.model.entry.Article
+import com.anymore.example.mvvm.model.entry.Todo
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 
 /**
  * Created by anymore on 2019/4/7.
  */
-class ArticlesSource(private val mApi: ArticlesApiWrapper) : PageKeyedDataSource<Int, Article>(){
+class TodoSource(private val mApi: TodoApiWrapper) : PageKeyedDataSource<Int, Todo>(){
 
     private var mRetry:(()->Unit)?=null
     val mStatus = MutableLiveData<NetStatus>()
 
     @SuppressLint("CheckResult")
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Article>) {
+    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Todo>) {
         Timber.d("loadInitial:")
         mStatus.postValue(NetStatus.DOING)
-        mApi.loadInitial(page = 0)
+        mApi.loadInitial(page = 1)
             .subscribeBy(onNext = {
                 val next = if (it.curPage < it.pageCount){
                     it.curPage
@@ -39,7 +39,7 @@ class ArticlesSource(private val mApi: ArticlesApiWrapper) : PageKeyedDataSource
     }
 
     @SuppressLint("CheckResult")
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Article>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Todo>) {
         Timber.d("loadAfter  call:${params.key}")
         mStatus.postValue(NetStatus.DOING)
         mApi.loadAfter(page = params.key)
@@ -61,7 +61,7 @@ class ArticlesSource(private val mApi: ArticlesApiWrapper) : PageKeyedDataSource
     }
 
     @SuppressLint("CheckResult")
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Article>) {
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Todo>) {
         Timber.d("loadBefore  call:${params.key}")
         mStatus.postValue(NetStatus.DOING)
         mApi.loadAfter(page = params.key)

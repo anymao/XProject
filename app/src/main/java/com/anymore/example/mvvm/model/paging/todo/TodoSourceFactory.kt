@@ -11,7 +11,7 @@ class TodoSourceFactory(private val mApiWrapper: TodoApiWrapper): DataSource.Fac
     val source = MutableLiveData<TodoSource>()
     override fun create(): DataSource<Int, Todo> {
         val s = TodoSource(mApi = mApiWrapper)
-        source.value = s
+        source.postValue(s)
         return s
     }
 }

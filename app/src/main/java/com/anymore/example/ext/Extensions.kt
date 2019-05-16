@@ -14,7 +14,7 @@ import com.google.gson.reflect.TypeToken
 inline fun <reified T> Gson.fromJson(json: String) = fromJson(json, T::class.java)
 
 
-inline fun  <reified T> Gson.toList(json: String):List<T>{
+inline fun <reified T> Gson.toList(json: String):List<T>{
     return fromJson<List<T>>(json, object : TypeToken<List<T>>() {
     }.type)
 }

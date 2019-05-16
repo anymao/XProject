@@ -21,6 +21,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
+import javax.inject.Singleton
 
 /**
  * Created by liuyuanmao on 2019/3/7.
@@ -28,7 +29,7 @@ import timber.log.Timber
 @Module
 class RepositoryModule{
 
-//    @Singleton
+    @Singleton
     @Provides
     fun provideIRepositoryManager(application: Application,
                                   retrofits:Lazy<SparseArray<Retrofit>>,
@@ -156,11 +157,8 @@ class RepositoryConfigsModule private constructor(builder: Builder) {
              */
             val DEFAULT = object :OkHttpConfig{
                 override fun applyConfig(context: Context, builder: OkHttpClient.Builder) {
-                    val okLogger = HttpLoggingInterceptor()
-                    if (BuildConfig.DEBUG){
-                        okLogger.level = HttpLoggingInterceptor.Level.BODY
-                    }else{
-                        okLogger.level = HttpLoggingInterceptor.Level.NONE
+                    val okLogger = HttpLoggingInterceptor().apply {
+                        level = if (BuildConfig.DEBUG){HttpLoggingInterceptor.Level.BODY}else{HttpLoggingInterceptor.Level.NONE}
                     }
                     builder.addInterceptor(okLogger)
                 }

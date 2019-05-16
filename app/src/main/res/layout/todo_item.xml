@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+                name="entry"
+                type="com.anymore.example.mvvm.model.entry.Todo"/>
+        <variable
+                name="eventHandler"
+                type="com.anymore.example.mvvm.view.adapter.TodosPagingAdapter.OnItemEventHandler"/>
+    </data>
 
-</LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:onClick="@{()->eventHandler.onClick(entry)}">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={entry.title}"/>
+    </LinearLayout>
+</layout>

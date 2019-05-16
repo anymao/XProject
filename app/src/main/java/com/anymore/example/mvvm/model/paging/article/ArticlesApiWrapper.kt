@@ -56,7 +56,7 @@ class HomeArticlesApiWrapper(private val api:WanAndroidHomePageApi) :
 
 }
 
-class KnowledgesArtclesApiWrapper(private val api: WanAndroidKnowledgeApi,private val cid:Int):
+class KnowledgesArticlesApiWrapper(private val api: WanAndroidKnowledgeApi, private val cid:Int):
     ArticlesApiWrapper {
 
     override fun loadInitial(page: Int): Observable<Articles> {

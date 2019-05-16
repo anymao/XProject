@@ -121,10 +121,7 @@ interface WanAndroidTodoApi{
     @POST("/lg/todo/done/{id}/json")
     fun updateTodoStatus(@Path("id") id: Int,@Field("status") status:Int):Observable<WanAndroidResponse<Any>>
 
-    @POST("/lg/todo/v2/list/{page}/json")
+    @GET("/lg/todo/v2/list/{page}/json")
     fun getTodoList(@Path("page") page :Int,
-                    @Field("status") status :Int,
-                    @Field("type") type :Int,
-                    @Field("priority") priority:Int,
-                    @Field("orderby") orderby:Int):Observable<WanAndroidResponse<Todos>>
+                    @QueryMap map:MutableMap<String,Any>):Observable<WanAndroidResponse<Todos>>
 }

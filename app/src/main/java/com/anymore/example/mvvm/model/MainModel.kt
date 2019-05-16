@@ -5,8 +5,8 @@ import com.anymore.example.mvvm.model.api.KEY
 import com.anymore.example.mvvm.model.api.WanAndroidCollectApi
 import com.anymore.example.mvvm.model.api.WanAndroidHomePageApi
 import com.anymore.example.mvvm.model.api.WanAndroidKnowledgeApi
-import com.anymore.example.mvvm.model.entry.Banner
 import com.anymore.example.mvvm.model.entry.Article
+import com.anymore.example.mvvm.model.entry.Banner
 import com.anymore.example.mvvm.model.entry.Knowledge
 import com.anymore.example.mvvm.model.entry.ResponseCode
 import com.anymore.example.mvvm.model.exception.WanAndroidException

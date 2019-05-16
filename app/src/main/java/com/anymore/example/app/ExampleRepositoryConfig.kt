@@ -1,5 +1,6 @@
 package com.anymore.example.app
 
+import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import com.anymore.example.app.cookies.PersistentCookieJar
 import com.anymore.example.app.cookies.SharedPreferencesCookieStore
@@ -17,6 +18,7 @@ import java.io.File
  * Created by liuyuanmao on 2019/3/12.
  */
 class ExampleRepositoryConfig:RepositoryConfigsModule.RepositoryConfig {
+
     companion object {
         const val MAX_CACHE_SIZE = 30*1024*1024L
     }
@@ -31,13 +33,16 @@ class ExampleRepositoryConfig:RepositoryConfigsModule.RepositoryConfig {
                     builder.cache(provideOkCache(context, MAX_CACHE_SIZE))
                     val cookieStore = SharedPreferencesCookieStore(context)
                     builder.cookieJar(PersistentCookieJar(cookieStore))
-                    val okLogger = HttpLoggingInterceptor()
-                    if (BuildConfig.DEBUG){
-                        okLogger.level = HttpLoggingInterceptor.Level.HEADERS
-                    }else{
-                        okLogger.level = HttpLoggingInterceptor.Level.NONE
+                    val okLogger = HttpLoggingInterceptor().apply {
+                        level = if (BuildConfig.DEBUG){ HttpLoggingInterceptor.Level.HEADERS }else{ HttpLoggingInterceptor.Level.NONE }
                     }
                     builder.addNetworkInterceptor(okLogger)
+                }
+
+            }
+            roomDatabaseConfig = object :RepositoryConfigsModule.RoomDatabaseConfig{
+                override fun config(context: Context, builder: RoomDatabase.Builder<*>) {
+                    builder.fallbackToDestructiveMigration()
                 }
 
             }
