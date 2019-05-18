@@ -1,6 +1,7 @@
 package com.anymore.example.mvvm.viewmodel
 
 import android.app.Application
+import android.arch.lifecycle.MutableLiveData
 import android.support.annotation.IntRange
 import com.anymore.example.mvvm.model.TodoModel
 import com.anymore.example.mvvm.model.entry.Todo
@@ -16,6 +17,9 @@ import javax.inject.Inject
 @FragmentScope
 class TodoFragmentViewModel @Inject constructor(application: Application,private val mModel:TodoModel)
     :BaseViewModel(application) {
+
+    val loadComplete by lazy { MutableLiveData<Boolean>() }
+    val todoList by lazy { MutableLiveData<List<Todo>>() }
 
     private val repository by lazy { TodoRepository(application) }
 

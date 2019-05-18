@@ -102,4 +102,7 @@ dependencies {
     implementation 'com.just.agentweb:agentweb:4.0.2'
     implementation 'com.just.agentweb:download:4.0.2'
     implementation 'com.just.agentweb:filechooser:4.0.2'
+    //SmartRefreshLayout
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-26'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-26'//没有使用特殊Header，可以不加这行
 }
