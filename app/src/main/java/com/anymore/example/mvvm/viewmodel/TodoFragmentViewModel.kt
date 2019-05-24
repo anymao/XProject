@@ -17,7 +17,7 @@ import javax.inject.Inject
 @FragmentScope
 class TodoFragmentViewModel @Inject constructor(application: Application,private val mModel:TodoModel)
     :BaseViewModel(application) {
-
+    private val mCurrentPage = 1
     val loadComplete by lazy { MutableLiveData<Boolean>() }
     val todoList by lazy { MutableLiveData<List<Todo>>() }
 

@@ -14,4 +14,6 @@
     <string name="copy_link">复制链接</string>
     <string name="unfinished">未完成</string>
     <string name="done">已完成</string>
+    <string name="title">标题</string>
+    <string name="content">内容</string>
 </resources>
