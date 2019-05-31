@@ -12,7 +12,7 @@ class BannerLoader(private val mBanner: Banner) : OnBannerListener {
     private var mData:List<BannerData>? = null
     private val mImages by lazy { ArrayList<String>() }
     private val mTitles by lazy { ArrayList<String>() }
-    private var mListener:((banner:BannerData)->Unit)? = null
+    var mListener:((banner:BannerData)->Unit)? = null
 
     fun initBanner(listener:((banner: BannerData)->Unit)?=null){
         //设置banner样式(显示圆形指示器)
@@ -29,10 +29,6 @@ class BannerLoader(private val mBanner: Banner) : OnBannerListener {
 //        banner.isAutoPlay(true);
         //设置轮播时间
         mBanner.setDelayTime(5000)
-        mListener = listener
-    }
-
-    fun setOnBannerClickListener(listener:(banner: BannerData)->Unit){
         mListener = listener
     }
 

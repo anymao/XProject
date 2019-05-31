@@ -17,23 +17,23 @@ import javax.inject.Inject
  * Created by liuyuanmao on 2019/3/29.
  */
 @ActivityScope
-class LoginViewModel @Inject constructor(application: Application,userModel: UserModel)
-    : BaseViewModel1<UserModel>(application,userModel) {
+class LoginViewModel @Inject constructor(application: Application, userModel: UserModel) :
+    BaseViewModel1<UserModel>(application, userModel) {
 
     val mErrorMessage = SingleLiveEvent<String>()
     val mMessage = SingleLiveEvent<String>()
     val mLoginEvent by lazy { SingleLiveEvent<Boolean>() }
     fun login(username: String?, pwd: String?) {
         if (checkUser(username, pwd)) {
-            val disposable = mModel.login(username!!,pwd!!)
+            val disposable = mModel.login(username!!, pwd!!)
                 .subscribeBy(onNext = {
-                    if (it.errorCode == ResponseCode.OK){
+                    if (it.errorCode == ResponseCode.OK) {
                         mMessage.value = "登录成功!"
                         mLoginEvent.value = true
-                    }else{
+                    } else {
                         mErrorMessage.value = it.errorMsg
                     }
-                },onError = {
+                }, onError = {
                     mErrorMessage.value = it.message
                 })
             addToCompositeDisposable(disposable)
@@ -41,11 +41,11 @@ class LoginViewModel @Inject constructor(application: Application,userModel: Use
     }
 
     private fun checkUser(username: String?, pwd: String?): Boolean {
-        if (TextUtils.isEmpty(username)){
+        if (TextUtils.isEmpty(username)) {
             mErrorMessage.value = "用户名不能为空!"
             return false
         }
-        if (TextUtils.isEmpty(pwd)){
+        if (TextUtils.isEmpty(pwd)) {
             mErrorMessage.value = "密码不能为空!"
             return false
         }

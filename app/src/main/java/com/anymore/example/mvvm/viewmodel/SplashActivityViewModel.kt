@@ -16,18 +16,19 @@ import javax.inject.Inject
  * Created by anymore on 2019/4/20.
  */
 @ActivityScope
-class SplashActivityViewModel @Inject constructor(application: Application, private val mModel: UserModel):BaseViewModel(application){
+class SplashActivityViewModel @Inject constructor(application: Application, private val mModel: UserModel) :
+    BaseViewModel(application) {
     val mUserInfo = MutableLiveData<UserInfo>()
     val mHasLoginedUser = SingleLiveEvent<Boolean>()
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate(){
+    fun onCreate() {
         val disposable = mModel.getCurrentUser()
             .subscribeBy(
                 onSuccess = {
                     mUserInfo.postValue(it)
                     mHasLoginedUser.postValue(true)
                 },
-                onError = {mHasLoginedUser.postValue(false)}
+                onError = { mHasLoginedUser.postValue(false) }
             )
         addToCompositeDisposable(disposable)
     }

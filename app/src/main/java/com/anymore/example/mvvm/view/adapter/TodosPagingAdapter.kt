@@ -11,33 +11,33 @@ import com.anymore.example.R
 import com.anymore.example.mvvm.model.entry.Todo
 import com.anymore.example.mvvm.view.adapter.viewholder.BindingViewHolder
 
-class TodosPagingAdapter(private val mContext:Context):PagedListAdapter<Todo,BindingViewHolder>(diffCallback){
+class TodosPagingAdapter(private val mContext: Context) : PagedListAdapter<Todo, BindingViewHolder>(diffCallback) {
 
     private val mLayoutInflater by lazy { LayoutInflater.from(mContext) }
-    var mItemEventHandler:Any? = null
+    var mItemEventHandler: Any? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
-        return BindingViewHolder(DataBindingUtil.inflate(mLayoutInflater, R.layout.todo_item,parent,false))
+        return BindingViewHolder(DataBindingUtil.inflate(mLayoutInflater, R.layout.todo_item, parent, false))
     }
 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
-        holder.mBinding.setVariable(BR.entry,getItem(position))
+        holder.mBinding.setVariable(BR.entry, getItem(position))
         mItemEventHandler?.let {
-            holder.mBinding.setVariable(BR.eventHandler,it)
+            holder.mBinding.setVariable(BR.eventHandler, it)
         }
     }
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<Todo>() {
 
-            override fun areItemsTheSame(oldItem: Todo, newItem: Todo)=(oldItem.id == newItem.id)
+            override fun areItemsTheSame(oldItem: Todo, newItem: Todo) = (oldItem.id == newItem.id)
 
-            override fun areContentsTheSame(oldItem: Todo, newItem: Todo)=(oldItem.id == newItem.id)
+            override fun areContentsTheSame(oldItem: Todo, newItem: Todo) = (oldItem.id == newItem.id)
         }
     }
 
-    interface OnItemEventHandler{
-        fun onClick(item:Todo)
+    interface OnItemEventHandler {
+        fun onClick(item: Todo)
     }
 }
 

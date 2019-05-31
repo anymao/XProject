@@ -17,30 +17,34 @@ import java.io.File
 /**
  * Created by liuyuanmao on 2019/3/12.
  */
-class ExampleRepositoryConfig:RepositoryConfigsModule.RepositoryConfig {
+class ExampleRepositoryConfig : RepositoryConfigsModule.RepositoryConfig {
 
     companion object {
-        const val MAX_CACHE_SIZE = 30*1024*1024L
+        const val MAX_CACHE_SIZE = 30 * 1024 * 1024L
     }
 
     override fun applyConfig(context: Context, builder: RepositoryConfigsModule.Builder) {
         Timber.d("applyConfig ....start")
         builder.apply {
             addUrl(KEY, BASE_URL)
-            okHttpConfig = object :RepositoryConfigsModule.OkHttpConfig{
+            okHttpConfig = object : RepositoryConfigsModule.OkHttpConfig {
 
                 override fun applyConfig(context: Context, builder: OkHttpClient.Builder) {
                     builder.cache(provideOkCache(context, MAX_CACHE_SIZE))
                     val cookieStore = SharedPreferencesCookieStore(context)
                     builder.cookieJar(PersistentCookieJar(cookieStore))
                     val okLogger = HttpLoggingInterceptor().apply {
-                        level = if (BuildConfig.DEBUG){ HttpLoggingInterceptor.Level.HEADERS }else{ HttpLoggingInterceptor.Level.NONE }
+                        level = if (BuildConfig.DEBUG) {
+                            HttpLoggingInterceptor.Level.HEADERS
+                        } else {
+                            HttpLoggingInterceptor.Level.NONE
+                        }
                     }
                     builder.addNetworkInterceptor(okLogger)
                 }
 
             }
-            roomDatabaseConfig = object :RepositoryConfigsModule.RoomDatabaseConfig{
+            roomDatabaseConfig = object : RepositoryConfigsModule.RoomDatabaseConfig {
                 override fun config(context: Context, builder: RoomDatabase.Builder<*>) {
                     builder.fallbackToDestructiveMigration()
                 }
@@ -51,8 +55,8 @@ class ExampleRepositoryConfig:RepositoryConfigsModule.RepositoryConfig {
     }
 
 
-    private fun provideOkCache(context: Context,maxSize:Long):Cache{
-        val cacheDir = File(context.cacheDir,"okCache")
-        return Cache(cacheDir,maxSize)
+    private fun provideOkCache(context: Context, maxSize: Long): Cache {
+        val cacheDir = File(context.cacheDir, "okCache")
+        return Cache(cacheDir, maxSize)
     }
 }

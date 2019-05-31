@@ -22,12 +22,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding{
+    dataBinding {
         enabled = true
     }
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
+    }
+
+
+    kotlin {
+        experimental {
+            coroutines 'enable'
+        }
     }
 
 }
@@ -40,7 +47,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 //    //anko 库 包含通用库和协程库
-    implementation ("org.jetbrains.anko:anko:$anko_version"){
+    implementation("org.jetbrains.anko:anko:$anko_version") {
         exclude group: 'com.android.support'
     }
 //    // Anko Commons
@@ -92,15 +99,14 @@ dependencies {
     implementation 'com.facebook.stetho:stetho:1.5.1'
 
 
-
 }
 
-uploadArchives{
-    repositories{
-        mavenDeployer{
+uploadArchives {
+    repositories {
+        mavenDeployer {
             // 本地仓库路径
 //            def url = "file://D://MavenRepository"
-            repository(url:'file://D://MavenLocal')
+            repository(url: 'file://D://MavenLocal')
 //            System.out.println("local：+++++"+mavenLocal().getUrl())
             // 唯一标识
             pom.groupId = "com.anymore"

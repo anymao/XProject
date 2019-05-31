@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <FrameLayout android:layout_width="match_parent"
+    <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/activity_vertical_padding"
             android:paddingBottom="@dimen/activity_vertical_padding"
             android:layout_gravity="bottom"
             android:background="@color/white">
+
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_list"
                 android:layout_width="match_parent"

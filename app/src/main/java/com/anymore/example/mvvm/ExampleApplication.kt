@@ -13,7 +13,7 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader
 /**
  * Created by liuyuanmao on 2019/3/11.
  */
-class ExampleApplication:KitApplication() {
+class ExampleApplication : KitApplication() {
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
@@ -29,7 +29,7 @@ class ExampleApplication:KitApplication() {
     }
 
     companion object {
-        lateinit var INSTANCE:ExampleApplication
+        lateinit var INSTANCE: ExampleApplication
 
         init {
             //设置全局的Header构建器

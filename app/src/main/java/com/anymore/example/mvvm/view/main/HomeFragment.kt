@@ -14,25 +14,27 @@ import com.anymore.example.mvvm.view.web.ExtendedWebActivity
 import com.anymore.example.mvvm.viewmodel.HomeFragmentViewModel
 import com.anymore.mvvmkit.mvvm.base.BaseFragment
 
-class HomeFragment:BaseFragment<FragmentHomeBinding,HomeFragmentViewModel>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeFragmentViewModel>() {
 
 
-    private lateinit var mBannerLoader:BannerLoader
-    private val mAdapter by lazy { ArticlesPagingAdapter(context!!).apply {
-        mItemEventHandler = object :ArticlesPagingAdapter.OnItemEventHandler{
-            override fun onClick(item: Article) {
-                ExtendedWebActivity.start(context!!,item)
+    private lateinit var mBannerLoader: BannerLoader
+    private val mAdapter by lazy {
+        ArticlesPagingAdapter(context!!).apply {
+            mItemEventHandler = object : ArticlesPagingAdapter.OnItemEventHandler {
+                override fun onClick(item: Article) {
+                    ExtendedWebActivity.start(context!!, item)
+                }
             }
         }
-    } }
+    }
 
-    override fun getLayoutRes()= R.layout.fragment_home
+    override fun getLayoutRes() = R.layout.fragment_home
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
         initBanner()
         initRecyclerView()
-        mViewModel.mBanners.observe(this, Observer { it?.run {setBanners(this)} })
+        mViewModel.mBanners.observe(this, Observer { it?.run { setBanners(this) } })
         mViewModel.mArticleListing.pagedList.observe(this, Observer { mAdapter.submitList(it) })
     }
 
@@ -49,7 +51,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding,HomeFragmentViewModel>() {
     private fun initBanner() {
         mBannerLoader = BannerLoader(mBinding.banner)
         mBannerLoader.initBanner {
-            ExtendedWebActivity.start(context!!,it.url)
+            ExtendedWebActivity.start(context!!, it.url)
         }
     }
 
@@ -59,7 +61,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding,HomeFragmentViewModel>() {
 
 
     private fun initRecyclerView() {
-        mBinding.rvArticles.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
+        mBinding.rvArticles.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         mBinding.rvArticles.layoutManager = LinearLayoutManager(context)
         mBinding.rvArticles.adapter = mAdapter
     }

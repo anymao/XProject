@@ -16,15 +16,15 @@ import com.anymore.mvvmkit.mvvm.base.BaseActivity
 /**
  * Created by liuyuanmao on 2019/5/6.
  */
-class CollectedArticlesActivity:BaseActivity<ActivityCollectedArticlesBinding, CollectedArticlesActivityViewModel>(){
+class CollectedArticlesActivity : BaseActivity<ActivityCollectedArticlesBinding, CollectedArticlesActivityViewModel>() {
 
     private val mAdapter by lazy { ArticlesPagingAdapter(this) }
 
-    override fun initView(savedInstanceState: Bundle?)= R.layout.activity_collected_articles
+    override fun initView(savedInstanceState: Bundle?) = R.layout.activity_collected_articles
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
-        UiUtils.setupToolbar(this,mBinding.toolbar)
+        UiUtils.setupToolbar(this, mBinding.toolbar)
         initRecycleView()
         mViewModel.listing.pagedList.observe(this, Observer { mAdapter.submitList(it) })
     }
@@ -32,9 +32,9 @@ class CollectedArticlesActivity:BaseActivity<ActivityCollectedArticlesBinding, C
     private fun initRecycleView() {
         mBinding.rvArticles.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         mBinding.rvArticles.layoutManager = LinearLayoutManager(this)
-        mAdapter.mItemEventHandler = object :ArticlesPagingAdapter.OnItemEventHandler{
+        mAdapter.mItemEventHandler = object : ArticlesPagingAdapter.OnItemEventHandler {
             override fun onClick(item: Article) {
-                WebActivity.start(this@CollectedArticlesActivity,item.link)
+                WebActivity.start(this@CollectedArticlesActivity, item.link)
             }
         }
         mBinding.rvArticles.adapter = mAdapter

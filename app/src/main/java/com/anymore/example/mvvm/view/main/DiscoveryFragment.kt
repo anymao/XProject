@@ -12,17 +12,19 @@ import com.anymore.example.mvvm.view.knowledges.KnowledgesTabActivity
 import com.anymore.example.mvvm.viewmodel.DiscoveryFragmentViewModel
 import com.anymore.mvvmkit.mvvm.base.BaseFragment
 
-class DiscoveryFragment:BaseFragment<FragmentDiscoveryBinding,DiscoveryFragmentViewModel>() {
+class DiscoveryFragment : BaseFragment<FragmentDiscoveryBinding, DiscoveryFragmentViewModel>() {
 
-    private val mAdapter by lazy { KnowledgesAdapter(context!!).apply {
-        mItemEventHandler = object :KnowledgesAdapter.OnItemEventHandler{
-            override fun onClick(item: Knowledge) {
-                KnowledgesTabActivity.start(context!!,item)
+    private val mAdapter by lazy {
+        KnowledgesAdapter(context!!).apply {
+            mItemEventHandler = object : KnowledgesAdapter.OnItemEventHandler {
+                override fun onClick(item: Knowledge) {
+                    KnowledgesTabActivity.start(context!!, item)
+                }
             }
         }
-    } }
+    }
 
-    override fun getLayoutRes()= R.layout.fragment_discovery
+    override fun getLayoutRes() = R.layout.fragment_discovery
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
@@ -33,7 +35,7 @@ class DiscoveryFragment:BaseFragment<FragmentDiscoveryBinding,DiscoveryFragmentV
     }
 
     private fun initRecycleView() {
-        mBinding.rvKnowledges.layoutManager = GridLayoutManager(context,3)
+        mBinding.rvKnowledges.layoutManager = GridLayoutManager(context, 3)
         mBinding.rvKnowledges.adapter = mAdapter
     }
 

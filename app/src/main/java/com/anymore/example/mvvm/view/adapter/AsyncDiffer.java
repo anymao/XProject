@@ -21,36 +21,36 @@ public abstract class AsyncDiffer<T> extends DiffUtil.ItemCallback<T> {
         this.mTargetAdapter = adapter;
     }
 
-    public void apply(List<T> data){
+    public void apply(List<T> data) {
         newData = data;
         calculate();
     }
 
-    private void calculate(){
+    private void calculate() {
         AppExecutors.INSTANCE.getDiskIoExecutor().execute(() -> {
             final DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                 @Override
                 public int getOldListSize() {
-                    return oldSnapshot != null?oldSnapshot.size():0;
+                    return oldSnapshot != null ? oldSnapshot.size() : 0;
                 }
 
                 @Override
                 public int getNewListSize() {
-                    return newData != null?newData.size():0;
+                    return newData != null ? newData.size() : 0;
                 }
 
                 @Override
                 public boolean areItemsTheSame(int i, int i1) {
                     T oldItem = oldSnapshot.get(i);
                     T newItem = newData.get(i1);
-                    return AsyncDiffer.this.areItemsTheSame(oldItem,newItem);
+                    return AsyncDiffer.this.areItemsTheSame(oldItem, newItem);
                 }
 
                 @Override
                 public boolean areContentsTheSame(int i, int i1) {
                     T oldItem = oldSnapshot.get(i);
                     T newItem = newData.get(i1);
-                    return AsyncDiffer.this.areContentsTheSame(oldItem,newItem);
+                    return AsyncDiffer.this.areContentsTheSame(oldItem, newItem);
                 }
             }, true);
             oldSnapshot = newData;

@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
+
         <variable
-            name="entry"
-            type="com.anymore.example.mvvm.model.entry.Knowledge"/>
+                name="entry"
+                type="com.anymore.example.mvvm.model.entry.Knowledge"/>
+
         <variable
-            name="eventHandler"
-            type="com.anymore.example.mvvm.view.adapter.KnowledgesAdapter.OnItemEventHandler"/>
+                name="eventHandler"
+                type="com.anymore.example.mvvm.view.adapter.KnowledgesAdapter.OnItemEventHandler"/>
     </data>
+
     <LinearLayout
-        android:layout_width="112dp"
-        android:layout_height="112dp"
-        android:orientation="vertical"
-        android:onClick="@{()->eventHandler.onClick(entry)}">
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:orientation="vertical"
+            android:onClick="@{()->eventHandler.onClick(entry)}">
 
         <ImageView
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"/>
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"/>
+
         <TextView
-            android:layout_width="81dp"
-            android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:textSize="10sp"
-            android:gravity="center"
-            android:layout_gravity="center_horizontal"
-            android:text="@{entry.name}"
-            android:layout_marginTop="6dp"/>
+                android:layout_width="81dp"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:text="@{entry.name}"
+                android:layout_marginTop="6dp"/>
     </LinearLayout>
 </layout>

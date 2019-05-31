@@ -8,10 +8,12 @@ import android.support.annotation.LayoutRes
  */
 interface IActivity {
     @LayoutRes
-    fun initView(savedInstanceState :Bundle?):Int
+    fun initView(savedInstanceState: Bundle?): Int
+
     fun initData(savedInstanceState: Bundle?)
     //以下三个方法提供给ActivityWrapper使用，ActivityWrapper在Application.ActivityLifecycleCallbacks中被自动装载
-    fun useFragment()=false
-    fun useEventBus()=false
-    fun injectable()=false
+    fun useFragment() = false
+
+    fun useEventBus() = false
+    fun injectable() = false
 }

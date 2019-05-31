@@ -14,5 +14,5 @@ import javax.inject.Inject
 @ActivityScope
 class CollectedArticlesActivityViewModel @Inject constructor(application: Application) : BaseViewModel(application) {
     private val repository by lazy { ArticlesRepository(application) }
-    val listing:Listing<Article> by lazy { repository.getCollectedArticlesListing() }
+    val listing: Listing<Article> by lazy { repository.getCollectedArticlesListing() }
 }

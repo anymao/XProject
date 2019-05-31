@@ -17,26 +17,33 @@ import com.anymore.mvvmkit.mvvm.lifecycle.ActivityStackManager
 /**
  * Created by liuyuanmao on 2019/3/12.
  */
-class SplashActivity:BaseActivity<ActivitySplashBinding,SplashActivityViewModel>() {
+class SplashActivity : BaseActivity<ActivitySplashBinding, SplashActivityViewModel>() {
 
-    override fun initView(savedInstanceState: Bundle?)= R.layout.activity_splash
+    override fun initView(savedInstanceState: Bundle?) = R.layout.activity_splash
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
         mViewModel.mHasLoginedUser.observe(this, Observer {
-            if (it==true){
+            if (it == true) {
                 ActivityStackManager.instance.finishUntil(MainActivity::class.java.name)
-                startActivity(Intent(this@SplashActivity,MainActivity::class.java))
-            }else{
+                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            } else {
                 showLoginAndRegister()
             }
         })
-        mBinding.btnLogin.setOnClickListener { startActivity(Intent(this@SplashActivity,LoginActivity::class.java)) }
-        mBinding.btnRegister.setOnClickListener { startActivity(Intent(this@SplashActivity,RegisterActivity::class.java)) }
+        mBinding.btnLogin.setOnClickListener { startActivity(Intent(this@SplashActivity, LoginActivity::class.java)) }
+        mBinding.btnRegister.setOnClickListener {
+            startActivity(
+                Intent(
+                    this@SplashActivity,
+                    RegisterActivity::class.java
+                )
+            )
+        }
     }
 
-    private fun showLoginAndRegister(){
-        val anim = ObjectAnimator.ofFloat(mBinding.tvAppName,"rotation",0f,366f)
+    private fun showLoginAndRegister() {
+        val anim = ObjectAnimator.ofFloat(mBinding.tvAppName, "rotation", 0f, 366f)
         anim.duration = 3000
         anim.start()
         mBinding.btnLogin.visibility = View.VISIBLE

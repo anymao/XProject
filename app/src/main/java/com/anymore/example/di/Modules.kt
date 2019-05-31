@@ -15,6 +15,7 @@ import com.anymore.example.mvvm.view.main.HomeFragment
 import com.anymore.example.mvvm.view.main.MainActivity
 import com.anymore.example.mvvm.view.main.MyFragment
 import com.anymore.example.mvvm.view.register.RegisterActivity
+import com.anymore.example.mvvm.view.todo.TodoDetailFragment
 import com.anymore.example.mvvm.view.todo.TodoFragment
 import com.anymore.example.mvvm.view.web.ExtendedWebActivity
 import com.anymore.example.mvvm.viewmodel.*
@@ -45,7 +46,8 @@ import dagger.multibindings.IntoMap
     KnowledgesArticlesFragmentModule::class,
     CollectedArticlesActivityModule::class,
     ExtendedWebActivityModule::class,
-    TodoFragmentModule::class])
+    TodoFragmentModule::class,
+    TodoDetailFragmentModule::class])
 class ExampleAppModule(private val application: Application){
 
     @Provides
@@ -302,3 +304,24 @@ class TodoModelModule{
 }
 
 /////////////TodoFragment  end////////////////
+
+/////////////TodoDetailFragment  start////////////////
+
+@Module
+abstract class TodoDetailFragmentModule{
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [TodoModelModule::class,TodoDetailFragmentViewModelModule::class])
+    abstract fun contributeTodoDetailFragment(): TodoDetailFragment
+}
+
+@Module
+abstract class TodoDetailFragmentViewModelModule{
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TodoDetailFragmentViewModel::class)
+    abstract fun bindTodoDetailFragmentViewModel(viewModel: TodoDetailFragmentViewModel):ViewModel
+}
+
+/////////////TodoDetailFragment  end////////////////

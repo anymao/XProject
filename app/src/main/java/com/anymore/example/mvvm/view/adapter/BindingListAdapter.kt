@@ -14,22 +14,25 @@ import com.anymore.example.mvvm.view.adapter.viewholder.BindingViewHolder
  * 增加DiffUtil检测，在列表数据经常变动情况下使用
  * Created by anymore on 2019/5/20.
  */
-open class BindingListAdapter<T>(protected val mContext: Context, @LayoutRes protected var defaultItemLayout :Int? = null,diffCallback: DiffUtil.ItemCallback<T>) :
+open class BindingListAdapter<T>(
+    protected val mContext: Context, @LayoutRes protected var defaultItemLayout: Int? = null,
+    diffCallback: DiffUtil.ItemCallback<T>
+) :
     ListAdapter<T, BindingViewHolder>(diffCallback) {
 
-    protected val mLayoutInflater:LayoutInflater by lazy { LayoutInflater.from(mContext) }
-    protected var mItemEventHandler :Any? = null
+    protected val mLayoutInflater: LayoutInflater by lazy { LayoutInflater.from(mContext) }
+    protected var mItemEventHandler: Any? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
-        val itemLayout = defaultItemLayout?:viewType
-        return BindingViewHolder(DataBindingUtil.inflate(mLayoutInflater,itemLayout,parent,false))
+        val itemLayout = defaultItemLayout ?: viewType
+        return BindingViewHolder(DataBindingUtil.inflate(mLayoutInflater, itemLayout, parent, false))
     }
 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
         val item = getItem(position)
-        holder.mBinding.setVariable(BR.entry,item)
+        holder.mBinding.setVariable(BR.entry, item)
         mItemEventHandler?.let {
-            holder.mBinding.setVariable(BR.eventHandler,it)
+            holder.mBinding.setVariable(BR.eventHandler, it)
         }
     }
 }

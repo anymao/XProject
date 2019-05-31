@@ -1,5 +1,6 @@
 package com.anymore.example.mvvm.view.todo
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -35,6 +36,7 @@ class TodoFragment:BaseFragment<FragmentTodoBinding,TodoFragmentViewModel>() {
             mItemEventHandler = object :TodosAdapter.OnItemEventHandler{
                 override fun onClick(item: Todo) {
                     toast(item.title)
+                    TodoDetailFragment.start(context!!,item,"待办事宜")
                 }
             }
         }
@@ -45,14 +47,47 @@ class TodoFragment:BaseFragment<FragmentTodoBinding,TodoFragmentViewModel>() {
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
         initRecyclerView()
-        val type = arguments?.getInt(EXTRA_TYPE, TYPE_UNFINISHED)?: TYPE_UNFINISHED
-//        mViewModel.loadTodoList(type).pagedList.observe(this, Observer { mAdapter.addData(it) })
+        mViewModel.todoType = arguments?.getInt(EXTRA_TYPE, TYPE_UNFINISHED)?: TYPE_UNFINISHED
+        mViewModel.toast.observe(this, Observer { toast(it) })
+        mViewModel.pageData.observe(this, Observer {
+            it?.apply {
+                if (success){
+                    if (isRefresh){
+                        mAdapter.setData(list)
+                        if (!hasMore){
+                            mBinding.srlRefresh.finishRefreshWithNoMoreData()
+                        }else{
+                            mBinding.srlRefresh.finishRefresh(true)
+                        }
+                    }else{
+                        mAdapter.addData(list)
+                        if (!hasMore){
+                            mBinding.srlRefresh.finishLoadMoreWithNoMoreData()
+                        }else{
+                            mBinding.srlRefresh.finishLoadMore(true)
+                        }
+                    }
+                }else{
+                    if (isRefresh){
+                        mBinding.srlRefresh.finishRefresh(false)
+                    }else{
+                        mBinding.srlRefresh.finishLoadMore(false)
+                    }
+                }
+            }
+
+        })
+        mBinding.srlRefresh.setOnRefreshListener {
+            mViewModel.refresh()
+        }
+        mBinding.srlRefresh.setOnLoadMoreListener{
+            mViewModel.loadMore()
+        }
     }
 
     private fun initRecyclerView(){
         mBinding.rvList.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         mBinding.rvList.layoutManager = LinearLayoutManager(context)
         mBinding.rvList.adapter = mAdapter
-
     }
 }

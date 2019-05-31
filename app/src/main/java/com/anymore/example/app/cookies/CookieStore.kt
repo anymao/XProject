@@ -45,9 +45,9 @@ class SharedPreferencesCookieStore : CookieStore {
     private val mSharedPreferences: SharedPreferences
     var omitNonPersistentCookies = false
 
-    constructor(context: Context):this(context.getSharedPreferences(DEFAULT_SP_NAME,Context.MODE_PRIVATE))
+    constructor(context: Context) : this(context.getSharedPreferences(DEFAULT_SP_NAME, Context.MODE_PRIVATE))
 
-    constructor(sharedPreferences: SharedPreferences){
+    constructor(sharedPreferences: SharedPreferences) {
         this.mSharedPreferences = sharedPreferences
         this.mCookies = ConcurrentHashMap()
         val cookiesMap = HashMap<String, Any>(mSharedPreferences.all)
@@ -67,7 +67,7 @@ class SharedPreferencesCookieStore : CookieStore {
 
             val cookieNameArr = cookieNames.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             for (name in cookieNameArr) {
-                val encodedCookie = mSharedPreferences.getString(COOKIE_NAME_PREFIX+name, null) ?: continue
+                val encodedCookie = mSharedPreferences.getString(COOKIE_NAME_PREFIX + name, null) ?: continue
                 val decodedCookie = SerializableCookie().decode(encodedCookie)
                 decodedCookie?.let {
                     Timber.d("decodedCookie is :$it")
@@ -209,7 +209,7 @@ class SharedPreferencesCookieStore : CookieStore {
     }
 
     private fun cookieName(cookie: Cookie): String {
-        return cookie.name()+"@"+cookie.domain()
+        return cookie.name() + "@" + cookie.domain()
     }
 
 }

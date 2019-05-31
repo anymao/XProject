@@ -15,12 +15,13 @@ import javax.inject.Inject
 
 
 @FragmentScope
-class KnowledgesArticlesFragmentViewModel @Inject constructor(private val mModel:MainModel,application: Application):BaseViewModel(application){
+class KnowledgesArticlesFragmentViewModel @Inject constructor(private val mModel: MainModel, application: Application) :
+    BaseViewModel(application) {
 
     private val repository by lazy { ArticlesRepository(application) }
 
 
-    fun getKnowledgesArticlesListing(cid:Int):Listing<Article>{
+    fun getKnowledgesArticlesListing(cid: Int): Listing<Article> {
         return repository.getKnowledgesArticlesListing(cid)
     }
 }

@@ -73,7 +73,7 @@ open class WebActivity:BindingActivity<ActivityWebBinding>(){
     }
 
     protected open fun getUrl():String{
-        return intent.getStringExtra(EXTRA_URL)
+        return intent.getStringExtra(EXTRA_URL)?:"http://www.gzcdd.powereasy.net:7936/ystv/zxsp/content_3"
     }
 
 }

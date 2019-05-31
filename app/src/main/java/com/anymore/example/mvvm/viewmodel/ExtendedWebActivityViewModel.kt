@@ -19,38 +19,41 @@ import javax.inject.Inject
  * Created by liuyuanmao on 2019/5/6.
  */
 @ActivityScope
-class ExtendedWebActivityViewModel @Inject constructor(application: Application,private val mModel:MainModel)
-    : BaseViewModel(application) {
+class ExtendedWebActivityViewModel @Inject constructor(application: Application, private val mModel: MainModel) :
+    BaseViewModel(application) {
     val mToast by lazy { SingleLiveEvent<String>() }
     val webViewTextSize by lazy { MutableLiveData<Int>() }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate(){
+    fun onCreate() {
         loadSavedWebViewTextSize()
     }
 
-    fun saveWebViewTextSize(size:Int){
+    fun saveWebViewTextSize(size: Int) {
         Timber.d("saveWebViewTextSize")
         AppConfig.saveWebViewTextSize(size)
         loadSavedWebViewTextSize()
     }
 
-    private fun loadSavedWebViewTextSize(){
+    private fun loadSavedWebViewTextSize() {
         Timber.d("loadSavedWebViewTextSize")
         webViewTextSize.value = AppConfig.getWebViewTextSize(FONT_SMALL)
     }
 
-    fun collectAticle(article: Article){
-        val disposable =  mModel.collectArticle(article.id)
+    fun collectAticle(article: Article) {
+        val disposable = mModel.collectArticle(article.id)
             .subscribeBy(onNext = {
-                mToast.value = if (it){"收藏成功!"}else{"收藏失败!"}
-            },onError = {
+                mToast.value = if (it) {
+                    "收藏成功!"
+                } else {
+                    "收藏失败!"
+                }
+            }, onError = {
                 Timber.e(it)
                 mToast.value = it.message
             })
         addToCompositeDisposable(disposable)
     }
-
 
 
 }

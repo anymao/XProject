@@ -17,22 +17,23 @@ import com.anymore.mvvmkit.mvvm.base.BaseFragment
 /**
  * Created by liuyuanmao on 2019/4/30.
  */
-class KnowledgesArticlesFragment:BaseFragment<FragmentKnowledgesArticlesBinding,KnowledgesArticlesFragmentViewModel>(){
+class KnowledgesArticlesFragment :
+    BaseFragment<FragmentKnowledgesArticlesBinding, KnowledgesArticlesFragmentViewModel>() {
 
     companion object {
         const val EXTRA_CID = "EXTRA_CID"
-        fun newInstance(cid:Int):KnowledgesArticlesFragment{
+        fun newInstance(cid: Int): KnowledgesArticlesFragment {
             val bundle = Bundle()
-            bundle.putInt(EXTRA_CID,cid)
+            bundle.putInt(EXTRA_CID, cid)
             val fragment = KnowledgesArticlesFragment()
             fragment.arguments = bundle
             return fragment
         }
 
-        fun start(context: Context, cid: Int,title:String=""){
+        fun start(context: Context, cid: Int, title: String = "") {
             val bundle = Bundle()
-            bundle.putInt(EXTRA_CID,cid)
-            FragmentActivity.start(context,KnowledgesArticlesFragment::class.java.name,title,bundle)
+            bundle.putInt(EXTRA_CID, cid)
+            FragmentActivity.start(context, KnowledgesArticlesFragment::class.java.name, title, bundle)
         }
     }
 
@@ -49,16 +50,16 @@ class KnowledgesArticlesFragment:BaseFragment<FragmentKnowledgesArticlesBinding,
 
     private fun getCid(): Int {
         val bundle = arguments
-        val cid = bundle?.getInt(EXTRA_CID)?:0
+        val cid = bundle?.getInt(EXTRA_CID) ?: 0
         return cid
     }
 
     private fun initRecycleView() {
         mBinding.rvArticles.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         mBinding.rvArticles.layoutManager = LinearLayoutManager(context)
-        mAdapter.mItemEventHandler = object :ArticlesPagingAdapter.OnItemEventHandler{
+        mAdapter.mItemEventHandler = object : ArticlesPagingAdapter.OnItemEventHandler {
             override fun onClick(item: Article) {
-                WebActivity.start(context!!,item.link)
+                WebActivity.start(context!!, item.link)
             }
         }
         mBinding.rvArticles.adapter = mAdapter

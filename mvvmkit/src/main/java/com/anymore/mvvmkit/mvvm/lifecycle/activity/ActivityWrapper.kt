@@ -9,15 +9,15 @@ import timber.log.Timber
 /**
  * Created by liuyuanmao on 2019/2/20.
  */
-class ActivityWrapper(private var mActivity:Activity,private var iActivity: IActivity) :
-    IActivityLifecycle{
+class ActivityWrapper(private var mActivity: Activity, private var iActivity: IActivity) :
+    IActivityLifecycle {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("onCreate")
-        if (iActivity.useEventBus()){
+        if (iActivity.useEventBus()) {
             EventBus.getDefault().register(mActivity)
         }
-        if (iActivity.injectable()){
+        if (iActivity.injectable()) {
             Timber.d("need inject ,do AndroidInjection.inject(mActivity)")
             AndroidInjection.inject(mActivity)
         }
@@ -25,7 +25,7 @@ class ActivityWrapper(private var mActivity:Activity,private var iActivity: IAct
 
     override fun onDestroy() {
         Timber.d("onDestroy")
-        if (iActivity.useEventBus()){
+        if (iActivity.useEventBus()) {
             EventBus.getDefault().unregister(mActivity)
         }
     }

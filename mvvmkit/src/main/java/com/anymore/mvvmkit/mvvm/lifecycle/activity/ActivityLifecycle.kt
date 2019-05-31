@@ -10,21 +10,21 @@ import com.anymore.mvvmkit.mvvm.lifecycle.fragment.FragmentLifecycle
 /**
  * Created by liuyuanmao on 2019/2/20.
  */
-class ActivityLifecycle:Application.ActivityLifecycleCallbacks {
+class ActivityLifecycle : Application.ActivityLifecycleCallbacks {
 
-    private val mActivityWrapperMap:HashMap<Activity, ActivityWrapper> = HashMap()
-    private val mFragmentLifecycle by lazy { FragmentLifecycle()}
+    private val mActivityWrapperMap: HashMap<Activity, ActivityWrapper> = HashMap()
+    private val mFragmentLifecycle by lazy { FragmentLifecycle() }
 
-    fun install(application: Application){
+    fun install(application: Application) {
         application.registerActivityLifecycleCallbacks(this)
     }
 
-    fun uninstall(application: Application){
+    fun uninstall(application: Application) {
         application.unregisterActivityLifecycleCallbacks(this)
     }
 
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-        if (activity is IActivity){
+        if (activity is IActivity) {
             val activityWrapper = ActivityWrapper(activity, activity)
             activityWrapper.onCreate(savedInstanceState)
             mActivityWrapperMap[activity] = activityWrapper
@@ -53,10 +53,10 @@ class ActivityLifecycle:Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityDestroyed(activity: Activity?) {
-        mActivityWrapperMap[activity]?.let{
+        mActivityWrapperMap[activity]?.let {
             it.onDestroy()
-       mActivityWrapperMap.remove(activity)
-       }
+            mActivityWrapperMap.remove(activity)
+        }
         val useFragment = activity !is IActivity || activity.useFragment()
         if (activity is FragmentActivity && useFragment) {
             activity.supportFragmentManager.unregisterFragmentLifecycleCallbacks(mFragmentLifecycle)

@@ -12,11 +12,11 @@ import com.anymore.mvvmkit.mvvm.base.BaseActivity
 /**
  * Created by liuyuanmao on 2019/3/11.
  */
-class MainActivity:BaseActivity<ActivityMainBinding, MainActivityViewModel>(){
+class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() {
 
-    private lateinit var mFragments:List<FragmentItem>
+    private lateinit var mFragments: List<FragmentItem>
 
-    override fun initView(savedInstanceState: Bundle?)= R.layout.activity_main
+    override fun initView(savedInstanceState: Bundle?) = R.layout.activity_main
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
@@ -24,40 +24,42 @@ class MainActivity:BaseActivity<ActivityMainBinding, MainActivityViewModel>(){
     }
 
     private fun initViewPager() {
-        mFragments = listOf(FragmentItem(HomeFragment(),getString(R.string.home)),
-                            FragmentItem(DiscoveryFragment(),getString(R.string.discovery)),
-                            FragmentItem(MyFragment(),getString(R.string.my)))
-        val fragmentAdapter = FragmentsAdapter(supportFragmentManager,mFragments)
+        mFragments = listOf(
+            FragmentItem(HomeFragment(), getString(R.string.home)),
+            FragmentItem(DiscoveryFragment(), getString(R.string.discovery)),
+            FragmentItem(MyFragment(), getString(R.string.my))
+        )
+        val fragmentAdapter = FragmentsAdapter(supportFragmentManager, mFragments)
         mBinding.viewPager.adapter = fragmentAdapter
-        mBinding.viewPager.addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
+        mBinding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
 
             }
 
-            override fun onPageScrolled(position :Int, positionOffset :Float, positionOffsetPixels :Int) {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
 
             }
 
             override fun onPageSelected(position: Int) {
-                when(position){
-                    0->{
+                when (position) {
+                    0 -> {
                         mBinding.bnv.selectedItemId = R.id.action_home
                     }
-                    1->{
+                    1 -> {
                         mBinding.bnv.selectedItemId = R.id.action_discovery
                     }
-                    2->{
+                    2 -> {
                         mBinding.bnv.selectedItemId = R.id.action_my
                     }
                 }
             }
         })
 
-        mBinding.bnv.setOnNavigationItemSelectedListener{
-            when(it.itemId){
-                R.id.action_home-> mBinding.viewPager.currentItem = 0
-                R.id.action_discovery->mBinding.viewPager.currentItem = 1
-                R.id.action_my->mBinding.viewPager.currentItem = 2
+        mBinding.bnv.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.action_home -> mBinding.viewPager.currentItem = 0
+                R.id.action_discovery -> mBinding.viewPager.currentItem = 1
+                R.id.action_my -> mBinding.viewPager.currentItem = 2
             }
             return@setOnNavigationItemSelectedListener true
         }

@@ -14,20 +14,20 @@ import javax.inject.Inject
  * Created by liuyuanmao on 2019/3/28.
  */
 @ActivityScope
-class RegisterActivityViewModel @Inject constructor(application: Application,userModel: UserModel):
-    BaseViewModel1<UserModel>(application,userModel) {
+class RegisterActivityViewModel @Inject constructor(application: Application, userModel: UserModel) :
+    BaseViewModel1<UserModel>(application, userModel) {
     val mErrorMessage = SingleLiveEvent<String>()
     val mMessage = SingleLiveEvent<String>()
     fun register(username: String?, pwd: String?, rePwd: String?) {
         if (checkUser(username, pwd, rePwd)) {
-            val disposable = mModel.register(username!!,pwd!!,rePwd!!)
+            val disposable = mModel.register(username!!, pwd!!, rePwd!!)
                 .subscribeBy(onNext = {
-                    if (it.errorCode == ResponseCode.OK){
+                    if (it.errorCode == ResponseCode.OK) {
                         mMessage.value = "注册成功!"
-                    }else{
+                    } else {
                         mErrorMessage.value = it.errorMsg
                     }
-                },onError = {
+                }, onError = {
                     mErrorMessage.value = it.message
                 })
             addToCompositeDisposable(disposable)
@@ -35,19 +35,19 @@ class RegisterActivityViewModel @Inject constructor(application: Application,use
     }
 
     private fun checkUser(username: String?, pwd: String?, rePwd: String?): Boolean {
-        if (TextUtils.isEmpty(username)){
+        if (TextUtils.isEmpty(username)) {
             mErrorMessage.value = "用户名不能为空!"
             return false
         }
-        if (TextUtils.isEmpty(pwd)){
+        if (TextUtils.isEmpty(pwd)) {
             mErrorMessage.value = "密码不能为空!"
             return false
         }
-        if (TextUtils.isEmpty(rePwd)){
+        if (TextUtils.isEmpty(rePwd)) {
             mErrorMessage.value = "确认密码不能为空!"
             return false
         }
-        if (!TextUtils.equals(pwd,rePwd)){
+        if (!TextUtils.equals(pwd, rePwd)) {
             mErrorMessage.value = "两次密码不一致!"
             return false
         }

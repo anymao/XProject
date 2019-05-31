@@ -16,13 +16,13 @@ import com.anymore.mvvmkit.mvvm.base.BindingActivity
 /**
  * Created by liuyuanmao on 2019/4/30.
  */
-class KnowledgesTabActivity:BindingActivity<ActivityKnowledgesTabBinding>(){
+class KnowledgesTabActivity : BindingActivity<ActivityKnowledgesTabBinding>() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
-        fun start(context: Context, knowledge: Knowledge){
-            val intent = Intent(context,KnowledgesTabActivity::class.java)
-            intent.putExtra(EXTRA_DATA,knowledge)
+        fun start(context: Context, knowledge: Knowledge) {
+            val intent = Intent(context, KnowledgesTabActivity::class.java)
+            intent.putExtra(EXTRA_DATA, knowledge)
             context.startActivity(intent)
         }
     }
@@ -30,12 +30,12 @@ class KnowledgesTabActivity:BindingActivity<ActivityKnowledgesTabBinding>(){
     override fun initView(savedInstanceState: Bundle?) = R.layout.activity_knowledges_tab
 
     override fun initData(savedInstanceState: Bundle?) {
-        UiUtils.setupToolbar(this,mBinding.toolbar)
+        UiUtils.setupToolbar(this, mBinding.toolbar)
         val knowledge = intent.getSerializableExtra(EXTRA_DATA) as Knowledge?
-        if (knowledge != null){
+        if (knowledge != null) {
             setUpViewPagers(knowledge)
-        }else{
-            toast("传递参数时候出错!",Toast.LENGTH_LONG)
+        } else {
+            toast("传递参数时候出错!", Toast.LENGTH_LONG)
             finish()
         }
 
@@ -43,12 +43,12 @@ class KnowledgesTabActivity:BindingActivity<ActivityKnowledgesTabBinding>(){
 
     private fun setUpViewPagers(knowledge: Knowledge) {
         val fragments = ArrayList<FragmentItem>()
-        for (i in knowledge.children){
-            if (i.visible == 1){
-                fragments.add(FragmentItem(KnowledgesArticlesFragment.newInstance(i.id),i.name))
+        for (i in knowledge.children) {
+            if (i.visible == 1) {
+                fragments.add(FragmentItem(KnowledgesArticlesFragment.newInstance(i.id), i.name))
             }
         }
-        mBinding.viewPager.adapter = FragmentsAdapter(supportFragmentManager,fragments)
+        mBinding.viewPager.adapter = FragmentsAdapter(supportFragmentManager, fragments)
         mBinding.tabLayout.setupWithViewPager(mBinding.viewPager)
         title = knowledge.name
     }

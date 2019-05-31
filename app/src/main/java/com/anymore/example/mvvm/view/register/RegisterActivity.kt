@@ -12,19 +12,21 @@ import com.anymore.mvvmkit.mvvm.base.BaseActivity
 /**
  * Created by liuyuanmao on 2019/3/20.
  */
-class RegisterActivity:BaseActivity<ActivityRegisterBinding,RegisterActivityViewModel>() {
+class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterActivityViewModel>() {
 
-    override fun initView(savedInstanceState: Bundle?)= R.layout.activity_register
+    override fun initView(savedInstanceState: Bundle?) = R.layout.activity_register
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
-        UiUtils.setupToolbar(this,mBinding.toolbar)
+        UiUtils.setupToolbar(this, mBinding.toolbar)
         mViewModel.mErrorMessage.observe(this, Observer { toast(it) })
         mViewModel.mMessage.observe(this, Observer { toast(it) })
         mBinding.btnRegister.setOnClickListener {
-            mViewModel.register(mBinding.etUserName.text.toString(),
+            mViewModel.register(
+                mBinding.etUserName.text.toString(),
                 mBinding.etPwd.text.toString(),
-                mBinding.etRePwd.text.toString())
+                mBinding.etRePwd.text.toString()
+            )
         }
     }
 

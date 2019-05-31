@@ -10,7 +10,7 @@ import javax.inject.Inject
  * Created by liuyuanmao on 2019/3/11.
  */
 @ActivityScope
-class MainActivityViewModel @Inject constructor(application: Application,model: MainModel):
+class MainActivityViewModel @Inject constructor(application: Application, model: MainModel) :
     BaseViewModel1<MainModel>(application, model) {
 
 

@@ -10,15 +10,18 @@ import okhttp3.HttpUrl
  * @param saveUrls 如果不为空，只保存列表中地址服务器所返回的cookie；如果为空，保存所有的url的cookie
  * Created by liuyuanmao on 2019/5/5.
  */
-class PersistentCookieJar(private val cookieStore: CookieStore,private val saveUrls:List<String>? = SAVE_COOKIES_URLS):CookieJar{
+class PersistentCookieJar(
+    private val cookieStore: CookieStore,
+    private val saveUrls: List<String>? = SAVE_COOKIES_URLS
+) : CookieJar {
 
     override fun saveFromResponse(url: HttpUrl, cookies: MutableList<Cookie>) {
-        if (saveUrls != null){
-            if (saveUrls.contains(url.toString())){
-                cookieStore.add(url,cookies)
+        if (saveUrls != null) {
+            if (saveUrls.contains(url.toString())) {
+                cookieStore.add(url, cookies)
             }
-        }else{
-            cookieStore.add(url,cookies)
+        } else {
+            cookieStore.add(url, cookies)
         }
     }
 
@@ -26,7 +29,7 @@ class PersistentCookieJar(private val cookieStore: CookieStore,private val saveU
         return cookieStore.getCookies()
     }
 
-    fun clear(){
+    fun clear() {
         cookieStore.removeAll()
     }
 
@@ -37,10 +40,10 @@ class PersistentCookieJar(private val cookieStore: CookieStore,private val saveU
             "$BASE_URL/logout/json"
         )
 
-        private var instance:PersistentCookieJar? = null
+        private var instance: PersistentCookieJar? = null
 
-        fun getInstance(context: Context):PersistentCookieJar{
-            if (instance == null){
+        fun getInstance(context: Context): PersistentCookieJar {
+            if (instance == null) {
                 instance = PersistentCookieJar(SharedPreferencesCookieStore(context))
             }
             return instance!!

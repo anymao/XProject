@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 
-class FragmentsAdapter(fm:FragmentManager, private val fragments:List<FragmentItem>): FragmentPagerAdapter(fm){
+class FragmentsAdapter(fm: FragmentManager, private val fragments: List<FragmentItem>) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int) = fragments[position].fragment
 
@@ -16,4 +16,4 @@ class FragmentsAdapter(fm:FragmentManager, private val fragments:List<FragmentIt
 
 }
 
-data class FragmentItem(val fragment:Fragment,val title:String="")
+data class FragmentItem(val fragment: Fragment, val title: String = "")

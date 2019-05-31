@@ -15,29 +15,26 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @FragmentScope
-class HomeFragmentViewModel @Inject constructor(application: Application,private val mModel:MainModel)
-    :BaseViewModel(application){
+class HomeFragmentViewModel @Inject constructor(application: Application, private val mModel: MainModel) :
+    BaseViewModel(application) {
 
-    val mBanners by  lazy { MutableLiveData<List<Banner>>() }
+    val mBanners by lazy { MutableLiveData<List<Banner>>() }
     val mErrorMessage by lazy { SingleLiveEvent<CharSequence>() }
 
-    val mArticleListing by lazy { ArticlesRepository(application).getHomeArticlesListing()}
-
+    val mArticleListing by lazy { ArticlesRepository(application).getHomeArticlesListing() }
 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate(){
+    fun onCreate() {
         loadBanners()
     }
 
 
-
-
-    private fun loadBanners(){
+    private fun loadBanners() {
         val disposable = mModel.getHomePageBanners()
             .subscribeBy(
                 onNext = { mBanners.value = it },
-                onError = {Timber.e(it)}
+                onError = { Timber.e(it) }
             )
         addToCompositeDisposable(disposable)
     }

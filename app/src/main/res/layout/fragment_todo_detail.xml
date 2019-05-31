@@ -23,12 +23,14 @@
                     android:layout_height="48dp"
                     android:text="@string/title"
                     android:gravity="center"/>
-            <TextView
+            <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:lines="1"
                     android:ellipsize="end"
-                    android:text="@{data.title}"/>
+                    android:hint="@string/hint_todo_title"
+                    android:text="@={data.title}"/>
         </LinearLayout>
 
         <LinearLayout
@@ -44,10 +46,14 @@
                     android:text="@string/content"
                     android:gravity="center"
                     android:layout_gravity="top"/>
-            <TextView
+            <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{data.content}"/>
+                    android:layout_weight="1"
+                    android:gravity="top"
+                    android:minLines="5"
+                    android:hint="@string/hint_todo_detail"
+                    android:text="@={data.content}"/>
         </LinearLayout>
 
         <LinearLayout
@@ -60,12 +66,23 @@
             <TextView
                     android:layout_width="58dp"
                     android:layout_height="48dp"
-                    android:text="@string/title"
+                    android:text="@string/priority"
                     android:gravity="center"/>
-            <TextView
+            <RadioGroup
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{data.title}"/>
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/commonly"
+                        android:checked="true"/>
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/important"/>
+            </RadioGroup>
         </LinearLayout>
 
         <LinearLayout
@@ -78,49 +95,21 @@
             <TextView
                     android:layout_width="58dp"
                     android:layout_height="48dp"
-                    android:text="@string/title"
+                    android:text="@string/date"
                     android:gravity="center"/>
             <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{data.title}"/>
+                    android:layout_weight="1"
+                    android:text="@{data.completeDateStr}"/>
         </LinearLayout>
 
-        <LinearLayout
-                android:layout_width="match_parent"
+        <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingRight="@dimen/activity_horizontal_padding"
-                android:paddingLeft="@dimen/activity_horizontal_padding">
-            <TextView
-                    android:layout_width="58dp"
-                    android:layout_height="48dp"
-                    android:text="@string/title"
-                    android:gravity="center"/>
-            <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{data.title}"/>
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingRight="@dimen/activity_horizontal_padding"
-                android:paddingLeft="@dimen/activity_horizontal_padding">
-            <TextView
-                    android:layout_width="58dp"
-                    android:layout_height="48dp"
-                    android:text="@string/title"
-                    android:gravity="center"/>
-            <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{data.title}"/>
-        </LinearLayout>
+                android:text="@string/submit"
+                android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 </layout>

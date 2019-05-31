@@ -6,7 +6,7 @@
                 type="com.anymore.example.mvvm.model.entry.Todo"/>
         <variable
                 name="eventHandler"
-                type="com.anymore.example.mvvm.view.adapter.TodosPagingAdapter.OnItemEventHandler"/>
+                type="com.anymore.example.mvvm.view.adapter.TodosAdapter.OnItemEventHandler"/>
     </data>
 
     <LinearLayout

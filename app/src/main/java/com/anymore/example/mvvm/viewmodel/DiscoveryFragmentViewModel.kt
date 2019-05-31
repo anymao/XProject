@@ -11,16 +11,17 @@ import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 @FragmentScope
-class DiscoveryFragmentViewModel @Inject constructor(private val mModel:MainModel,application: Application):BaseViewModel(application) {
+class DiscoveryFragmentViewModel @Inject constructor(private val mModel: MainModel, application: Application) :
+    BaseViewModel(application) {
     val mAllKnowledges = MutableLiveData<List<Knowledge>>()
     val mToast = SingleLiveEvent<CharSequence>()
 
 
-    fun loadAllKnowledges(){
+    fun loadAllKnowledges() {
         val disposable = mModel.getAllKnowledges()
             .subscribeBy(onNext = {
                 mAllKnowledges.value = it
-            },onError = {
+            }, onError = {
                 mToast.value = it.message
             })
         addToCompositeDisposable(disposable)

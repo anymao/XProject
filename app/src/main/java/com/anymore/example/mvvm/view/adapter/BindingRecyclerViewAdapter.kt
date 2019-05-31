@@ -39,5 +39,7 @@ open class BindingRecyclerViewAdapter<T>(protected val mContext:Context,@LayoutR
         }
     }
 
-
+    fun clear(){
+        mData.clear()
+    }
 }
