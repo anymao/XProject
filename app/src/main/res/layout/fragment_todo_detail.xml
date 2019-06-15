@@ -30,7 +30,8 @@
                     android:lines="1"
                     android:ellipsize="end"
                     android:hint="@string/hint_todo_title"
-                    android:text="@={data.title}"/>
+                    android:text="@={data.title}"
+                    android:background="@drawable/input_bg"/>
         </LinearLayout>
 
         <LinearLayout
@@ -53,7 +54,8 @@
                     android:gravity="top"
                     android:minLines="5"
                     android:hint="@string/hint_todo_detail"
-                    android:text="@={data.content}"/>
+                    android:text="@={data.content}"
+                    android:background="@drawable/input_bg"/>
         </LinearLayout>
 
         <LinearLayout
@@ -74,14 +76,16 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
                 <RadioButton
+                        android:id="@+id/rb_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/commonly"
-                        android:checked="true"/>
+                        android:text="@string/commonly"/>
                 <RadioButton
+                        android:id="@+id/rb_important"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/important"/>
+                        android:text="@string/important"
+                        android:checked="true"/>
             </RadioGroup>
         </LinearLayout>
 
@@ -97,11 +101,12 @@
                     android:layout_height="48dp"
                     android:text="@string/date"
                     android:gravity="center"/>
-            <TextView
+            <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@{data.completeDateStr}"/>
+                    android:text="@{data.completeDateStr}"
+                    android:background="@drawable/input_bg"/>
         </LinearLayout>
 
         <Button
