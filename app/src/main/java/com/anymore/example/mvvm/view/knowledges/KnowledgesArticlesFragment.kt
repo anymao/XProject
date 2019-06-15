@@ -50,8 +50,7 @@ class KnowledgesArticlesFragment :
 
     private fun getCid(): Int {
         val bundle = arguments
-        val cid = bundle?.getInt(EXTRA_CID) ?: 0
-        return cid
+        return bundle?.getInt(EXTRA_CID) ?: 0
     }
 
     private fun initRecycleView() {

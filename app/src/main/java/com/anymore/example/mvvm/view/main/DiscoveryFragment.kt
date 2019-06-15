@@ -8,6 +8,7 @@ import com.anymore.example.databinding.FragmentDiscoveryBinding
 import com.anymore.example.ext.toast
 import com.anymore.example.mvvm.model.entry.Knowledge
 import com.anymore.example.mvvm.view.adapter.KnowledgesAdapter
+import com.anymore.example.mvvm.view.knowledges.KnowledgesArticlesFragment
 import com.anymore.example.mvvm.view.knowledges.KnowledgesTabActivity
 import com.anymore.example.mvvm.viewmodel.DiscoveryFragmentViewModel
 import com.anymore.mvvmkit.mvvm.base.BaseFragment
@@ -18,7 +19,12 @@ class DiscoveryFragment : BaseFragment<FragmentDiscoveryBinding, DiscoveryFragme
         KnowledgesAdapter(context!!).apply {
             mItemEventHandler = object : KnowledgesAdapter.OnItemEventHandler {
                 override fun onClick(item: Knowledge) {
-                    KnowledgesTabActivity.start(context!!, item)
+                    if (item.children.size == 1){
+                        val onlyChild = item.children[0]
+                        KnowledgesArticlesFragment.start(context!!,onlyChild.id,onlyChild.name)
+                    }else{
+                        KnowledgesTabActivity.start(context!!, item)
+                    }
                 }
             }
         }
