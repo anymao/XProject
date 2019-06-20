@@ -5,6 +5,7 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.OnLifecycleEvent
 import com.anymore.example.mvvm.model.MainModel
+import com.anymore.example.mvvm.model.entry.Article
 import com.anymore.example.mvvm.model.entry.Banner
 import com.anymore.example.mvvm.model.paging.article.ArticlesRepository
 import com.anymore.mvvmkit.di.scope.FragmentScope
@@ -29,6 +30,9 @@ class HomeFragmentViewModel @Inject constructor(application: Application, privat
         loadBanners()
     }
 
+    fun delete(article: Article){
+
+    }
 
     private fun loadBanners() {
         val disposable = mModel.getHomePageBanners()
@@ -37,6 +41,11 @@ class HomeFragmentViewModel @Inject constructor(application: Application, privat
                 onError = { Timber.e(it) }
             )
         addToCompositeDisposable(disposable)
+    }
+
+    fun retry(){
+        val retry = mArticleListing.retry.value
+        retry?.invoke()
     }
 
     override fun onDestroy() {

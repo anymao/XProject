@@ -6,6 +6,7 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 /**
+ * 应用线程池管理
  * Created by anymore on 2019/5/20.
  */
 object AppExecutors{

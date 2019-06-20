@@ -68,7 +68,6 @@ data class Article(
     val author: String,
     val chapterId: Int,
     val chapterName: String,
-    val collect: Boolean,
     val courseId: Int,
     val desc: String,
     val envelopePic: String,
@@ -87,7 +86,14 @@ data class Article(
     val userId: Int,
     val visible: Int,
     val zan: Int
-): BaseObservable(),Serializable
+): BaseObservable(),Serializable{
+    var collect: Boolean = false
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.collect)
+        }
+        @Bindable get
+}
 
 /**
  * 文章tag

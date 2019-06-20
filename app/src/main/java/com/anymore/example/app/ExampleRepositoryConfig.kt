@@ -4,10 +4,13 @@ import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import com.anymore.example.app.cookies.PersistentCookieJar
 import com.anymore.example.app.cookies.SharedPreferencesCookieStore
+import com.anymore.example.app.interceptor.CacheControlInterceptor
+import com.anymore.example.app.interceptor.HeadersInterceptor
 import com.anymore.example.mvvm.model.api.BASE_URL
 import com.anymore.example.mvvm.model.api.KEY
 import com.anymore.mvvmkit.BuildConfig
 import com.anymore.mvvmkit.di.module.RepositoryConfigsModule
+import io.reactivex.plugins.RxJavaPlugins
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -40,7 +43,9 @@ class ExampleRepositoryConfig : RepositoryConfigsModule.RepositoryConfig {
                             HttpLoggingInterceptor.Level.NONE
                         }
                     }
-                    builder.addNetworkInterceptor(okLogger)
+                    builder.addNetworkInterceptor(HeadersInterceptor())//为请求添加Headers
+                        .addNetworkInterceptor(CacheControlInterceptor(context))
+                        .addNetworkInterceptor(okLogger)
                 }
 
             }

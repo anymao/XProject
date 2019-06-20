@@ -83,6 +83,7 @@ class TodoFragment:BaseFragment<FragmentTodoBinding,TodoFragmentViewModel>() {
         mBinding.srlRefresh.setOnLoadMoreListener{
             mViewModel.loadMore()
         }
+        mBinding.srlRefresh.autoRefresh()
     }
 
     private fun initRecyclerView(){

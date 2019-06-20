@@ -38,8 +38,8 @@ class ArticlesRepository(private val application: Application){
             status = Transformations.switchMap(factory.source) {
                 it.mStatus
             },
-            retry = {
-                factory.source.value?.retry()
+            retry = Transformations.switchMap(factory.source){
+                it.mRetry
             }
         )
     }
@@ -64,8 +64,8 @@ class ArticlesRepository(private val application: Application){
             status = Transformations.switchMap(factory.source) {
                 it.mStatus
             },
-            retry = {
-                factory.source.value?.retry()
+            retry = Transformations.switchMap(factory.source){
+                it.mRetry
             }
         )
     }
@@ -90,8 +90,8 @@ class ArticlesRepository(private val application: Application){
             status = Transformations.switchMap(factory.source) {
                 it.mStatus
             },
-            retry = {
-                factory.source.value?.retry()
+            retry = Transformations.switchMap(factory.source){
+                it.mRetry
             }
         )
     }

@@ -60,6 +60,10 @@ class KnowledgesArticlesFragment :
             override fun onClick(item: Article) {
                 WebActivity.start(context!!, item.link)
             }
+
+            override fun onCollectClick(item: Article) {
+
+            }
         }
         mBinding.rvArticles.adapter = mAdapter
     }

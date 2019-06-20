@@ -7,8 +7,10 @@ import com.anymore.example.mvvm.model.api.NetStatus
 /**
  * Created by liuyuanmao on 2019/4/19.
  */
+typealias Retry=(()->Unit)
+
 data class Listing<T>(
     val pagedList: LiveData<PagedList<T>>,
     val status:LiveData<NetStatus>,
-    val retry:()->Unit
+    val retry:LiveData<Retry?>
 )

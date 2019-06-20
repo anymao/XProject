@@ -35,6 +35,7 @@ open class BaseViewModel(application: Application):AndroidViewModel(application)
 /**
  * 关联一个指定Model层的ViewModel
  */
+@Deprecated("")
 open class BaseViewModel1<M: BaseModel>(application: Application,protected val mModel: M) :BaseViewModel(application){
 
     override fun onDestroy() {

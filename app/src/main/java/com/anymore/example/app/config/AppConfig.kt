@@ -10,11 +10,11 @@ import com.anymore.example.mvvm.ExampleApplication
 /**
  * Created by liuyuanmao on 2019/5/7.
  */
-private object Name {
+object Name {
     const val CONFIG_SP_NAME = "app_config"
 }
 
-private object Key {
+object Key {
     const val WEBVIEW_TEXT_SIZE = "webview_text_size"
 }
 

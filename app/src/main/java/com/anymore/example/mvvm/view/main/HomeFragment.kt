@@ -24,6 +24,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeFragmentViewModel>() 
                 override fun onClick(item: Article) {
                     ExtendedWebActivity.start(context!!, item)
                 }
+
+                override fun onCollectClick(item: Article) {
+                    with(item){
+                        collect = !collect
+                    }
+                }
             }
         }
     }
@@ -36,6 +42,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeFragmentViewModel>() 
         initRecyclerView()
         mViewModel.mBanners.observe(this, Observer { it?.run { setBanners(this) } })
         mViewModel.mArticleListing.pagedList.observe(this, Observer { mAdapter.submitList(it) })
+        mViewModel.mArticleListing.status.observe(this, Observer { mAdapter.setNetStatus(it) })
+        mViewModel.mArticleListing.retry.observe(this, Observer { mAdapter.retry = it })
     }
 
     override fun onResume() {

@@ -50,9 +50,11 @@ interface WanAndroidUserApi{
  */
 interface WanAndroidHomePageApi{
 
+//    @Headers("Cache-Control:public,max-age=6000000")
     @GET("/banner/json")
     fun getBanner():Observable<WanAndroidResponse<List<Banner>>>
 
+//    @Headers("Cache-Control:public,max-age=6000000")
     @GET("/article/list/{page}/json")
     fun getArticles(@Path("page") page:Int):Observable<WanAndroidResponse<Articles>>
 }
@@ -60,10 +62,12 @@ interface WanAndroidHomePageApi{
 interface WanAndroidKnowledgeApi{
 
     //获取所有知识体系
+//    @Headers("Cache-Control:public,max-age=6000000")
     @GET("/tree/json")
     fun getAllKnowledges():Observable<WanAndroidResponse<List<Knowledge>>>
 
     //获取某个知识体系下的所有文章
+//    @Headers("Cache-Control:public,max-age=6000000")
     @GET("/article/list/{page}/json")
     fun getSubKnowledges(@Path("page") page:Int,@Query("cid") cid:Int):Observable<WanAndroidResponse<Articles>>
 }

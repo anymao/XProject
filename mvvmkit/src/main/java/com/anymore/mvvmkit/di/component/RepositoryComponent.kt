@@ -5,6 +5,7 @@ import com.anymore.mvvmkit.di.module.RepositoryConfigsModule
 import com.anymore.mvvmkit.di.module.RepositoryModule
 import com.anymore.mvvmkit.repository.IRepositoryManager
 import com.anymore.mvvmkit.repository.RepositoryInjector
+import com.google.gson.Gson
 import dagger.Component
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
@@ -18,5 +19,6 @@ import javax.inject.Singleton
 interface RepositoryComponent{
     fun getRepository():IRepositoryManager
     fun okHttpClient():OkHttpClient
+    fun gson():Gson
     fun inject(injector: RepositoryInjector)
 }

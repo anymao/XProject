@@ -3,17 +3,20 @@ package com.anymore.example.mvvm.model.paging.todo
 import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PageKeyedDataSource
+import com.anymore.example.app.executors.AppExecutors
 import com.anymore.example.mvvm.model.api.NetStatus
 import com.anymore.example.mvvm.model.entry.Todo
+import com.anymore.example.mvvm.model.paging.Retry
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
+import java.util.concurrent.Executor
 
 /**
  * Created by anymore on 2019/4/7.
  */
 class TodoSource(private val mApi: TodoApiWrapper) : PageKeyedDataSource<Int, Todo>(){
 
-    private var mRetry:(()->Unit)?=null
+    val mRetry = MutableLiveData<Retry?>()
     val mStatus = MutableLiveData<NetStatus>()
 
     @SuppressLint("CheckResult")
@@ -28,13 +31,15 @@ class TodoSource(private val mApi: TodoApiWrapper) : PageKeyedDataSource<Int, To
                     null
                 }
                 callback.onResult(it.datas,null,next)
-                mRetry = null
+                mRetry.postValue(null)
                 mStatus.postValue(NetStatus.SUCCESS)
             },onError = {
-                mRetry = {
-                    loadInitial(params,callback)
+                mRetry.postValue {
+                    getRetryExecutor().execute {
+                        loadInitial(params,callback)
+                    }
                 }
-                mStatus.postValue(NetStatus.failed(it.message?:"加载数据失败!"))
+                mStatus.postValue(NetStatus.failed(it))
             })
     }
 
@@ -50,13 +55,15 @@ class TodoSource(private val mApi: TodoApiWrapper) : PageKeyedDataSource<Int, To
                     null
                 }
                 callback.onResult(it.datas,next)
-                mRetry = null
+                mRetry.postValue(null)
                 mStatus.postValue(NetStatus.SUCCESS)
             },onError = {
-                mRetry = {
-                    loadAfter(params,callback)
+                mRetry.postValue {
+                    getRetryExecutor().execute {
+                        loadAfter(params,callback)
+                    }
                 }
-                mStatus.postValue(NetStatus.failed(it.message?:"加载数据失败!"))
+                mStatus.postValue(NetStatus.failed(it))
             })
     }
 
@@ -72,15 +79,21 @@ class TodoSource(private val mApi: TodoApiWrapper) : PageKeyedDataSource<Int, To
                     null
                 }
                 callback.onResult(it.datas,previous)
-                mRetry = null
+                mRetry.postValue(null)
                 mStatus.postValue(NetStatus.SUCCESS)
             },onError = {
-                mRetry = {
-                    loadAfter(params,callback)
+                mRetry.postValue {
+                    getRetryExecutor().execute {
+                        loadAfter(params,callback)
+                    }
                 }
-                mStatus.postValue(NetStatus.failed(it.message?:"加载数据失败!"))
+                mStatus.postValue(NetStatus.failed(it))
             })
     }
 
-    fun retry()=mRetry
+
+    //DataSource自己正常加载的时候，是运行在内部自己的线程池中的，
+    // 但是重试的时候，线程池需要我们自己指定，不然默认在主线程执行，会造成NetworkOnMainThreadException
+    private fun getRetryExecutor(): Executor = AppExecutors.networkExecutor
+
 }
