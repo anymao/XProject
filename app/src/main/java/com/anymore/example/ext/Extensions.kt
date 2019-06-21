@@ -4,6 +4,7 @@ import android.app.Activity
 import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.widget.Toast
+import com.anymore.example.app.executors.AppExecutors
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -34,4 +35,8 @@ fun Fragment.toast(@StringRes id:Int,duration: Int = Toast.LENGTH_SHORT){
 
 fun Fragment.toast(message:CharSequence?,duration: Int = Toast.LENGTH_SHORT){
     Toast.makeText(context,message,duration).show()
+}
+
+fun runOnUiThread(block:()->Unit){
+    AppExecutors.mainExecutor.execute(block)
 }

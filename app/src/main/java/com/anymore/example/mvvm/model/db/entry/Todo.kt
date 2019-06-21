@@ -5,85 +5,84 @@ import android.arch.persistence.room.PrimaryKey
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.support.annotation.NonNull
-import java.io.Serializable
-
 import com.anymore.example.BR
+import java.io.Serializable
 
 /**
  * Created by liuyuanmao on 2019/5/13.
  */
 
 @Entity
-class Todo:BaseObservable(),Serializable {
+class Todo : BaseObservable(), Serializable {
 
     @PrimaryKey
     @NonNull
     var id: Int = 0
 
-    var completeDate: Long= 0L
+    var completeDate: Long = 0L
         set(value) {
             field = value
             notifyPropertyChanged(BR.completeDate)
         }
         @Bindable get
 
-    var completeDateStr: String?= null
+    var completeDateStr: String? = null
         set(value) {
             field = value
             notifyPropertyChanged(BR.completeDateStr)
         }
         @Bindable get
 
-    var content: String?= null
+    var content: String? = null
         set(value) {
             field = value
             notifyPropertyChanged(BR.content)
         }
         @Bindable get
 
-    var date: Long= 0L
+    var date: Long = 0L
         set(value) {
             field = value
             notifyPropertyChanged(BR.date)
         }
         @Bindable get
 
-    var dateStr: String?= null
+    var dateStr: String? = null
         set(value) {
             field = value
             notifyPropertyChanged(BR.dateStr)
         }
         @Bindable get
 
-    var priority: Int= 0
+    var priority: Int = 0
         set(value) {
             field = value
             notifyPropertyChanged(BR.priority)
         }
         @Bindable get
 
-    var status: Int= 0
+    var status: Int = 0
         set(value) {
             field = value
             notifyPropertyChanged(BR.status)
         }
         @Bindable get
 
-    var title: String?= null
+    var title: String? = null
         set(value) {
             field = value
             notifyPropertyChanged(BR.title)
         }
         @Bindable get
 
-    var type: Int= 0
+    var type: Int = 0
         set(value) {
             field = value
             notifyPropertyChanged(BR.type)
         }
         @Bindable get
 
-    var userId: Int= 0
+    var userId: Int = 0
         set(value) {
             field = value
             notifyPropertyChanged(BR.userId)
@@ -93,9 +92,7 @@ class Todo:BaseObservable(),Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
-
         other as Todo
-
         if (completeDate != other.completeDate) return false
         if (completeDateStr != other.completeDateStr) return false
         if (content != other.content) return false
