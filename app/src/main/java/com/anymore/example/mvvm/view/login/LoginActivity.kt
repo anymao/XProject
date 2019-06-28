@@ -26,7 +26,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
         mViewModel.mErrorMessage.observe(this, Observer { toast(it, Toast.LENGTH_LONG) })
         mViewModel.mMessage.observe(this, Observer { toast(it, Toast.LENGTH_LONG) })
         mViewModel.mLoginEvent.observe(this, Observer {
-            ActivityStackManager.instance.finishUntil(MainActivity::class.java.name)
+            ActivityStackManager.finishUntil(MainActivity::class.java.name)
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
         })
         mBinding.btnLogin.setOnClickListener {

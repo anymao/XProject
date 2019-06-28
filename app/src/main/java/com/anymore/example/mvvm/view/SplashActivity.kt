@@ -25,7 +25,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashActivityViewMod
         super.initData(savedInstanceState)
         mViewModel.mHasLoginedUser.observe(this, Observer {
             if (it == true) {
-                ActivityStackManager.instance.finishUntil(MainActivity::class.java.name)
+                ActivityStackManager.finishUntil(MainActivity::class.java.name)
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             } else {
                 showLoginAndRegister()

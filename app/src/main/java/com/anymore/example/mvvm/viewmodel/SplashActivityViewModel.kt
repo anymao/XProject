@@ -10,6 +10,7 @@ import com.anymore.mvvmkit.di.scope.ActivityScope
 import com.anymore.mvvmkit.mvvm.SingleLiveEvent
 import com.anymore.mvvmkit.mvvm.base.BaseViewModel
 import io.reactivex.rxkotlin.subscribeBy
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -28,7 +29,10 @@ class SplashActivityViewModel @Inject constructor(application: Application, priv
                     mUserInfo.postValue(it)
                     mHasLoginedUser.postValue(true)
                 },
-                onError = { mHasLoginedUser.postValue(false) }
+                onError = {
+                    Timber.e(it)
+                    mHasLoginedUser.postValue(false)
+                }
             )
         addToCompositeDisposable(disposable)
     }

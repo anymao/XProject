@@ -8,13 +8,9 @@ import java.util.*
 /**
  * activity 管理栈
  */
-class ActivityStackManager private constructor(){
+object ActivityStackManager {
 
     private val mActivityStack by lazy { LinkedList<Activity>() }
-
-    companion object {
-        val instance by lazy { ActivityStackManager() }
-    }
 
     internal fun add(activity: Activity){
         Timber.d("add activity:$activity")

@@ -6,18 +6,27 @@ import com.anymore.example.R
 import com.anymore.example.databinding.ActivityTodosBinding
 import com.anymore.example.mvvm.view.adapter.FragmentItem
 import com.anymore.example.mvvm.view.adapter.FragmentsAdapter
+import com.anymore.example.mvvm.viewmodel.TodoViewModel
 import com.anymore.example.utils.UiUtils
-import com.anymore.mvvmkit.mvvm.base.BindingActivity
+import com.anymore.mvvmkit.mvvm.base.BaseActivity
 
 /**
  * Created by anymore on 2019/5/10.
  */
-class TodoTabActivity : BindingActivity<ActivityTodosBinding>() {
+class TodoTabActivity : BaseActivity<ActivityTodosBinding,TodoViewModel>() {
+
+    companion object {
+        const val TODO_TYPE_ONLY_ONE = "0"
+        const val TODO_TYPE_WORK = "1"
+        const val TODO_TYPE_STUDY = "2"
+        const val TODO_TYPE_LIFE = "3"
+    }
 
     private lateinit var mFragments: List<FragmentItem>
     override fun initView(savedInstanceState: Bundle?) = R.layout.activity_todos
 
     override fun initData(savedInstanceState: Bundle?) {
+        super.initData(savedInstanceState)
         UiUtils.setupToolbar(this, mBinding.toolbar)
         initViewPager()
     }
@@ -25,8 +34,8 @@ class TodoTabActivity : BindingActivity<ActivityTodosBinding>() {
     private fun initViewPager() {
         title = getString(R.string.unfinished)
         mFragments = listOf(
-            FragmentItem(TodoFragment.instantiate(TodoFragment.TYPE_UNFINISHED), getString(R.string.unfinished)),
-            FragmentItem(TodoFragment.instantiate(TodoFragment.TYPE_DONE), getString(R.string.done))
+            FragmentItem(TodoFragment.instantiate(TodoFragment.STATUS_UNFINISHED), getString(R.string.unfinished)),
+            FragmentItem(TodoFragment.instantiate(TodoFragment.STATUS_DONE), getString(R.string.done))
         )
         val fragmentAdapter = FragmentsAdapter(supportFragmentManager, mFragments)
         mBinding.viewPager.adapter = fragmentAdapter

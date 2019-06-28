@@ -1,6 +1,5 @@
 package com.anymore.example.mvvm.view.todo
 
-import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -9,22 +8,27 @@ import com.anymore.example.databinding.FragmentTodoBinding
 import com.anymore.example.ext.toast
 import com.anymore.example.mvvm.model.entry.Todo
 import com.anymore.example.mvvm.view.adapter.TodosAdapter
-import com.anymore.example.mvvm.viewmodel.TodoFragmentViewModel
-import com.anymore.mvvmkit.mvvm.base.BaseFragment
+import com.anymore.mvvmkit.mvvm.base.BindingFragment
 
 /**
  * Created by anymore on 2019/5/10.
  */
-class TodoFragment:BaseFragment<FragmentTodoBinding,TodoFragmentViewModel>() {
+class TodoFragment:BindingFragment<FragmentTodoBinding>() {
 
     companion object{
-        const val TYPE_UNFINISHED = 0
-        const val TYPE_DONE = 1
-        private const val EXTRA_TYPE = "extra_type"
+        /**
+         * 未完成状态
+         */
+        const val STATUS_UNFINISHED = 0
+        /**
+         * 已完成状态
+         */
+        const val STATUS_DONE = 1
+        private const val EXTRA_STATUS = "extra_status"
 
         fun instantiate(type:Int):TodoFragment{
             val bundle = Bundle()
-            bundle.putInt(EXTRA_TYPE,type)
+            bundle.putInt(EXTRA_STATUS,type)
             val fragment = TodoFragment()
             fragment.arguments = bundle
             return fragment
@@ -45,45 +49,8 @@ class TodoFragment:BaseFragment<FragmentTodoBinding,TodoFragmentViewModel>() {
     override fun getLayoutRes()= R.layout.fragment_todo
 
     override fun initData(savedInstanceState: Bundle?) {
-        super.initData(savedInstanceState)
         initRecyclerView()
-        mViewModel.todoType = arguments?.getInt(EXTRA_TYPE, TYPE_UNFINISHED)?: TYPE_UNFINISHED
-        mViewModel.toast.observe(this, Observer { toast(it) })
-        mViewModel.pageData.observe(this, Observer {
-            it?.apply {
-                if (success){
-                    if (isRefresh){
-                        mAdapter.setData(list)
-                        if (!hasMore){
-                            mBinding.srlRefresh.finishRefreshWithNoMoreData()
-                        }else{
-                            mBinding.srlRefresh.finishRefresh(true)
-                        }
-                    }else{
-                        mAdapter.addData(list)
-                        if (!hasMore){
-                            mBinding.srlRefresh.finishLoadMoreWithNoMoreData()
-                        }else{
-                            mBinding.srlRefresh.finishLoadMore(true)
-                        }
-                    }
-                }else{
-                    if (isRefresh){
-                        mBinding.srlRefresh.finishRefresh(false)
-                    }else{
-                        mBinding.srlRefresh.finishLoadMore(false)
-                    }
-                }
-            }
 
-        })
-        mBinding.srlRefresh.setOnRefreshListener {
-            mViewModel.refresh()
-        }
-        mBinding.srlRefresh.setOnLoadMoreListener{
-            mViewModel.loadMore()
-        }
-        mBinding.srlRefresh.autoRefresh()
     }
 
     private fun initRecyclerView(){

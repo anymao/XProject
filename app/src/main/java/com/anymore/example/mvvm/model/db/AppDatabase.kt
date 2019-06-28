@@ -8,7 +8,7 @@ import com.anymore.example.mvvm.model.db.entry.UserInfo
 /**
  * Created by anymore on 2019/4/20.
  */
-@Database(entities = [UserInfo::class,Todo::class],version = 2)
+@Database(entities = [UserInfo::class,Todo::class],version = 1)
 abstract class AppDatabase: RoomDatabase(){
     companion object{
         const val DB_NAME = "WanAndroid.db"

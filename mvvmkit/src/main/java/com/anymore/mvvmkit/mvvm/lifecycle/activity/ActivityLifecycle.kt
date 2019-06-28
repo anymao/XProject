@@ -30,7 +30,7 @@ class ActivityLifecycle : Application.ActivityLifecycleCallbacks {
             mActivityWrapperMap[activity] = activityWrapper
         }
         activity?.let {
-            ActivityStackManager.instance.add(it)
+            ActivityStackManager.add(it)
             registerFragmentLifecycle(it)
         }
 
@@ -61,7 +61,7 @@ class ActivityLifecycle : Application.ActivityLifecycleCallbacks {
         if (activity is FragmentActivity && useFragment) {
             activity.supportFragmentManager.unregisterFragmentLifecycleCallbacks(mFragmentLifecycle)
         }
-        activity?.let { ActivityStackManager.instance.remove(it) }
+        activity?.let { ActivityStackManager.remove(it) }
     }
 
     override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {

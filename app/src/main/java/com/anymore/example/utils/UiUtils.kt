@@ -167,5 +167,7 @@ object UiUtils {
                 }
             }
         }
+
+        var  list:List<String>
     }
 }
