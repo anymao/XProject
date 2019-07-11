@@ -40,7 +40,7 @@ class TodoFragment:BindingFragment<FragmentTodoBinding>() {
             mItemEventHandler = object :TodosAdapter.OnItemEventHandler{
                 override fun onClick(item: Todo) {
                     toast(item.title)
-                    TodoDetailFragment.start(context!!,item,"待办事宜")
+//                    TodoDetailFragment.start(context!!,item,"待办事宜")
                 }
             }
         }

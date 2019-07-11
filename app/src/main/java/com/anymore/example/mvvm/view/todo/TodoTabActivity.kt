@@ -6,14 +6,14 @@ import com.anymore.example.R
 import com.anymore.example.databinding.ActivityTodosBinding
 import com.anymore.example.mvvm.view.adapter.FragmentItem
 import com.anymore.example.mvvm.view.adapter.FragmentsAdapter
-import com.anymore.example.mvvm.viewmodel.TodoViewModel
+import com.anymore.example.mvvm.viewmodel.TodoTabActivityViewModel
 import com.anymore.example.utils.UiUtils
 import com.anymore.mvvmkit.mvvm.base.BaseActivity
 
 /**
  * Created by anymore on 2019/5/10.
  */
-class TodoTabActivity : BaseActivity<ActivityTodosBinding,TodoViewModel>() {
+class TodoTabActivity : BaseActivity<ActivityTodosBinding,TodoTabActivityViewModel>() {
 
     companion object {
         const val TODO_TYPE_ONLY_ONE = "0"

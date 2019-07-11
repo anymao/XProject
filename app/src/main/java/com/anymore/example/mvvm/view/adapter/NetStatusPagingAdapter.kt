@@ -12,9 +12,10 @@ import com.anymore.example.R
 import com.anymore.example.mvvm.model.api.NetStatus
 import com.anymore.example.mvvm.model.paging.Retry
 import com.anymore.example.mvvm.view.adapter.viewholder.BindingViewHolder
+import timber.log.Timber
 
 /**
- * 带网络状态和重试按钮的Adapter
+ * 带网络状态和重试按钮的Adapter基类
  * Created by liuyuanmao on 2019/6/20.
 */
 abstract class NetStatusPagingAdapter<T> :
@@ -28,6 +29,7 @@ abstract class NetStatusPagingAdapter<T> :
     var netStatus:NetStatus?=null
         //在设置新的网络状态时候，需要更新列表下方的网络状态值
         set(value) {
+            Timber.d("set netStatus!")
             //获取旧的网络状态和是否有网络状态行
             val previousStatus = field
             val hadStatusRow = hasStatusRow()
@@ -65,7 +67,9 @@ abstract class NetStatusPagingAdapter<T> :
         }
     }
 
-    override fun getItemCount()=super.getItemCount()+ if (hasStatusRow()) 1 else 0
+    override fun getItemCount()=super.getItemCount()+ (if (hasStatusRow()) 1 else 0)
+
+    fun getDataItemCount()=super.getItemCount()
 
     protected fun hasStatusRow()=netStatus!=null && netStatus!= NetStatus.SUCCESS
 

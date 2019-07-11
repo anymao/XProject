@@ -7,7 +7,7 @@
                 type="com.anymore.example.mvvm.model.api.NetStatus"/>
         <variable
                 name="retry"
-                type="com.anymore.example.mvvm.view.adapter.ArticlesPagingAdapter.PagingAdapterRetry"/>
+                type="com.anymore.example.mvvm.view.adapter.NetStatusPagingAdapter.RetryListener"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

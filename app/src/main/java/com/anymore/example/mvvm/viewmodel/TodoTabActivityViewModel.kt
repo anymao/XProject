@@ -11,7 +11,7 @@ import javax.inject.Inject
  * Created by anymore on 2019/5/10.
  */
 @ActivityScope
-class TodoViewModel @Inject constructor(application: Application, private val mModel: TodoModel) :
+class TodoTabActivityViewModel @Inject constructor(application: Application, private val mModel: TodoModel) :
     BaseViewModel(application) {
 
 
