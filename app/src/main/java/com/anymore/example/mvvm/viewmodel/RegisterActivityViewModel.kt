@@ -6,7 +6,7 @@ import com.anymore.example.mvvm.model.UserModel
 import com.anymore.example.mvvm.model.entry.ResponseCode
 import com.anymore.mvvmkit.di.scope.ActivityScope
 import com.anymore.mvvmkit.mvvm.SingleLiveEvent
-import com.anymore.mvvmkit.mvvm.base.BaseViewModel1
+import com.anymore.mvvmkit.mvvm.base.BaseViewModel
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
@@ -14,8 +14,8 @@ import javax.inject.Inject
  * Created by liuyuanmao on 2019/3/28.
  */
 @ActivityScope
-class RegisterActivityViewModel @Inject constructor(application: Application, userModel: UserModel) :
-    BaseViewModel1<UserModel>(application, userModel) {
+class RegisterActivityViewModel @Inject constructor(application: Application, val mModel: UserModel) :
+    BaseViewModel(application) {
     val mErrorMessage = SingleLiveEvent<String>()
     val mMessage = SingleLiveEvent<String>()
     fun register(username: String?, pwd: String?, rePwd: String?) {
@@ -52,6 +52,11 @@ class RegisterActivityViewModel @Inject constructor(application: Application, us
             return false
         }
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mModel.onClear()
     }
 }
 
