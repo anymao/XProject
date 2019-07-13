@@ -41,8 +41,11 @@ abstract class BaseFragment<BD:ViewDataBinding,VM: BaseViewModel>:
      *     </code>
      */
     open fun initViewModel(clazz: Class<VM>) {
-        mViewModel = ViewModelProviders.of(this,mViewModelFactory).get(clazz)
-        mViewModel.let { lifecycle.addObserver(it) }
+        val provider = ViewModelProviders.of(this, mViewModelFactory)
+        mViewModel = provider.get(clazz)
+
+//        mViewModel = ViewModelProviders.of(this,mViewModelFactory).get(clazz)
+//        mViewModel.let { lifecycle.addObserver(it) }
     }
 
     override fun onDestroyView() {
