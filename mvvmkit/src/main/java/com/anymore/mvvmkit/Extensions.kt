@@ -1,16 +1,10 @@
 package com.anymore.mvvmkit
 
-import android.app.AppComponentFactory
 import android.app.Application
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.support.v4.app.FragmentActivity
 import com.anymore.mvvmkit.di.component.RepositoryComponent
-import com.anymore.mvvmkit.mvvm.ViewModelFactory
 import com.anymore.mvvmkit.mvvm.lifecycle.KitApplication
 
 /**

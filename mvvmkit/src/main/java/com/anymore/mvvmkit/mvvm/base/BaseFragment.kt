@@ -23,9 +23,26 @@ abstract class BaseFragment<BD:ViewDataBinding,VM: BaseViewModel>:
     @CallSuper
     override fun initData(savedInstanceState: Bundle?) {
         Timber.d("initData")
+        //通过反射获取ViewModel的实际类型Clazz
         @Suppress("UNCHECKED_CAST")
-        mViewModel = ViewModelProviders.of(this,mViewModelFactory).get((javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<VM>)
-        lifecycle.addObserver(mViewModel)
+        initViewModel((javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<VM>)
+    }
+
+
+    /**
+     * 初始化ViewModel操作，默认的Viewmodel周期与当前Fragment一致,
+     * 如果想让当前ViewModel的周期与其Activity一致，需要传入其容器Activity而非本身
+     * <p>
+     *     <code>
+     *          override fun initViewModel(clazz: Class<TodoTabActivityViewModel>) {
+     *               mViewModel = ViewModelProviders.of(activity!!,mViewModelFactory).get(clazz)
+     *               mViewModel.let { lifecycle.addObserver(it) }
+     *          }
+     *     </code>
+     */
+    open fun initViewModel(clazz: Class<VM>) {
+        mViewModel = ViewModelProviders.of(this,mViewModelFactory).get(clazz)
+        mViewModel.let { lifecycle.addObserver(it) }
     }
 
     override fun onDestroyView() {

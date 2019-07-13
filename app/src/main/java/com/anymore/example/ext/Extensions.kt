@@ -5,6 +5,9 @@ import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.widget.Toast
 import com.anymore.example.app.executors.AppExecutors
+import com.anymore.example.mvvm.view.event.LoadingEvent
+import com.anymore.mvvmkit.mvvm.SingleLiveEvent
+import com.anymore.mvvmkit.mvvm.base.BaseViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -20,6 +23,9 @@ inline fun <reified T> Gson.toList(json: String):List<T>{
     }.type)
 }
 
+/**
+ * 扩展Activity的Toast方法
+ */
 fun Activity.toast(@StringRes id:Int,duration: Int = Toast.LENGTH_SHORT){
     toast(getString(id),duration)
 }
@@ -40,3 +46,9 @@ fun Fragment.toast(message:CharSequence?,duration: Int = Toast.LENGTH_SHORT){
 fun runOnUiThread(block:()->Unit){
     AppExecutors.mainExecutor.execute(block)
 }
+
+//扩展BaseViewModel，具备toast的观察事件
+val BaseViewModel.toastEvent:SingleLiveEvent<CharSequence> by lazy { SingleLiveEvent<CharSequence>() }
+
+//扩展BaseViewModel，使View层具备观察Viewmodel加载状态的能力
+val BaseViewModel.loadingEvent:SingleLiveEvent<LoadingEvent> by lazy { SingleLiveEvent<LoadingEvent>() }

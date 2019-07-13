@@ -8,6 +8,7 @@ import com.anymore.example.mvvm.view.adapter.FragmentItem
 import com.anymore.example.mvvm.view.adapter.FragmentsAdapter
 import com.anymore.example.mvvm.viewmodel.MainActivityViewModel
 import com.anymore.mvvmkit.mvvm.base.BaseActivity
+import timber.log.Timber
 
 /**
  * Created by liuyuanmao on 2019/3/11.
@@ -62,6 +63,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
                 R.id.action_my -> mBinding.viewPager.currentItem = 2
             }
             return@setOnNavigationItemSelectedListener true
+        }
+
+        for (i in 0..50){
+            Timber.tag("lym").d("message:$i")
         }
     }
 

@@ -33,12 +33,16 @@ abstract class BaseActivity<B:ViewDataBinding,VM: BaseViewModel>:
     @CallSuper
     override fun initData(savedInstanceState: Bundle?) {
         @Suppress("UNCHECKED_CAST")
-        mViewModel = ViewModelProviders.of(this,mViewModelFactory).get((javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<VM>)
+        initViewModel((javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<VM>)
+    }
+
+    /**
+     * 初始化ViewModel操作，默认的Viewmodel周期与当前Activity一致
+     */
+    open fun initViewModel(clazz: Class<VM>) {
+        mViewModel = ViewModelProviders.of(this,mViewModelFactory).get(clazz)
         mViewModel.let { lifecycle.addObserver(it) }
     }
 
     override fun injectable()=true
-//    private class ClassParser<VM>{
-//        fun getViewModelClass()=(javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<VM>
-//    }
 }
