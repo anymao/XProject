@@ -13,6 +13,7 @@ import com.anymore.example.mvvm.view.adapter.BannerLoader
 import com.anymore.example.mvvm.view.web.ExtendedWebActivity
 import com.anymore.example.mvvm.viewmodel.HomeFragmentViewModel
 import com.anymore.mvvmkit.mvvm.base.BaseFragment
+import timber.log.Timber
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeFragmentViewModel>() {
 
@@ -44,6 +45,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeFragmentViewModel>() 
         mViewModel.mArticleListing.pagedList.observe(this, Observer { mAdapter.submitList(it) })
         mViewModel.mArticleListing.status.observe(this, Observer { mAdapter.netStatus =it })
         mViewModel.mArticleListing.retry.observe(this, Observer { mAdapter.retry = it })
+
     }
 
     override fun onResume() {

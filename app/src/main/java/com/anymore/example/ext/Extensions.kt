@@ -46,9 +46,3 @@ fun Fragment.toast(message:CharSequence?,duration: Int = Toast.LENGTH_SHORT){
 fun runOnUiThread(block:()->Unit){
     AppExecutors.mainExecutor.execute(block)
 }
-
-//扩展BaseViewModel，具备toast的观察事件
-val BaseViewModel.toastEvent:SingleLiveEvent<CharSequence> by lazy { SingleLiveEvent<CharSequence>() }
-
-//扩展BaseViewModel，使View层具备观察Viewmodel加载状态的能力
-val BaseViewModel.loadingEvent:SingleLiveEvent<LoadingEvent> by lazy { SingleLiveEvent<LoadingEvent>() }
