@@ -1,1 +1,1 @@
-include ':app',':mvvmkit', ':cachekit'
+include ':mvpkit', ':app'
