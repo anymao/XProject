@@ -23,9 +23,22 @@
         <activity android:name=".mvp.main.MainActivity"/>
         <activity android:name=".mvp.web.WebActivity"/>
 
+        <provider
+                android:name="android.support.v4.content.FileProvider"
+                android:authorities="${applicationId}.FileProvider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_paths"/>
+        </provider>
+
         <meta-data
             android:name="com.anymore.client.app.AppRepositoryConfig"
             android:value="repositoryModuleConfig"/>
+        <meta-data
+                android:name="com.anymore.example.app.glide.GlideConfig"
+                android:value="AppGlideModule"/>
     </application>
 
 </manifest>

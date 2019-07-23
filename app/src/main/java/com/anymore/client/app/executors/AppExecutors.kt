@@ -4,7 +4,6 @@ import android.os.Handler
 import android.os.Looper
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
-import java.util.concurrent.ThreadFactory
 
 /**
  * 应用线程池管理

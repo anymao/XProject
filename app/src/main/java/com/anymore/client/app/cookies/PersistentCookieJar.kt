@@ -1,7 +1,6 @@
 package com.anymore.client.app.cookies
 
 import android.content.Context
-import com.anymore.client.repository.remote.BASE_URL
 import okhttp3.Cookie
 import okhttp3.CookieJar
 import okhttp3.HttpUrl
@@ -34,11 +33,12 @@ class PersistentCookieJar(
     }
 
     companion object {
-        private val SAVE_COOKIES_URLS = arrayListOf(
-            "$BASE_URL/user/login",
-            "$BASE_URL/user/register",
-            "$BASE_URL/logout/json"
-        )
+        private val SAVE_COOKIES_URLS = null
+//            arrayListOf(
+//            "$BASE_URL/user/login",
+//            "$BASE_URL/user/register",
+//            "$BASE_URL/logout/json"
+//        )
 
         private var instance: PersistentCookieJar? = null
 
