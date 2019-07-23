@@ -29,5 +29,5 @@ abstract class BasePresenter<V:BaseContract.IBaseView>(protected val application
         mCompositeDisposable.clear()
     }
 
-    protected fun getString(@StringRes stringId:Int)=application.getString(stringId)
+    protected fun getString(@StringRes stringId:Int):String=application.getString(stringId)
 }
