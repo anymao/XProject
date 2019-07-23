@@ -9,7 +9,7 @@ import javax.inject.Singleton
  * Created by liuyuanmao on 2019/2/23.
  */
 @Module
-class AppModule(private val application: Application) {
+internal class KitApplicationModule(private val application: Application) {
 
     @Singleton
     @Provides

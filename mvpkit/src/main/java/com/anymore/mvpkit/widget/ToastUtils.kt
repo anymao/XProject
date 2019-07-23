@@ -17,6 +17,7 @@ object ToastUtils {
 
     fun show(context: Context,message:CharSequence?,duration: Int = Toast.LENGTH_SHORT){
         if (message.isNullOrEmpty()){
+            //ignore empty message
             return
         }
         if (mToast == null){

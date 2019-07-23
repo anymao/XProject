@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <meta-data
-            android:name="com.anymore.client.app.Config"
+            android:name="com.anymore.client.app.AppRepositoryConfig"
             android:value="repositoryModuleConfig"/>
     </application>
 
