@@ -4,13 +4,14 @@ import android.os.Bundle
 import com.anymore.client.R
 import com.anymore.mvpkit.exts.toast
 import com.anymore.mvpkit.mvp.base.BaseMvpActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_login.*
 
 /**
  * Created by liuyuanmao on 2019/7/23.
  */
 class LoginActivity :BaseMvpActivity<LoginContract.IPresenter>(),LoginContract.IView{
-    override fun initView(savedInstanceState: Bundle?)= R.layout.activity_main
+
+    override fun initView(savedInstanceState: Bundle?)= R.layout.activity_login
 
     override fun initData(savedInstanceState: Bundle?) {
         btn_login.setOnClickListener {

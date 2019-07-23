@@ -10,11 +10,20 @@ import com.anymore.mvpkit.mvp.lifecycle.KitApplication
  */
 class App : KitApplication() {
 
+    companion object {
+        lateinit var instance: App
+    }
+
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         DaggerAppComponent.builder()
             .appModule(AppModule(this))
             .build()
             .inject(this)
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        instance = this
     }
 }

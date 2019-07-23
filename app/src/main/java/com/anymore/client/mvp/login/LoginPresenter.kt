@@ -13,10 +13,10 @@ import javax.inject.Inject
 @ActivityScope
 class LoginPresenter @Inject constructor(
     application: Application,
-    mView: LoginContract.IView,
+    view: LoginContract.IView,
     private val mModel: LoginContract.IModel
 ) :
-    BasePresenter<LoginContract.IView>(application, mView), LoginContract.IPresenter {
+    BasePresenter<LoginContract.IView>(application, view), LoginContract.IPresenter {
 
     override fun login(username: String, password: String) {
         val disposable = mModel.login(username, password)
