@@ -1,4 +1,4 @@
-package com.anymore.client.mvp.web
+package com.anymore.client.ui.mvp.web
 
 import android.content.Context
 import android.content.Intent
@@ -21,6 +21,9 @@ open class WebActivity :BaseActivity(){
     companion object {
         const val EXTRA_URL = "extra_url"
 
+        /**
+         * 利用本[WebActivity]启动一个url
+         */
         fun start(context: Context, url: String){
             val intent = Intent(context,WebActivity::class.java)
             intent.putExtra(EXTRA_URL,url)

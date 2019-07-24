@@ -1,4 +1,4 @@
-package com.anymore.client.mvp.main
+package com.anymore.client.ui.mvp.main
 
 import android.os.Bundle
 import com.anymore.mvpkit.mvp.base.BaseActivity

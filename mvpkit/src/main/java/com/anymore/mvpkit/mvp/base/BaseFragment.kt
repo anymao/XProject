@@ -22,9 +22,12 @@ abstract class BaseFragment :Fragment(),IFragment,BaseContract.IBaseView{
     protected lateinit var mLoadingDialog: LoadingDialog
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(getLayoutRes(),container,false)
-        initData(savedInstanceState)
-        return rootView
+        return inflater.inflate(getLayoutRes(),container,false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView(savedInstanceState)
     }
 
     override fun onResume() {

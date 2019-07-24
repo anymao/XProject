@@ -1,4 +1,4 @@
-package com.anymore.client.mvp.login
+package com.anymore.client.ui.mvp.login
 
 import com.anymore.mvpkit.mvp.base.BaseContract
 import io.reactivex.Observable

@@ -20,6 +20,10 @@ fun <T> Observable<T>.withLoading(view: BaseContract.IBaseView, message: String 
     return compose(transformer)
 }
 
-//fun <T> Observable<T>.io2Main():Observable<T>{
-//
-//}
+fun <T> Observable<T>.io2Main():Observable<T>{
+    val transformer = ObservableTransformer<T,T> {
+        it.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+    return compose(transformer)
+}

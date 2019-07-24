@@ -13,15 +13,16 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".mvp.login.LoginActivity">
+        <activity android:name="com.anymore.client.ui.mvp.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".mvp.main.MainActivity"/>
-        <activity android:name=".mvp.web.WebActivity"/>
+        <activity android:name="com.anymore.client.ui.mvp.main.MainActivity"/>
+        <activity android:name="com.anymore.client.ui.mvp.web.WebActivity"/>
+        <activity android:name=".ui.FragmentActivity"/>
 
         <provider
                 android:name="android.support.v4.content.FileProvider"

@@ -1,4 +1,4 @@
-package com.anymore.client.mvp.login
+package com.anymore.client.ui.mvp.login
 
 import android.app.Application
 import com.anymore.client.utils.withLoading
