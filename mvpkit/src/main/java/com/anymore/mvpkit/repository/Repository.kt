@@ -58,7 +58,7 @@ class RepositoryManager @Inject constructor(private val mApplication: Applicatio
         var result = mRoomDatabaseCache.get(databaseClass.name)
         if (result == null){
             val builder = Room.databaseBuilder(mApplication,databaseClass,databaseName)
-            mRoomDatabaseConfig.config(mApplication,builder)
+            mRoomDatabaseConfig.config(mApplication,builder,databaseClass)
             result = builder.build()
             mRoomDatabaseCache.put(databaseClass.name,result)
         }

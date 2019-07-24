@@ -11,6 +11,6 @@ import javax.inject.Singleton
  */
 @Singleton
 @Component(modules = [AndroidSupportInjectionModule::class, KitApplicationModule::class])
-internal interface KitComponent {
+interface KitComponent {
     fun inject(kitApplication: KitApplication)
 }

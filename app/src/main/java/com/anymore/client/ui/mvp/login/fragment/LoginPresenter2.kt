@@ -12,7 +12,7 @@ import javax.inject.Inject
  * Created by liuyuanmao on 2019/7/24.
  */
 @FragmentScope
-class LoginPresenter2 @Inject constructor(application: Application,view:LoginContract.IView,val mModel:LoginContract.IModel) : BasePresenter<LoginContract.IView>(application,view),LoginContract.IPresenter{
+class LoginPresenter2 @Inject constructor(application: Application, view:LoginContract.IView, private val mModel:LoginContract.IModel) : BasePresenter<LoginContract.IView>(application,view),LoginContract.IPresenter{
 
     override fun login(username: String, password: String) {
 

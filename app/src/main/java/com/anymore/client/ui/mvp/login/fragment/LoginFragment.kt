@@ -3,6 +3,7 @@ package com.anymore.client.ui.mvp.login.fragment
 import android.os.Bundle
 import com.anymore.client.R
 import com.anymore.client.ui.mvp.login.LoginContract
+import com.anymore.client.ui.mvp.web.WebActivity
 import com.anymore.mvpkit.exts.toast
 import com.anymore.mvpkit.mvp.base.BaseMvpFragment
 import kotlinx.android.synthetic.main.activity_login.*
@@ -17,11 +18,6 @@ class LoginFragment :BaseMvpFragment<LoginContract.IPresenter>(),LoginContract.I
 
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
-
-    }
-
-    override fun initData(savedInstanceState: Bundle?) {
-        super.initData(savedInstanceState)
         btn_login.setOnClickListener {
             btn_login.setOnClickListener {
                 val username:String = et_username.text.toString().trim()
@@ -33,5 +29,6 @@ class LoginFragment :BaseMvpFragment<LoginContract.IPresenter>(),LoginContract.I
 
     override fun loginSuccess() {
         toast("hhh,LoginFragment Login Success!")
+        WebActivity.start(context!!,"http://www.baidu.com")
     }
 }
