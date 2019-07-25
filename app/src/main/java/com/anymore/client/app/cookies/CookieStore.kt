@@ -106,7 +106,7 @@ class SharedPreferencesCookieStore : CookieStore {
     }
 
     override fun add(httpUrl: HttpUrl, cookie: Cookie) {
-        if (omitNonPersistentCookies && !cookie.persistent()) {
+        if (omitNonPersistentCookies && !cookie.persistent) {
             return
         }
 
@@ -201,15 +201,15 @@ class SharedPreferencesCookieStore : CookieStore {
 
     /** 判断cookie是否失效   */
     private fun isCookieExpired(cookie: Cookie): Boolean {
-        return cookie.expiresAt() < System.currentTimeMillis()
+        return cookie.expiresAt < System.currentTimeMillis()
     }
 
     private fun hostName(httpUrl: HttpUrl): String {
-        return if (httpUrl.host().startsWith(HOST_NAME_PREFIX)) httpUrl.host() else HOST_NAME_PREFIX + httpUrl.host()
+        return if (httpUrl.host.startsWith(HOST_NAME_PREFIX)) httpUrl.host else HOST_NAME_PREFIX + httpUrl.host
     }
 
     private fun cookieName(cookie: Cookie): String {
-        return cookie.name() + "@" + cookie.domain()
+        return cookie.name + "@" + cookie.domain
     }
 
 }

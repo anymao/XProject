@@ -39,11 +39,11 @@ dependencies {
 
     implementation 'org.greenrobot:eventbus:3.1.1'
 
-    implementation 'com.google.dagger:dagger:2.21'
-    kapt 'com.google.dagger:dagger-compiler:2.21'
-    implementation 'com.google.dagger:dagger-android:2.21'
-    implementation 'com.google.dagger:dagger-android-support:2.21' // if you use the support libraries
-    kapt 'com.google.dagger:dagger-android-processor:2.21'
+    implementation 'com.google.dagger:dagger:2.23.2'
+    kapt 'com.google.dagger:dagger-compiler:2.23.2'
+    implementation 'com.google.dagger:dagger-android:2.23.2'
+    implementation 'com.google.dagger:dagger-android-support:2.23.2' // if you use the support libraries
+    kapt 'com.google.dagger:dagger-android-processor:2.23.2'
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
@@ -62,9 +62,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
 
 
-    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.0.0'
 //    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.12.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.0.0'
 
     implementation 'com.jakewharton:disklrucache:2.0.2'
 

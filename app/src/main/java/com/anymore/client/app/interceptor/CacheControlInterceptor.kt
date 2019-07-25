@@ -18,7 +18,7 @@ class CacheControlInterceptor(private val applicationContext: Context) : Interce
         }
         val response = chain.proceed(request)
         return if (applicationContext.isNetworkConnected()) {//网络可用，按照请求的缓存策略缓存
-            val cacheControl = request.cacheControl()
+            val cacheControl = request.cacheControl
             response.newBuilder()
                 .header("Cache-Control", cacheControl.toString())
                 .removeHeader("Pragma")

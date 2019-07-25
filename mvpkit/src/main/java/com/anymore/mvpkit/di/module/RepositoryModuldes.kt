@@ -15,6 +15,7 @@ import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -125,7 +126,7 @@ class RepositoryConfigsModule private constructor(builder: Builder) {
         }
 
         fun addUrl(@NonNull key: Int, @NonNull url: String) {
-            HttpUrl.parse(url)?.let { addUrl(key, it) }
+            url.toHttpUrlOrNull()?.let { addUrl(key, it) }
                 ?: run { throw RuntimeException("your url $url parse to HttpUrl failed!!!") }
         }
 

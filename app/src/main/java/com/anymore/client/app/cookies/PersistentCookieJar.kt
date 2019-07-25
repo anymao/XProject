@@ -14,7 +14,7 @@ class PersistentCookieJar(
     private val saveUrls: List<String>? = SAVE_COOKIES_URLS
 ) : CookieJar {
 
-    override fun saveFromResponse(url: HttpUrl, cookies: MutableList<Cookie>) {
+    override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
         if (saveUrls != null) {
             if (saveUrls.contains(url.toString())) {
                 cookieStore.add(url, cookies)
