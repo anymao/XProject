@@ -3,6 +3,7 @@ package com.anymore.mvpkit.di.scope
 import javax.inject.Scope
 
 /**
+ * Dagger2 作用域限定符
  * Created by liuyuanmao on 2019/2/21.
  */
 @Scope

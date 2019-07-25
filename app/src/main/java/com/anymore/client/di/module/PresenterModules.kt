@@ -3,6 +3,8 @@ package com.anymore.client.di.module
 import com.anymore.client.ui.mvp.login.LoginContract
 import com.anymore.client.ui.mvp.login.LoginPresenter
 import com.anymore.client.ui.mvp.login.fragment.LoginPresenter2
+import com.anymore.mvpkit.di.scope.ActivityScope
+import com.anymore.mvpkit.di.scope.FragmentScope
 import dagger.Binds
 import dagger.Module
 
@@ -13,6 +15,7 @@ import dagger.Module
 @Module
 abstract class LoginPresenterModule {
 
+    @ActivityScope
     @Binds
     abstract fun provideLoginPresenter(loginPresenter: LoginPresenter):LoginContract.IPresenter
 }
@@ -20,6 +23,7 @@ abstract class LoginPresenterModule {
 @Module
 abstract class LoginPresenter2Module{
 
+    @FragmentScope
     @Binds
     abstract fun provideLoginPresenter2(loginPresenter2: LoginPresenter2):LoginContract.IPresenter
 }

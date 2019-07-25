@@ -12,6 +12,8 @@ import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
+ * BaseFragment 实现[BaseContract.IBaseView]接口，后续MVP在[Fragment]作为View层时候
+ * 如无必需，无需重复实现其接口
  * Created by liuyuanmao on 2019/7/16.
  */
 abstract class BaseFragment :Fragment(),IFragment,BaseContract.IBaseView{

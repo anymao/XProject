@@ -75,7 +75,7 @@ class FragmentLifecycle:FragmentManager.FragmentLifecycleCallbacks(){
         super.onFragmentDetached(fm, f)
         mFragmentWrapperMap[f]?.let {
             it.onDetach()
-        mFragmentWrapperMap.remove(f)
+            mFragmentWrapperMap.remove(f)
         }
     }
 }

@@ -13,10 +13,17 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
+ * 仓储层管理器，管理RetrofitService的获取和RoomDatabase的获取
  * Created by liuyuanmao on 2019/2/28.
  */
 
 interface IRepositoryManager{
+
+    /**
+     * 获取[Retrofit]服务对象(即我们定义的XXXApi接口)
+     * [key]是在[RepositoryConfigsModule.RepositoryConfig]中通过[RepositoryConfigsModule.Builder.addUrl]方法添加url时候的key
+     * url为构建[Retrofit]实例时候的BaseUrl,等价于key决定了当前要获取XXXApi的BaseUrl
+     */
     fun<T> obtainRetrofitService(key:Int,retrofitClass:Class<T>):T
     /**
      * 获取磁盘数据库对象，构建的磁盘数据库会被缓存，以便下一次获取
@@ -58,7 +65,7 @@ class RepositoryManager @Inject constructor(private val mApplication: Applicatio
         var result = mRoomDatabaseCache.get(databaseClass.name)
         if (result == null){
             val builder = Room.databaseBuilder(mApplication,databaseClass,databaseName)
-            mRoomDatabaseConfig.config(mApplication,builder,databaseClass)
+            mRoomDatabaseConfig.config(mApplication,builder,databaseClass,databaseName)
             result = builder.build()
             mRoomDatabaseCache.put(databaseClass.name,result)
         }

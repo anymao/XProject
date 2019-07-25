@@ -199,7 +199,14 @@ class RepositoryConfigsModule private constructor(builder: Builder) {
 
     interface RoomDatabaseConfig {
 
-        fun <DB : RoomDatabase> config(context: Context, builder: RoomDatabase.Builder<*>, databaseClass: Class<DB>)
+        /**
+         * [RoomDatabaseConfig]是一个扩展接口，目的是在[RoomDatabase.Builder.build]之前将这个Builder对象
+         * 暴露给开发者，任开发者在build[RoomDatabase]之前对builder对象进行操作(数据库升级)
+         * 按照之前的启发，这里将需要将RoomDatabase的类型以及数据库的名称也暴露出去，目的是当应用程序中存在多个数据库实例的
+         * 时候，[RoomDatabaseConfig]可以分辨出当前builder对象将要构建的数据库的类型以及名称，确保不会数据库迁移操作作用在
+         * 对应的数据库上面
+         */
+        fun <DB : RoomDatabase> config(context: Context, builder: RoomDatabase.Builder<*>, databaseClass: Class<DB>, databaseName: String)
 
         companion object {
             /**
@@ -209,7 +216,8 @@ class RepositoryConfigsModule private constructor(builder: Builder) {
                 override fun <DB : RoomDatabase> config(
                     context: Context,
                     builder: RoomDatabase.Builder<*>,
-                    databaseClass: Class<DB>
+                    databaseClass: Class<DB>,
+                    databaseName: String
                 ) {
 
                 }
