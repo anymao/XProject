@@ -64,24 +64,31 @@ class RepositoryConfigsModule private constructor(builder: Builder) {
         mRoomDatabaseConfig = builder.roomDatabaseConfig
     }
 
+    @Singleton
     @Provides
     fun provideContext() = mContext
 
+    @Singleton
     @Provides
     fun provideApplication(): Application = mContext.applicationContext as Application
 
+    @Singleton
     @Provides
     fun provideHttpUrls() = mUrls
 
+    @Singleton
     @Provides
     fun provideRetrofitConfig() = mRetrofitConfig ?: RetrofitConfig.DEFAULT
 
+    @Singleton
     @Provides
     fun provideOkHttpConfig() = mOkHttpConfig ?: OkHttpConfig.DEFAULT
 
+    @Singleton
     @Provides
     fun provideGsonConfig() = mGsonConfig ?: GsonConfig.DEFAULT
 
+    @Singleton
     @Provides
     fun provideRoomDatabaseConfig() = mRoomDatabaseConfig ?: RoomDatabaseConfig.DEFAULT
 
@@ -224,9 +231,11 @@ class RepositoryConfigsModule private constructor(builder: Builder) {
 @Module
 class HttpClientModule {
 
+    @Singleton
     @Provides
     fun provideRetrofitBuilder() = Retrofit.Builder()
 
+    @Singleton
     @Provides
     fun provideRetrofits(
         context: Context,
@@ -249,9 +258,11 @@ class HttpClientModule {
         return retrofits
     }
 
+    @Singleton
     @Provides
     fun provideOkHttpClientBuilder() = OkHttpClient.Builder()
 
+    @Singleton
     @Provides
     fun provideOkHttpClient(
         context: Context,
@@ -262,9 +273,11 @@ class HttpClientModule {
         return builder.build()
     }
 
+    @Singleton
     @Provides
     fun provideGsonBuilder() = GsonBuilder()
 
+    @Singleton
     @Provides
     fun provideGson(context: Context, builder: GsonBuilder, config: RepositoryConfigsModule.GsonConfig?): Gson {
         config?.applyConfig(context, builder)
