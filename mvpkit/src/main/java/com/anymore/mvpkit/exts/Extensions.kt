@@ -9,12 +9,8 @@ import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.widget.Toast
 import com.anymore.mvpkit.di.component.RepositoryComponent
-import com.anymore.mvpkit.mvp.base.BaseContract
 import com.anymore.mvpkit.mvp.lifecycle.KitApplication
 import com.anymore.mvpkit.widget.ToastUtils
-import io.reactivex.ObservableTransformer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 
 /**
@@ -67,18 +63,4 @@ fun Fragment.toast(@StringRes id:Int, duration: Int = Toast.LENGTH_SHORT){
 
 fun Fragment.toast(message:CharSequence?, duration: Int = Toast.LENGTH_SHORT){
     ToastUtils.show(context!!,message,duration)
-}
-
-fun <T> withLoading(view:BaseContract.IBaseView,title:String="正在加载..."):ObservableTransformer<T,T>{
-    return ObservableTransformer { observable ->
-        observable.subscribeOn(Schedulers.io())
-            .doOnSubscribe {
-                view.showProgressBar(title)//显示进度条
-            }
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doFinally {
-                view.hideProgressBar()//隐藏进度条
-            }
-    }
 }

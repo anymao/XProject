@@ -2,7 +2,7 @@ package com.anymore.client.ui.mvp.login.fragment
 
 import android.app.Application
 import com.anymore.client.ui.mvp.login.LoginContract
-import com.anymore.client.utils.withLoading
+import com.anymore.mvpkit.exts.withLoading
 import com.anymore.mvpkit.di.scope.FragmentScope
 import com.anymore.mvpkit.mvp.base.BasePresenter
 import io.reactivex.rxkotlin.subscribeBy

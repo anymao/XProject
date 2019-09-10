@@ -1,10 +1,25 @@
 ext {
     version = [
+            //android
             androidSupportSdkVersion: "28.0.0",
             androidArchSdkVersion   : "1.1.1",
             appcompatV7Version      :"28.0.0",
-            retrofitVersion      : "2.3.0",
-            glideVersion         : "4.7.1",
-            dagger2Version       : "2.13",
+
+
+            //third
+            eventbusVersion      : "3.1.1",
+            retrofitVersion      : "2.6.0",
+            glideVersion         : "4.9.0",
+            dagger2Version       : "2.23.2",
+            timberVersion        : "4.7.1",
+            rxjava2Version       : "2.2.10",
+            rxandroid2Version    : "2.1.1",
+            rxkotlin2Version     : "2.3.0",
+            agentwebVersion      : "4.0.2",
+
+            //test
+            junitVersion         : "4.12",
+            runnerVersion        : "1.0.2",
+            espressoCoreVersion  : "3.0.2",
     ]
 }

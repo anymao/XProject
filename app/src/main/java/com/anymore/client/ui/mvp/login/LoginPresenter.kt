@@ -1,7 +1,7 @@
 package com.anymore.client.ui.mvp.login
 
 import android.app.Application
-import com.anymore.client.utils.withLoading
+import com.anymore.mvpkit.exts.withLoading
 import com.anymore.mvpkit.di.scope.ActivityScope
 import com.anymore.mvpkit.exts.getRepositoryComponent
 import com.anymore.mvpkit.mvp.base.BasePresenter
