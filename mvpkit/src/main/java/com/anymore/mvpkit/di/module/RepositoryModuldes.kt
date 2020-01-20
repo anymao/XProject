@@ -97,7 +97,7 @@ class RepositoryConfigsModule private constructor(builder: Builder) {
     }
 
     class Builder(val context: Context) {
-        private val _urls: SparseArray<HttpUrl> by lazy { SparseArray<HttpUrl>() }
+        private val _urls: SparseArray<HttpUrl> by lazy { SparseArray() }
         var retrofitConfig: RetrofitConfig? = null
         var okHttpConfig: OkHttpConfig? = null
         var gsonConfig: GsonConfig? = null

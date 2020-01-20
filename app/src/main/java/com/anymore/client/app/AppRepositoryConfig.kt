@@ -48,7 +48,12 @@ class AppRepositoryConfig :RepositoryConfigsModule.RepositoryConfig {
 
             }
             roomDatabaseConfig = object : RepositoryConfigsModule.RoomDatabaseConfig {
-                override fun <DB : RoomDatabase> config(context: Context, builder: RoomDatabase.Builder<*>, databaseClass: Class<DB>) {
+                override fun <DB : RoomDatabase> config(
+                    context: Context,
+                    builder: RoomDatabase.Builder<*>,
+                    databaseClass: Class<DB>,
+                    databaseName: String
+                ) {
 
                 }
 

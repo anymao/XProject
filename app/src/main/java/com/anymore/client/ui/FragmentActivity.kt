@@ -34,6 +34,12 @@ class FragmentActivity : BaseActivity() {
             context.startActivity(intent)
         }
 
+        inline fun <reified F:Fragment> start(context: Context,title: String = "",bundle: Bundle? = null){
+            start(context,F::class.java.name,title,bundle)
+        }
+
+
+
         fun start(context: Context, fragmentClass: KClass<Fragment>, title: String = "", bundle: Bundle? = null) {
             start(context,fragmentClass.java.name,title,bundle)
         }
